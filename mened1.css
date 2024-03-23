@@ -1,0 +1,156 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Jura', sans-serif;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+}
+
+.navbar.navbar-expand-lg {
+    border-bottom: 6px solid rgba(227, 148, 176, 1);
+}
+
+.logo {
+    margin-left: 50px;
+    border-radius: 50pt;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.btn.btn-support.head {
+    border: none;
+    font-size: 40px;
+    margin-right: 50px;
+    padding: 10px 10px;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+
+}
+
+.btn.btn-support.head:hover {
+    background-color: #ffc0dc;
+    border-radius: 30px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25) inset;
+}
+
+.main {
+    padding: 64px;
+    background-image: url('https://i.postimg.cc/gkkQG8vH/2024-03-03-185653.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.text-section {
+    padding-top: 20px;
+}
+
+.line {
+    /* Розовая полоска */
+    width: calc(100% - 100px);
+    /* Ширина полоски за вычетом отступов */
+    height: 8px;
+    background-color: rgba(227, 148, 176, 1);
+    border-radius: 10pt;
+    margin: 20px 30px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+
+.text-section p.texte {
+    margin-left: 50px;
+    font-size: 24px;
+    flex-grow: 1;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+}
+
+.text-section.text_block {
+    margin-left: 50px;
+    font-size: 24px;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    margin: 60px auto;
+    border-radius: 30px;
+    align-items: center;
+    flex-shrink: 1;
+    max-width: 1150px;
+    display: flex;
+    flex-direction: column;
+    /* добавлено свойство для переноса по словам */
+}
+
+.btn.login-registration {
+    font-size: 40px;
+    background: linear-gradient(rgba(248, 242, 226, 1), rgba(41, 148, 29, 0));
+    border-radius: 30px;
+    padding: 18px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: auto;
+    margin-top: 140px;
+    margin-bottom: 50px;
+    max-width: 400px;
+    border: none;
+}
+
+
+.btn.login-registration:hover {
+    background: linear-gradient(rgba(239, 226, 190, 1), rgba(255, 255, 255, 0));
+    border-radius: 30px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25) inset;
+}
+
+
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-dialog {
+    border: 7px solid rgba(217, 117, 153, 1);
+    border-radius: 10pt;
+    box-shadow: 4px 5px 7px rgba(227, 148, 176, 0.85);
+
+}
+
+.modal-content.podd {
+    background-image: url('https://i.postimg.cc/bJnfj9xz/2024-03-20-204713.png');
+    background-size: cover;
+    background-position: center;
+    padding-left: 20px;
+}
+
+.modal_parol {
+    padding-bottom: 260px;
+}
+
+.modal_parol a {
+    text-decoration: none;
+    transition: filter 0.3s;
+}
+
+.modal_parol a:hover {
+    filter: brightness(1.2);
+}
+
+@media screen and (max-width: 576px) {
+    .logo {
+        margin-left: 25px;
+        max-width: 80px;
+        max-height: 40px;
+    }
+
+
+    .btn.btn-support.head {
+        margin-right: 25px;
+        font-size: 15px;
+    }
+
+    .btn.login-registration {
+        font-size: 20px;
+    }
+
+    .text-section p.texte {
+        margin-left: -10px;
+        font-size: 14px;
+    }
+}
