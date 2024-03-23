@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="redak.css">
+    <meta http-equiv="Content-Type" <header>
+    <link href="https://fonts.googleapis.com/css?family=Jura:300,regular,500,600,700" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-xl" style="background-color: rgba(249, 231, 231, 1)">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img class="logo" src="https://i.postimg.cc/15rLyQ5k/logoza-ru.png" alt="Bootstrap" width="177"
+                        height="87">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 d-flex justify-content-center">
+                        <li class="col-9 nav-item">
+                            <button class="btn btn-support item" data-bs-toggle="modal" data-bs-target="#modal_pods"
+                                href="#">Подсказка</button>
+                            <div class="modal" id="modal_pods">
+                                <div class="modal-dialog">
+                                    <div class="modal-content podds">
+                                        <div class="modal-body text-end">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <p class="modal_pods">Вы можете выбрать стиль и размер шрифта. Обратите
+                                                внимание на то, что вы можете перекрасить цвет шрифта! И даже выделить
+                                                его маркером!
+
+                                                P.s. вы можете добавить картинку!</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-support item" data-bs-toggle="modal" data-bs-target="#modal_podder"
+                                href="#">Поддержка</button>
+                            <div class="modal" id="modal_podder">
+                                <div class="modal-dialog">
+                                    <div class="modal-content podd">
+                                        <div class="modal-body text-end">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <p class="modal_podder">Связь со мной в Telegram <a
+                                                    href="https://t.me/rupollya"><img
+                                                        src="https://i.postimg.cc/SK0GvLxL/telegram-1-1.png"
+                                                        alt="tg"></a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <button class="btn btn-support profile" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" href="#"><b>Профиль</b></button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </nav>
+    </header>
+    <div class="main">
+        <div class="container creature me-2">
+            <div class="row text-end">
+                <div class="creature_section ">
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#modal_note" href="#"
+                        class="creature_button button_X me-5" style="color: rgb(54, 29, 50);">выбрать
+                        заметку</button>
+                    <div class="modal" id="modal_note">
+                        <div class="modal-dialog" style="max-width: 600px;">
+                            <div class="modal-content note">
+                                <div class="modal-body text-end">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-center ">
+                                    <p class="modal_note" style="font-size: 20px;">Выбери шаблон заметки :)</p>
+                                    <div class="d-flex text-start ">
+                                        <div class="container" style="position: relative;"> <button
+                                                class="template-btn m-2 dropdown-toggle" type="button"
+                                                id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                                aria-bs-haspopup="true" aria-expanded="false">Списки:</button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <button class="dropdown-item template-btn" nomer="1">список фильмов на
+                                                    каникулы</button>
+                                                <button class="dropdown-item template-btn" nomer="2">список
+                                                    продуктов</button>
+                                                <button class="dropdown-item template-btn" nomer="3">список заданий на
+                                                    ближайшее время</button>
+                                                <button class="dropdown-item template-btn" nomer="4">список дел на
+                                                    день</button>
+                                            </div>
+                                        </div>
+                                        <div class="container" style="position: relative;"> <button
+                                                class="template-btn m-2 dropdown-toggle" type="button"
+                                                id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                                aria-bs-haspopup="true" aria-expanded="false">график:</button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <button class="dropdown-item template-btn" nomer="5">расписание на
+                                                    неделю</button>
+                                                <button class="dropdown-item template-btn" nomer="6">расписание на
+                                                    день</button>
+                                                <button class="dropdown-item template-btn" nomer="7">расписание
+                                                    занятий</button>
+                                                <button class="dropdown-item template-btn" nomer="8">расписание дел на
+                                                    месяц</button>
+                                            </div>
+                                        </div>
+                                        <div class="container" style="position: relative;"> <button
+                                                class="template-btn m-2 dropdown-toggle" type="button"
+                                                id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                                aria-bs-haspopup="true" aria-expanded="false">Другое:</button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <button class="dropdown-item template-btn" nomer="9">план
+                                                    поездки</button>
+                                                <button class="dropdown-item template-btn" nomer="10">распределение
+                                                    бюджета</button>
+                                                <button class="dropdown-item template-btn" nomer="11">план
+                                                    события</button>
+                                                <button class="dropdown-item template-btn" nomer="12">план изучения
+                                                    новой темы</button>
+                                            </div>
+                                        </div>
+                                        <div class="container" style="position: relative;"> <button
+                                                class="template-btn m-2 dropdown-toggle" type="button"
+                                                id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                                aria-bs-haspopup="true" aria-expanded="false">Другое(2):</button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <button class="dropdown-item template-btn" nomer="13">список с маркером
+                                                    *</button>
+                                                <button class="dropdown-item template-btn" nomer="14">список из
+                                                    чисел</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container d-flex justify-content-around">
+                                        <div class="row">
+
+                                            <div class="col-12 p-4">
+                                                <button id="save-btn" type="submit" data-bs-dismiss="modal" class="btn"
+                                                    style="background-color: rgba(227, 148, 176, 1)">Сохранить</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" onclick="window.location.href='osnova.html'"
+                        class="creature_button button_X "><b>X</b></button>
+                </div>
+
+            </div>
+        </div>
+        <div class="container p-5">
+            <div class="row body_section">
+                <div class="col-md-2 col-2 left-column d-flex flex-column justify-content-end">
+                    <div class="button-container">
+                        <img src="https://i.postimg.cc/65Q61mv9/2024-03-07-130711.png" alt="Изображение кнопки"
+                            class="button_image" onclick="window.location.href='#error'">
+                    </div>
+                    <div class="button-container">
+                        <img src="https://i.postimg.cc/nLn0xBYG/2024-03-07-131730.png" alt="Изображение кнопки"
+                            class="button_image" onclick="window.location.href='#error'">
+                    </div>
+                    <div class="button-container">
+                        <img src="https://i.postimg.cc/SKtTGjCL/2024-03-07-131826.png" alt="Изображение кнопки"
+                            class="button_image" onclick="window.location.href='#error'">
+                    </div>
+                    <div class="button-container">
+                        <img src="https://i.postimg.cc/J44XRx9n/2024-03-07-132015.png" alt="Изображение кнопки"
+                            class="button_image" onclick="window.location.href='#error'">
+                    </div>
+                    <div class="button-container">
+                        <img src="https://i.postimg.cc/yx6DY6p5/2024-03-07-132056.png" alt="Изображение кнопки"
+                            class="button_image" onclick="window.location.href='#error'">
+                    </div>
+                    <div class="button-container">
+                        <img src="https://i.postimg.cc/NF00vJ5v/2024-03-07-132131.png" alt="Изображение кнопки"
+                            class="button_image" onclick="window.location.href='#error'">
+                    </div>
+                    <div class="button-container">
+                        <img src="https://i.postimg.cc/fRR17G1N/microphone.png" alt="Изображение кнопки"
+                            class="button_image micro" onclick="window.location.href='#error'">
+                    </div>
+                </div>
+                <div class="col-md-10 col-10 right-column p-5">
+                    <textarea class="w-100 h-100 modal-note-textarea" style="resize: none;" maxlength="10000"
+                        placeholder="Начни свою заметку!"></textarea>
+
+
+                </div>
+                <div class="container d-flex justify-content-end p-3">
+                    <div class="row ">
+                        <div class="col-6">
+                            <input type="text" id="name" style="max-width: 240px;" class="form-control fut"
+                                placeholder="Название заметки" required>
+                        </div>
+                        <div class="col-6"><button type="button" onclick="window.location.href='osnova.html'"
+                                class="btn savebutton" style="background-color: rgb(240, 167, 193)">Сохранить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const textareaa = document.querySelector('.modal-note-textarea');
+        const input = document.getElementById('name');
+        const saveButtonn = document.querySelector('.savebutton');
+        saveButtonn.disabled = true;
+
+
+        function checkInputs() {//функция для проверки значений полей ввода и активации кнопки
+            const noteTitle = input.value.trim();
+            const noteText = textareaa.value.trim();
+            if (noteTitle && noteText) {
+                saveButtonn.disabled = false;
+            } else {
+                saveButtonn.disabled = true;
+            }
+        }
+        input.addEventListener('input', checkInputs);//слушаем события
+        textareaa.addEventListener('input', checkInputs);
+
+        saveButtonn.addEventListener('click', function () {
+            const noteTitle = input.value.trim();
+            const noteText = textareaa.value.trim();
+            if (noteTitle && noteText) {
+                const noteData = {
+                    title: noteTitle,
+                    text: noteText
+                };
+                let notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+                const existingNoteIndex = notes.findIndex(note => note.title === noteTitle); //есть ли уже такая заметка?
+                if (existingNoteIndex !== -1) {//если заметка найдена, заменяем ее новыми данными
+                    notes[existingNoteIndex] = noteData;
+                } else {
+                    notes.push(noteData);//иначе добавляем новую заметку в массив
+                }
+
+                localStorage.setItem('notes', JSON.stringify(notes));
+                input.value = '';
+                textareaa.value = '';
+                saveButtonn.disabled = true;
+            } else {
+                alert('Пожалуйста, заполните оба поля перед сохранением заметки.');
+            }
+        });
+    </script>
+
+
+    <script>
+        const saveButton = document.getElementById('save-btn');//достаю кнопку сохр
+        saveButton.disabled = true;
+        const textarea = document.querySelector('.modal-note-textarea');//получаю текствое поле из техтареи
+        saveButton.addEventListener('click', function () {//слушаю.....
+
+            const template_id = document.querySelector('.template-btn.active').getAttribute('nomer');//получаем выбранный шаблон
+            const template_text = text_button(template_id);
+
+            textarea.value = template_text;//пихаем в текстовое поле шаблон
+
+            saveButton.disabled = true;//кнопка сохранить неактив
+        });
+
+        document.querySelectorAll('.template-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                document.querySelectorAll('.template-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                if (this.hasAttribute('nomer')) {//если есть атрибут nomer то кнопка актив
+                    this.classList.add('active');
+                    saveButton.disabled = false;
+                }
+            });
+        });
+
+        function text_button(template_id) {
+            switch (template_id) {
+                case '1':
+                    return 'СПИСОК ФИЛЬМОВ НА КАНИКУЛЫ\n-\n-\n-\n-\n-\n-\n-\n-\n-\n';
+                case '2':
+                    return 'СПИСОК ПРОДУКТОВ\n-\n-\n-\n-\n-\n-\n-\n-\n-\n';
+                case '3':
+                    return 'СПИСОК ЗАДАНИЙ НА БЛИЖАЙШЕЕ ВРЕМЯ\n-\n-\n-\n-\n-\n-\n-\n-\n-\n';
+                case '4':
+                    return 'СПИСОК ДЕЛ НА ДЕНЬ\n-\n-\n-\n-\n-\n-\n-\n-\n-\n';
+                case '5':
+                    return '>>>>>>>>РАСПИСАНИЕ НА НЕДЕЛЮ<<<<<<<<\nПОНЕДЕЛЬНИК:\nВТОРНИК:\nСРЕДА:\nЧЕТВЕРГ:\nПЯТНИЦА:\nСУББОТА:\nВОСКРЕСЕНЬЕ:\nпобочные дела на неделе:';
+                case '6':
+                    return '>>>>>>>>РАСПИСАНИЕ НА ДЕНЬ<<<<<<<<\nЧто мне нужно сделать с утра:\nЧто я хочу сделать днем:\nЧто нужно отложить до вечера:\nОтбой в :';
+                case '7':
+                    return '>>>>>>>>РАСПИСАНИЕ ЗАНЯТИЙ<<<<<<<<\n \nПЕРВАЯ ПАРА:\n \nВТОРАЯ ПАРА:\n \nТРЕТЬЯ ПАРА:\n \nЧЕТВЕРТАЯ ПАРА:\n \nПЯТАЯ ПАРА:\n \nа может хватит........ :)';
+                case '8':
+                    return '>>>>>>>>РАСПИСАНИЕ ДЕЛ НА МЕСЯЦ<<<<<<<<\n1 ДЕНЬ:\n2 ДЕНЬ:\n3 ДЕНЬ:\n4 ДЕНЬ:\n5 ДЕНЬ:\n6 ДЕНЬ:\n7 ДЕНЬ:\n8 ДЕНЬ:\n9 ДЕНЬ:\n10 ДЕНЬ:\n11 ДЕНЬ:\n12 ДЕНЬ:\n13 ДЕНЬ:\n14 ДЕНЬ:\n15 ДЕНЬ:\n16 ДЕНЬ:\n17 ДЕНЬ:\n18 ДЕНЬ:\n19 ДЕНЬ:\n20 ДЕНЬ:\n21 ДЕНЬ:\n22 ДЕНЬ:\n23 ДЕНЬ:\n24 ДЕНЬ:\n25 ДЕНЬ:\n26 ДЕНЬ:\n27 ДЕНЬ:\n28 ДЕНЬ:\n29 ДЕНЬ:\n30 ДЕНЬ:';
+                case '9':
+                    return 'ПЛАН ПОЕЗДКИ НА:\n \nмой бюджет:\n \nмаршрут по которому я буду ехать:\n \nна сколько дней:\n \nгде именно я хочу побывать:\n \nУдачной поездки!';
+                case '10':
+                    return 'РАСПРЕДЕЛЕНИЕ БЮДЖЕТА!!!!\n \nМОЙ ДОХОД:\n \nСКОЛЬКО Я ОБЫЧНО ТРАЧУ ЗА ( ):\n \nСКОЛЬКО Я ХОЧУ НАКОПИТЬ ЗА ( )\n \nНА ЧТО Я ТРАЧУ ДЕНЬГИ:\n \n';
+                case '11':
+                    return 'ПЛАН СОБЫТИЯ\n \nназвание события:\n \nдата события:\n \nвремя:\n \nместо:\n \nсписок гостей\n \nдругие важные детали:';
+                case '12':
+                    return 'ПЛАН ИЗУЧЕНИЯ НОВОЙ ТЕМЫ\n \nтема:\n \nключевые понятия:\n \nвопросы:\n \nвопросы на которые я ответила:\n \nвремя потраченное на данную тему:\n \nк чему стоит вернуться позже';
+                case '13':
+                    return 'СПИСОК (       )\n*\n*\n*\n*\n*\n*\n*\n*\n*\n*\n*\n*\n*\n*';
+                case '14':
+                    return 'СПИСОК (       )\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12';
+                default:
+                    return '';
+            }
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {//получаем данные о выбранной заметке из localStorage
+
+            const currentNote = JSON.parse(localStorage.getItem('currentNote'));
+            if (currentNote) {//проверяем, есть ли данные о выбранной заметке
+                document.getElementById('name').value = currentNote.title;//заполняем поля
+                document.querySelector('.modal-note-textarea').value = currentNote.text;
+            }
+        });
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
