@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,7 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="redak.css">
     <meta http-equiv="Content-Type" <header>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tac+One&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+Scribble&display=swap">
     <link href="https://fonts.googleapis.com/css?family=Jura:300,regular,500,600,700" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Arial:ital,wght@0,400;0,700;1,400&family=Times+New+Roman:ital,wght@0,400;0,700;1,400&family=Courier+New:ital,wght@0,400;0,700;1,400&display=swap">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
@@ -37,11 +45,13 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body text-center">
-                                            <p class="modal_pods">Вы можете выбрать стиль и размер шрифта. Обратите
-                                                внимание на то, что вы можете перекрасить цвет шрифта! И даже выделить
-                                                его маркером!
-
-                                                P.s. вы можете добавить картинку!</p>
+                                            <p class="modal_pods">Привет! Если ты решил изменить внешний вид текста, то
+                                                пожалуйста, меняй стили осторожно, выделяя только то, что действительно
+                                                нужно! Ты не сможешь изменить цвет или шрифт у слов уже разного шрифта
+                                                или цвета!( Могу посоветовать сначала написать весь текст, а потом уже
+                                                волшебничать над ним )) И если ты будешь красить задний фон у текста
+                                                разного размера, то фон измениться относительно текста поменьше...
+                                            </p>
 
                                         </div>
                                     </div>
@@ -81,22 +91,22 @@
         </nav>
     </header>
     <div class="main">
-        <div class="container creature me-2">
+        <div class="container creature  ">
             <div class="row text-end">
                 <div class="creature_section ">
                     <button type="button" data-bs-toggle="modal" data-bs-target="#modal_note" href="#"
                         class="creature_button button_X me-5" style="color: rgb(54, 29, 50);">выбрать
                         заметку</button>
                     <div class="modal" id="modal_note">
-                        <div class="modal-dialog" style="max-width: 600px;">
+                        <div class="modal-dialog" style="max-width: 800px;align-items: center;height: 350px;">
                             <div class="modal-content note">
                                 <div class="modal-body text-end">
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body text-center ">
+                                <div class="modal-body shablon text-center ">
                                     <p class="modal_note" style="font-size: 20px;">Выбери шаблон заметки :)</p>
-                                    <div class="d-flex text-start ">
+                                    <div class="d-flex text-center ">
                                         <div class="container" style="position: relative;"> <button
                                                 class="template-btn m-2 dropdown-toggle" type="button"
                                                 id="dropdownMenuButton" data-bs-toggle="dropdown"
@@ -159,7 +169,7 @@
 
                                             <div class="col-12 p-4">
                                                 <button id="save-btn" type="submit" data-bs-dismiss="modal" class="btn"
-                                                    style="background-color: rgba(227, 148, 176, 1)">Сохранить</button>
+                                                    style="background-color: rgba(227, 148, 176, 1);margin-top: 61px;">Сохранить</button>
                                             </div>
                                         </div>
                                     </div>
@@ -178,41 +188,121 @@
         </div>
         <div class="container p-5">
             <div class="row body_section">
-                <div class="col-md-2 col-2 left-column d-flex flex-column justify-content-end">
-                    <div class="button-container">
+                <div class="col-md-12 col-12 left-column d-flex   justify-content-around">
+                    <div class="button-container"><!--ТИП ШРИФТА-->
                         <img src="https://i.postimg.cc/65Q61mv9/2024-03-07-130711.png" alt="Изображение кнопки"
-                            class="button_image" onclick="window.location.href='#error'">
+                            class="button_image" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href=" "
+                                    onclick="changeFontFamily('Arial, sans-serif')">Arial</a></li>
+                            <li><a class="dropdown-item" href=" "
+                                    onclick="changeFontFamily('Times New Roman, serif')">Times New Roman</a>
+                            </li>
+                            <li><a class="dropdown-item" href=" "
+                                    onclick="changeFontFamily('Courier New, monospace')">Courier New</a></li>
+                            <li><a class="dropdown-item" href="#"
+                                    onclick="changeFontFamily('Roboto, sans-serif')">Roboto</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeFontFamily('Tac One, sans-serif')">Tac
+                                    One</a></li>
+                            <!DOC <li><a class="dropdown-item" href=" "
+                                    onclick="changeFontFamily('Rubik Scribble, system-ui')">Rubik Scribble</a></li>
+                        </ul>
                     </div>
-                    <div class="button-container">
-                        <img src="https://i.postimg.cc/nLn0xBYG/2024-03-07-131730.png" alt="Изображение кнопки"
-                            class="button_image" onclick="window.location.href='#error'">
+
+                    <div class="button-container"><!--РАЗМЕР ШРИФТА-->
+                        <img src="https://i.postimg.cc/nLn0xBYG/2024-03-07-131730.png" alt="размер шрифта"
+                            class="button_image" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#" onclick="changeFontSize(15)">15</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeFontSize(18)">18</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeFontSize(22)">22</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeFontSize(26)">26</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeFontSize(30)">30</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeFontSize(36)">36</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeFontSize(44)">44</a></li>
+                        </ul>
                     </div>
-                    <div class="button-container">
+
+                    <div class="button-container"><!--ЦВЕТ ШРИФТА-->
                         <img src="https://i.postimg.cc/SKtTGjCL/2024-03-07-131826.png" alt="Изображение кнопки"
-                            class="button_image" onclick="window.location.href='#error'">
+                            class="button_image" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#" onclick="changeColor('black')">Черный</a></li>
+                            <li><a class="dropdown-item" href="#"
+                                    onclick="changeColor('rgba(238, 37, 37, 0.95)')">Красный</a></li>
+                            <li><a class="dropdown-item" href="#"
+                                    onclick="changeColor('rgba(77, 66, 228, 0.95)')">Синий</a></li>
+                            <li><a class="dropdown-item" href="#"
+                                    onclick="changeColor('rgba(235, 143, 175, 0.95)')">Розовый</a></li>
+                            <li><a class="dropdown-item" href="#"
+                                    onclick="changeColor('rgba(67, 238, 37, 0.95)')">Зеленый</a></li>
+                            <li><a class="dropdown-item" href="#"
+                                    onclick="changeColor('rgba(144, 148, 153, 0.95)')">Серый</a></li>
+                            <li><a class="dropdown-item" href="#"
+                                    onclick="changeColor('rgba(76, 79, 82, 0.95)')">Темно-серый</a></li>
+                            <li><a class="dropdown-item" href="#"
+                                    onclick="changeColor('rgba(201, 54, 214, 0.95)')">Фиолетовый</a></li>
+                            <li><a class="dropdown-item" href="#"
+                                    onclick="changeColor('rgba(219, 95, 6, 0.95)')">Оранжевый</a></li>
+                        </ul>
                     </div>
                     <div class="button-container">
                         <img src="https://i.postimg.cc/J44XRx9n/2024-03-07-132015.png" alt="Изображение кнопки"
-                            class="button_image" onclick="window.location.href='#error'">
+                            class="button_image" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#" onclick="changeStil('fontWeight', 'bold')">Сделать
+                                    жирным</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeStil('fontWeight', 'normal')">Убрать
+                                    жирность</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeStil('fontStyle', 'italic')">Сделать
+                                    курсивом</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeStil('fontStyle', 'normal')">Убрать
+                                    курсив</a></li>
+                        </ul>
                     </div>
                     <div class="button-container">
                         <img src="https://i.postimg.cc/yx6DY6p5/2024-03-07-132056.png" alt="Изображение кнопки"
-                            class="button_image" onclick="window.location.href='#error'">
+                            class="button_image" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#" onclick="changeBACKColor('black')">Черный</a></li>
+                            <li><a class="dropdown-item" href="#"
+                                    onclick="changeBACKColor('rgba(244, 118, 118, 0.95)')">Красный</a></li>
+                            <li><a class="dropdown-item" href="#"
+                                    onclick="changeBACKColor('rgba(77, 66, 228, 0.95)')">Синий</a></li>
+                            <li><a class="dropdown-item" href="#"
+                                    onclick="changeBACKColor('rgba(235, 143, 175, 0.95)')">Розовый</a></li>
+                            <li><a class="dropdown-item" href="#"
+                                    onclick="changeBACKColor('rgba(67, 238, 37, 0.95)')">Зеленый</a></li>
+                            <li><a class="dropdown-item" href="#"
+                                    onclick="changeBACKColor('rgba(144, 148, 153, 0.95)')">Серый</a></li>
+                            <li><a class="dropdown-item" href="#"
+                                    onclick="changeBACKColor('rgba(76, 79, 82, 0.95)')">Темно-серый</a></li>
+                            <li><a class="dropdown-item" href="#"
+                                    onclick="changeBACKColor('rgba(226, 162, 231, 0.95)')">Фиолетовый</a></li>
+                            <li><a class="dropdown-item" href="#"
+                                    onclick="changeBACKColor('rgba(228, 190, 163, 0.95)')">Оранжевый</a></li>
+                        </ul>
                     </div>
                     <div class="button-container">
-                        <img src="https://i.postimg.cc/NF00vJ5v/2024-03-07-132131.png" alt="Изображение кнопки"
-                            class="button_image" onclick="window.location.href='#error'">
-                    </div>
-                    <div class="button-container">
-                        <img src="https://i.postimg.cc/fRR17G1N/microphone.png" alt="Изображение кнопки"
-                            class="button_image micro" onclick="window.location.href='#error'">
+                        <img src="https://i.postimg.cc/fRR17G1N/microphone.png" alt="микрофон"
+                            class="button_image micro">
                     </div>
                 </div>
-                <div class="col-md-10 col-10 right-column p-5">
-                    <textarea class="w-100 h-100 modal-note-textarea" style="resize: none;" maxlength="10000"
-                        placeholder="Начни свою заметку!"></textarea>
 
-
+            </div>
+        </div>
+        <div class="container">
+            <div class="row body_section">
+                <div class="col-md-12 col-12 right-column">
+                    <div id="note" contenteditable="true" class="w-100 h-100 modal-note-textarea"
+                        style="overflow-y:auto;resize: none;" maxlength="10000">Пожалуйста, прочитайте подсказку для
+                        корректной работы с кнопочками!!!
+                    </div>
                 </div>
                 <div class="container d-flex justify-content-end p-3">
                     <div class="row ">
@@ -225,130 +315,12 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 
-    <script>
-        const textareaa = document.querySelector('.modal-note-textarea');
-        const input = document.getElementById('name');
-        const saveButtonn = document.querySelector('.savebutton');
-        saveButtonn.disabled = true;
-
-
-        function checkInputs() {//функция для проверки значений полей ввода и активации кнопки
-            const noteTitle = input.value.trim();
-            const noteText = textareaa.value.trim();
-            if (noteTitle && noteText) {
-                saveButtonn.disabled = false;
-            } else {
-                saveButtonn.disabled = true;
-            }
-        }
-        input.addEventListener('input', checkInputs);//слушаем события
-        textareaa.addEventListener('input', checkInputs);
-
-        saveButtonn.addEventListener('click', function () {
-            const noteTitle = input.value.trim();
-            const noteText = textareaa.value.trim();
-            if (noteTitle && noteText) {
-                const noteData = {
-                    title: noteTitle,
-                    text: noteText
-                };
-                let notes = JSON.parse(localStorage.getItem('notes')) || [];
-
-                const existingNoteIndex = notes.findIndex(note => note.title === noteTitle); //есть ли уже такая заметка?
-                if (existingNoteIndex !== -1) {//если заметка найдена, заменяем ее новыми данными
-                    notes[existingNoteIndex] = noteData;
-                } else {
-                    notes.push(noteData);//иначе добавляем новую заметку в массив
-                }
-
-                localStorage.setItem('notes', JSON.stringify(notes));
-                input.value = '';
-                textareaa.value = '';
-                saveButtonn.disabled = true;
-            } else {
-                alert('Пожалуйста, заполните оба поля перед сохранением заметки.');
-            }
-        });
-    </script>
-
-
-    <script>
-        const saveButton = document.getElementById('save-btn');//достаю кнопку сохр
-        saveButton.disabled = true;
-        const textarea = document.querySelector('.modal-note-textarea');//получаю текствое поле из техтареи
-        saveButton.addEventListener('click', function () {//слушаю.....
-
-            const template_id = document.querySelector('.template-btn.active').getAttribute('nomer');//получаем выбранный шаблон
-            const template_text = text_button(template_id);
-
-            textarea.value = template_text;//пихаем в текстовое поле шаблон
-
-            saveButton.disabled = true;//кнопка сохранить неактив
-        });
-
-        document.querySelectorAll('.template-btn').forEach(button => {
-            button.addEventListener('click', function () {
-                document.querySelectorAll('.template-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                if (this.hasAttribute('nomer')) {//если есть атрибут nomer то кнопка актив
-                    this.classList.add('active');
-                    saveButton.disabled = false;
-                }
-            });
-        });
-
-        function text_button(template_id) {
-            switch (template_id) {
-                case '1':
-                    return 'СПИСОК ФИЛЬМОВ НА КАНИКУЛЫ\n-\n-\n-\n-\n-\n-\n-\n-\n-\n';
-                case '2':
-                    return 'СПИСОК ПРОДУКТОВ\n-\n-\n-\n-\n-\n-\n-\n-\n-\n';
-                case '3':
-                    return 'СПИСОК ЗАДАНИЙ НА БЛИЖАЙШЕЕ ВРЕМЯ\n-\n-\n-\n-\n-\n-\n-\n-\n-\n';
-                case '4':
-                    return 'СПИСОК ДЕЛ НА ДЕНЬ\n-\n-\n-\n-\n-\n-\n-\n-\n-\n';
-                case '5':
-                    return '>>>>>>>>РАСПИСАНИЕ НА НЕДЕЛЮ<<<<<<<<\nПОНЕДЕЛЬНИК:\nВТОРНИК:\nСРЕДА:\nЧЕТВЕРГ:\nПЯТНИЦА:\nСУББОТА:\nВОСКРЕСЕНЬЕ:\nпобочные дела на неделе:';
-                case '6':
-                    return '>>>>>>>>РАСПИСАНИЕ НА ДЕНЬ<<<<<<<<\nЧто мне нужно сделать с утра:\nЧто я хочу сделать днем:\nЧто нужно отложить до вечера:\nОтбой в :';
-                case '7':
-                    return '>>>>>>>>РАСПИСАНИЕ ЗАНЯТИЙ<<<<<<<<\n \nПЕРВАЯ ПАРА:\n \nВТОРАЯ ПАРА:\n \nТРЕТЬЯ ПАРА:\n \nЧЕТВЕРТАЯ ПАРА:\n \nПЯТАЯ ПАРА:\n \nа может хватит........ :)';
-                case '8':
-                    return '>>>>>>>>РАСПИСАНИЕ ДЕЛ НА МЕСЯЦ<<<<<<<<\n1 ДЕНЬ:\n2 ДЕНЬ:\n3 ДЕНЬ:\n4 ДЕНЬ:\n5 ДЕНЬ:\n6 ДЕНЬ:\n7 ДЕНЬ:\n8 ДЕНЬ:\n9 ДЕНЬ:\n10 ДЕНЬ:\n11 ДЕНЬ:\n12 ДЕНЬ:\n13 ДЕНЬ:\n14 ДЕНЬ:\n15 ДЕНЬ:\n16 ДЕНЬ:\n17 ДЕНЬ:\n18 ДЕНЬ:\n19 ДЕНЬ:\n20 ДЕНЬ:\n21 ДЕНЬ:\n22 ДЕНЬ:\n23 ДЕНЬ:\n24 ДЕНЬ:\n25 ДЕНЬ:\n26 ДЕНЬ:\n27 ДЕНЬ:\n28 ДЕНЬ:\n29 ДЕНЬ:\n30 ДЕНЬ:';
-                case '9':
-                    return 'ПЛАН ПОЕЗДКИ НА:\n \nмой бюджет:\n \nмаршрут по которому я буду ехать:\n \nна сколько дней:\n \nгде именно я хочу побывать:\n \nУдачной поездки!';
-                case '10':
-                    return 'РАСПРЕДЕЛЕНИЕ БЮДЖЕТА!!!!\n \nМОЙ ДОХОД:\n \nСКОЛЬКО Я ОБЫЧНО ТРАЧУ ЗА ( ):\n \nСКОЛЬКО Я ХОЧУ НАКОПИТЬ ЗА ( )\n \nНА ЧТО Я ТРАЧУ ДЕНЬГИ:\n \n';
-                case '11':
-                    return 'ПЛАН СОБЫТИЯ\n \nназвание события:\n \nдата события:\n \nвремя:\n \nместо:\n \nсписок гостей\n \nдругие важные детали:';
-                case '12':
-                    return 'ПЛАН ИЗУЧЕНИЯ НОВОЙ ТЕМЫ\n \nтема:\n \nключевые понятия:\n \nвопросы:\n \nвопросы на которые я ответила:\n \nвремя потраченное на данную тему:\n \nк чему стоит вернуться позже';
-                case '13':
-                    return 'СПИСОК (       )\n*\n*\n*\n*\n*\n*\n*\n*\n*\n*\n*\n*\n*\n*';
-                case '14':
-                    return 'СПИСОК (       )\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12';
-                default:
-                    return '';
-            }
-        }
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {//получаем данные о выбранной заметке из localStorage
-
-            const currentNote = JSON.parse(localStorage.getItem('currentNote'));
-            if (currentNote) {//проверяем, есть ли данные о выбранной заметке
-                document.getElementById('name').value = currentNote.title;//заполняем поля
-                document.querySelector('.modal-note-textarea').value = currentNote.text;
-            }
-        });
-
-    </script>
+    <script src="redak.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
