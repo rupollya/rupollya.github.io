@@ -204,20 +204,17 @@
         </div>
         <script>
             const notesContainer = document.querySelector('.note-container');
-            console.log(notesContainer);
             const notes = JSON.parse(localStorage.getItem('notes')) || [];
-            notes.forEach((note, index) => {//проходимся по заметкам
-
-                const noteElement = document.createElement('div');//создаем элемент для заметки div
+            notes.forEach((note, index) => {
+                const noteElement = document.createElement('div');
                 noteElement.classList.add('note');
-
-                const noteTitle = document.createTextNode(note.title); //названиее заметки
-                noteElement.appendChild(noteTitle);//добавляем текстовый узел в элемент заметки
-                noteElement.addEventListener('click', () => {//обрабатываем клик
-                    localStorage.setItem('currentNote', JSON.stringify(note));//сохр данные о заметке в локал сторадж
+                const noteTitle = document.createTextNode(note.title);
+                noteElement.appendChild(noteTitle);
+                noteElement.addEventListener('click', () => {
+                    localStorage.setItem('currentNote', JSON.stringify(note));
                     window.location.href = 'redak.html';
                 });
-                notesContainer.appendChild(noteElement);//добавляем элемент вкотейнер
+                notesContainer.appendChild(noteElement);
             });
         </script>
         <script>
