@@ -39,7 +39,7 @@ deleteBtn.onclick = function () {
         notes.splice(noteIndex, 1);
         localStorage.setItem('notes', JSON.stringify(notes));
 
-        // Удаление удаленной заметки из note-container
+        //удаление удаленной заметки из note-container
         const noteContainer = document.querySelector('.note-container');
         const noteElements = noteContainer.querySelectorAll('.note');
         noteElements.forEach((element) => {
@@ -52,7 +52,7 @@ deleteBtn.onclick = function () {
     }
 };
 
-openBtn.onclick = function () {// Открываем заметку  
+openBtn.onclick = function () {//открываем заметку  
     modal.style.display = "none";
     window.location.href = 'redak.html';
 };
@@ -69,18 +69,18 @@ function createNewNote() {//очистка локалсторадж перед �
 }
 //ФИЛЬТРАЦИЯ
 const filterInput = document.getElementById('filter-input');//получаем поле ввода для фильтрации
-const notess = document.querySelectorAll('.note');// Получаем все заметки
-document.querySelector('#exampleModal form').addEventListener('submit', function (event) {// Добавляем обработчик события для кнопки "Применить"
-    event.preventDefault(); // Предотвращаем отправку формы
+const notess = document.querySelectorAll('.note');//получаем все заметки
+document.querySelector('#exampleModal form').addEventListener('submit', function (event) {
+    event.preventDefault();
 
-    const filterValue = filterInput.value.toLowerCase(); // Получаем значение фильтра и приводим к нижнему регистру
+    const filterValue = filterInput.value.toLowerCase(); //получаем значение фильтра
 
     // Проходим по каждой заметке и проверяем заголовок
     notess.forEach(note => {
-        const title = note.querySelector('div').textContent.toLowerCase(); // Получаем заголовок и приводим к нижнему регистру
+        const title = note.querySelector('div').textContent.toLowerCase(); //получаем заголовок
 
-        // Если заголовок не содержит введенное значение, скрываем заметку, иначе показываем
-        if (!title.includes(filterValue)) {
+
+        if (!title.includes(filterValue)) { //если заголовок не содержит введенное значение, скрываем заметку, иначе показываем
             note.style.display = 'none';
         } else {
             note.style.display = 'block';
@@ -88,14 +88,14 @@ document.querySelector('#exampleModal form').addEventListener('submit', function
     });
 });
 document.querySelector('#exampleModal form').addEventListener('reset', function (event) {
-    // Проходим по каждой заметке и показываем их
-    notess.forEach(note => {
+
+    notess.forEach(note => {//проходим по каждой заметке и показываем их
         if (note.style.display === 'none') {
             note.style.display = 'block';
         }
     });
-    // Очищаем поле ввода фильтра
-    filterInput.value = '';
+
+    filterInput.value = '';//очищаем поле ввода фильтра
 });
 //СОРТИРОВКА!!!
 const sortButtons = document.querySelectorAll('.dropdown-item');
@@ -107,29 +107,26 @@ function sortNotes(e) {
     const sortBy = e.target.dataset.sort;
 
     let notes = JSON.parse(localStorage.getItem('notes'));
-    // Сортировка заметок
-    switch (sortBy) {
+
+    switch (sortBy) {//сортировка заметок
         case '1':
-            notes.sort((a, b) => a.data - b.data); // Сортировка от старых к новым
+            notes.sort((a, b) => a.data - b.data); //сортировка от старых к новым
             break;
         case '2':
-            notes.sort((a, b) => b.data - a.data); // Сортировка от новых к старым
+            notes.sort((a, b) => b.data - a.data); //сортировка от новых к старым
             break;
         case '3':
-            notes.sort((a, b) => a.title.localeCompare(b.title)); // Сортировка от А к Я
+            notes.sort((a, b) => a.title.localeCompare(b.title)); //сортировка от А к Я
             break;
         case '4':
-            notes.sort((a, b) => b.title.localeCompare(a.title)); // Сортировка от Я к А
+            notes.sort((a, b) => b.title.localeCompare(a.title)); //сортировка от Я к А
             break;
         case '5':
-            notes.sort((a, b) => a.data - b.data); // Сортировка от старых к новым
+            notes.sort((a, b) => a.data - b.data); //сортировка от старых к новым
             break;
     }
 
-    // Обновление localStorage с отсортированными заметками
-    localStorage.setItem('notes', JSON.stringify(notes));
-
-    // Перезагрузка страницы для отображения отсортированных заметок
+    localStorage.setItem('notes', JSON.stringify(notes));//Обновление localStorage с отсортированными заметками
     window.location.reload();
 }
 
@@ -137,27 +134,21 @@ function sortNotes(e) {
 
 //ПРОФИЛЬ
 function saveProfile() {
-    // Получить введенные данные
     const nickname = document.querySelector('.nikname').value;
     const email = document.querySelector('.pochta').value;
     const info = document.querySelector('.info').value;
 
-    // Сохранить данные в локальное хранилище
     localStorage.setItem('nickname', nickname);
     localStorage.setItem('email', email);
     localStorage.setItem('info', info);
-
-    // Закрыть модальное окно
     $('#modal_prof').modal('hide');
 }
-
+//ВОССТАНАВЛИВАЮ ДАННЫЕ ДЛЯ АПРОФИЛЯ
 window.onload = function () {
-    // Восстановить данные из локального хранилища
     const nickname = localStorage.getItem('nickname');
     const email = localStorage.getItem('email');
     const info = localStorage.getItem('info');
 
-    // Вставить данные в поля ввода
     document.querySelector('.nikname').value = nickname;
     document.querySelector('.pochta').value = email;
     document.querySelector('.info').value = info;

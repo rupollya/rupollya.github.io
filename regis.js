@@ -74,10 +74,10 @@ function checkLogin(event) {
 }
 
 
+
+
+
 //проверка на наличие зарегистрированного пользователя при входе 
-
-
-
 //ограничения на ввод номера телефона только цифры
 document.getElementById('phone').addEventListener('input', function (e) {
     e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 11);

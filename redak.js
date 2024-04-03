@@ -16,7 +16,7 @@ function checkInputs() {
 input.addEventListener('input', checkInputs);
 textareaa.addEventListener('input', checkInputs);
 
-// Обработчик кнопки сохранения заметки
+//обработчик кнопки сохранения заметки
 saveButtonn.addEventListener('click', function () {
     const noteTitle = input.value.trim();
     const noteText = textareaa.innerHTML.trim();
@@ -38,7 +38,7 @@ saveButtonn.addEventListener('click', function () {
 
         localStorage.setItem('notes', JSON.stringify(notes));
         input.value = '';
-        textareaa.innerHTML = ''; // Очищаем содержимое
+        textareaa.innerHTML = ''; //очищаем содержимое
         saveButtonn.disabled = true;
     } else {
         alert('Пожалуйста, заполните оба поля перед сохранением заметки.');
@@ -139,7 +139,7 @@ document.querySelector('.button_image.micro').addEventListener('click', function
     };
 });
 
-// Функция применения стиля к выделенному тексту
+//функция применения стиля к выделенному тексту
 function applyStyle(style) {
     var selection = window.getSelection();
     if (selection.rangeCount > 0) {
@@ -155,25 +155,25 @@ function applyStyle(style) {
 }
 
 
-// Функция изменения размера шрифта
+//функция изменения размера шрифта
 function changeFontSize(fontSize) {
     event.preventDefault();
     applyStyle({ 'fontSize': fontSize + 'px', 'fontFamily': getFontFamily() });
 }
 
-// Функция изменения цвета шрифта
+//функция изменения цвета шрифта
 function changeColor(color) {
     event.preventDefault();
     applyStyle({ 'color': color, 'fontFamily': getFontFamily() });
 }
 
-// Функция изменения семейства шрифта
+//функция изменения семейства шрифта
 function changeFontFamily(fontFamily) {
     event.preventDefault();
     applyStyle({ 'fontFamily': fontFamily });
 }
 
-// Функция получения текущего семейства шрифта
+//функция получения текущего семейства шрифта
 function getFontFamily() {
     var selection = window.getSelection();
     if (selection.rangeCount > 0) {
@@ -185,8 +185,8 @@ function getFontFamily() {
 }
 
 
-//
-// Функция изменения стиля текста
+
+//функция изменения стиля текста
 function changeStil(styleType, value) {
     event.preventDefault();
     var selection = window.getSelection();
@@ -206,12 +206,9 @@ function changeBACKColor(color) {
 //ПРОФИЛЬ
 
 window.onload = function () {
-    // Восстановить данные из локального хранилища
     const nickname = localStorage.getItem('nickname');
     const email = localStorage.getItem('email');
     const info = localStorage.getItem('info');
-
-    // Вставить данные в поля ввода
     document.querySelector('.nikname').value = nickname;
     document.querySelector('.pochta').value = email;
     document.querySelector('.info').value = info;
