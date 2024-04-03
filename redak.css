@@ -107,7 +107,7 @@ body {
 }
 
 .button_image {
-    width: 80px; 
+    width: 80px;
     height: 85px;
     border-radius: 20pt;
     box-shadow: 4px 4px 4px rgba(11, 11, 11, 0.25);
@@ -369,4 +369,55 @@ body {
 .dropdown-item:hover {
     background-color: lightpink;
     /* Изменяем цвет фона при наведении */
+}
+
+
+
+.info {
+    padding-top: 15px;
+    padding-left: 15px;
+    width: 400px;
+    height: 150px;
+    border: 3px solid rgba(235, 143, 175, 0.95);
+    border-radius: 10px;
+    resize: none;
+}
+
+.nik_poch {
+    padding-left: 21px;
+    width: 400px;
+    height: 50px;
+    border-radius: 20px;
+    border: 3px solid rgba(235, 143, 175, 0.95);
+}
+
+.nik_poch:focus,
+.info:focus {
+    outline: none;
+
+}
+
+.nik_poch:invalid,
+.info:invalid {
+    border: 3px solid rgba(235, 143, 175, 0.95);
+}
+
+.nik_poch:invalid+span::after {
+    content: attr(title);
+    color: rgba(235, 143, 175, 0.95);
+}
+
+.modal-content.prof {
+    background: linear-gradient(to bottom, rgb(239, 217, 217), rgba(232, 143, 174, 0.95));
+}
+
+.prof p {
+    color: rgba(222, 74, 126, 0.95);
+    font-size: 25px;
+    text-shadow: 0px 4px 4px rgba(8, 8, 8, 0.3);
+}
+
+.btn.prof {
+    margin-right: 60px;
+    margin-bottom: 20px;
 }

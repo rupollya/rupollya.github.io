@@ -16,14 +16,17 @@ function checkInputs() {
 input.addEventListener('input', checkInputs);
 textareaa.addEventListener('input', checkInputs);
 
+// Обработчик кнопки сохранения заметки
 saveButtonn.addEventListener('click', function () {
     const noteTitle = input.value.trim();
     const noteText = textareaa.innerHTML.trim();
     if (noteTitle && noteText) {
         const noteData = {
             title: noteTitle,
-            text: noteText
+            text: noteText,
+            data: Date.now()
         };
+
         let notes = JSON.parse(localStorage.getItem('notes')) || [];
 
         const existingNoteIndex = notes.findIndex(note => note.title === noteTitle);
@@ -196,7 +199,20 @@ function changeStil(styleType, value) {
 }
 
 
- function changeBACKColor(color) {
+function changeBACKColor(color) {
     event.preventDefault();
     applyStyle({ 'background-color': color, 'fontFamily': getFontFamily() });
+}
+//ПРОФИЛЬ
+
+window.onload = function () {
+    // Восстановить данные из локального хранилища
+    const nickname = localStorage.getItem('nickname');
+    const email = localStorage.getItem('email');
+    const info = localStorage.getItem('info');
+
+    // Вставить данные в поля ввода
+    document.querySelector('.nikname').value = nickname;
+    document.querySelector('.pochta').value = email;
+    document.querySelector('.info').value = info;
 }

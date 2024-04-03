@@ -16,7 +16,7 @@
     <header>
         <nav class="navbar navbar-expand-xl" style="background-color: rgba(249, 231, 231, 1)">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="osnova.html">
                     <img class="logo" src="https://i.postimg.cc/15rLyQ5k/logoza-ru.png" alt="Bootstrap" width="177"
                         height="87">
                 </a>
@@ -30,7 +30,7 @@
                         <li class="col-12 nav-item">
                             <button class="btn btn-support item" data-bs-toggle="modal" data-bs-target="#modal_pods"
                                 href="#">Подсказка</button>
-                            <div class="modal" id="modal_pods">
+                            <div class="modal fade" id="modal_pods">
                                 <div class="modal-dialog">
                                     <div class="modal-content podds">
                                         <div class="modal-body text-end">
@@ -51,7 +51,7 @@
                         <li class="nav-item">
                             <button class="btn btn-support item" data-bs-toggle="modal" data-bs-target="#modal_podder"
                                 href="#">Поддержка</button>
-                            <div class="modal" id="modal_podder">
+                            <div class="modal fade" id="modal_podder">
                                 <div class="modal-dialog">
                                     <div class="modal-content podd">
                                         <div class="modal-body text-end">
@@ -71,9 +71,34 @@
                     </ul>
                     <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <button class="btn btn-support profile" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal" href="#"><b>Профиль</b></button>
+                            <button class="btn btn-support profile" data-bs-toggle="modal" data-bs-target="#modal_prof"
+                                href="#"><b>Профиль</b></button>
                         </li>
+                        <div class="modal fade" id="modal_prof">
+                            <div class="modal-dialog">
+                                <div class="modal-content prof">
+                                    <div class="modal-body text-end">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <p class="prof"><b>ИНФОРМАЦИЯ О ВАС</b>
+                                        </p>
+
+                                    </div>
+                                    <div class="modal-bodys text-center">
+                                        <div> <input placeholder="никнейм" class="nik_poch m-2 nikname"></div>
+                                        <div><input placeholder="ваша почта" class="nik_poch m-2 pochta"></div>
+                                        <textarea placeholder="Напишите о себе!" class="info m-2"></textarea>
+                                    </div>
+                                    <div class="modal-bodys text-end">
+                                        <button type="button" onclick="saveProfile()" class="btn prof"
+                                            style="background-color: rgb(240, 167, 193)" data-bs-dismiss="modal"
+                                            aria-label="Close">Сохранить</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </ul>
                 </div>
             </div>
@@ -81,149 +106,76 @@
         </nav>
     </header>
     <div class="main">
-        <div class="row creature ">
-            <div class="col creature_section">
-                <button type="button" onclick="createNewNote()" class="btn creature_button">Создать
-                    заметку</button>
-            </div>
-            <div class="col creature_section text-center">
-
-                <img type="button" src="https://i.postimg.cc/9QhRnxYQ/bin.png" alt="Изображение кнопки"
-                    class=" button_image" data-bs-toggle="modal" data-bs-target="#modal_bin" href="#">
-                <div class="modal" id="modal_bin">
-                    <div class="modal-dialog" style="max-width: 600px;">
-                        <div class="modal-content bin">
-                            <div class="modal-body text-end">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body text-center">
-                                <p class="modal_bin">Твои удаленные заметки!</p>
-                                <div class="container  "
-                                    style="max-width: 500px; height: 320px; background-color: white; border: 3px solid rgba(227, 148, 176, 1);border-radius: 55pt;">
-                                    <!-- здесь будут добавлены удаленные заметкиии -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col creature_section text-end">
-                <button type="button" data-bs-toggle="modal" data-bs-target="#modal_grup" href="#"
-                    class="btn creature_button">Создать
-                    группу</button>
-                <div class="modal grup" id="modal_grup">
-                    <div class="modal-dialog grup" style="max-width: 1000px; max-height: 900px;">
-                        <div class="modal-content grup" style="background-color: rgba(239, 220, 226, 1)">
-                            <div class="modal-body text-end">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body text-center p-1">
-                                Выберите заметки, которые вы хотите объединить, и дайте название группе!
-                                <div class="container" style="max-width: 900px; max-height: 400px;">
-                                    <div class="row justify-content-center mt-4">
-                                        <div class="col-12 text-center .note-container d-flex">
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="container d-flex justify-content-around">
-                                    <div class="row">
-                                        <div class="col-6 p-4">
-                                            <input type="text" id="group-name" style="max-width: 220px;"
-                                                class="form-control" placeholder="Название группы" required>
-                                        </div>
-                                        <div class="col-6 p-4">
-                                            <button id="save-btn" type="submit" data-bs-dismiss="modal" class="btn"
-                                                style="background-color: rgba(227, 148, 176, 1)"
-                                                disabled>Сохранить</button>
-                                        </div>
-                                        <script>
-                                            const groupNameInput = document.getElementById('group-name');
-                                            const saveBtn = document.getElementById('save-btn');
-                                            groupNameInput.addEventListener('input', function () {
-                                                if (groupNameInput.value.trim() !== '') {
-                                                    saveBtn.removeAttribute('disabled');
-                                                } else {
-                                                    saveBtn.setAttribute('disabled', 'disabled');
-                                                }
-                                            });
-                                        </script>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="notes">
+            <p class="text">Здесь храняться твои заметки!</p>
         </div>
-        <div class="notes d-flex justify-content-center align-items-center">
-            <p class="text">Заметки</p>
-        </div>
-        <div class="container">
-            <div class="row justify-content-around text-center ">
-                <div class="col-9 col-md-6 mb-3 button_1_section">
+        <div class="container w">
+            <div class="row">
+                <div class="col-12 col-md-4 button_1_section">
+                    <button type="button" onclick="createNewNote()" class="btn button_3_button">Создать
+                        заметку</button>
+                </div>
+                <div class="col-12 col-md-8 mb-3 button_1_section text-end">
                     <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#"
                         class="btn button_3_button">фильтровать</button>
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#"
-                        class="btn button_1_button">сортировать</button>
-                </div>
-                <div class="col-12 col-md-6 mb-3 button_1_section">
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#"
-                        class="btn button_2_button">удалить</button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Фильтрация заметок :)</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="mb-3 text-center">
+                                            <label for="filter-input" class="form-label"><b>Введите название
+                                                    заметки для
+                                                    фильтрации!</b></label>
+                                            <input type=" text" class="form-control" id="filter-input" required>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button type="submit" class="btn zzz">Применить</button>
+                                                <button type="reset" class="btn zzz">Сбросить</button>
+                                            </div>
+                                            <div class="col-6 text-end">
+                                                <button type="button" class="btn zzz" data-bs-dismiss="modal"
+                                                    aria-label="Close">Закрыть</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
+                        class="btn button_3_button">сортировать</button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#" data-sort="1">от старых к новым</a></li>
+                        <li><a class="dropdown-item" href="#" data-sort="2">от новых к старым</a></li>
+                        <li><a class="dropdown-item" href="#" data-sort="3">От А к Я</a></li>
+                        <li><a class="dropdown-item" href="#" data-sort="4">От Я к А</a></li>
+                        <li><a class="dropdown-item" href="#" data-sort="5">Сбросить</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <div class="note-container col-12 text-center gy-0">
-
+        <div class="note-container col-12 text-center gy-0 ">
         </div>
-
-        <div class="notes d-flex justify-content-center align-items-center">
-            <p class="text">Группы</p>
-        </div>
-        <div class="container">
-            <div class="row justify-content-center text-center ">
-                <div class="col-12 col-md-6 mb-3 button_1_section">
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#"
-                        class="btn button_1_button">редактировать</button>
-                </div>
-                <div class="col-12 col-md-6 mb-3 button_1_section">
-
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#"
-                        class="btn button_1_button">удалить</button>
+        <div id="myModal" class="modal b">
+            <div class="modal-content b">
+                <span class="close">&times;</span>
+                <p class="modal_v">Выберите действие:</p>
+                <div>
+                    <button id="openNote" class="btn zzz p-2 m-2">Открыть заметку</button>
+                    <button id="deleteNote" class="btn zzz p-2 m-2">Удалить заметку</button>
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row justify-content-center mt-4">
-                <div class="col-12 text-center Warehouse_of_groups d-flex">
-                    <p>Здесь будут храниться твои группы с заметками! (или нет)</p>
-                </div>
-            </div>
-        </div>
-        <script>
-            const notesContainer = document.querySelector('.note-container');
-            const notes = JSON.parse(localStorage.getItem('notes')) || [];
-            notes.forEach((note, index) => {
-                const noteElement = document.createElement('div');
-                noteElement.classList.add('note');
-                const noteTitle = document.createTextNode(note.title);
-                noteElement.appendChild(noteTitle);
-                noteElement.addEventListener('click', () => {
-                    localStorage.setItem('currentNote', JSON.stringify(note));
-                    window.location.href = 'redak.html';
-                });
-                notesContainer.appendChild(noteElement);
-            });
-        </script>
-        <script>
-            function createNewNote() {//очистка локалсторадж перед переходом для создания
-                localStorage.removeItem('currentNote');
-                window.location.href = 'redak.html';
-            }
-        </script>
-
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet">
+        <script src="osnova.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
