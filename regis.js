@@ -92,8 +92,27 @@ function generatePassword(event) {
 
     const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let password = "";
-    for (let i = 0; i < 8; i++) {
+
+    // Генерируем пароль длиной 16 символов
+    for (let i = 0; i < 16; i++) {
         password += charset.charAt(Math.floor(Math.random() * charset.length));
     }
+
+    // Визуализируем пароль
     document.getElementById("generatedPassword").textContent = password;
+
+    // Делаем кнопку "Скопировать пароль" активной
+    document.getElementById("copyPassword").classList.remove("disabled");
 }
+
+// Функция копирования пароля
+function copyPassword() {
+    const passwordElement = document.getElementById("generatedPassword");
+    navigator.clipboard.writeText(passwordElement.textContent);
+
+    // Делаем кнопку "Скопировать пароль" неактивной
+    document.getElementById("copyPassword").classList.add("disabled");
+}
+
+// Добавляем слушатель событий к кнопке "Скопировать пароль"
+document.getElementById("copyPassword").addEventListener("click", copyPassword);

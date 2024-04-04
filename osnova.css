@@ -29,21 +29,6 @@
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25) inset;
 }
 
-.btn.btn-support.profile {
-    font-size: 32px;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-    background: linear-gradient(to bottom, rgba(248, 242, 226, 1), rgba(255, 255, 255, 0));
-    padding: 20px 40px 20px 40px;
-    border-radius: 50pt;
-}
-
-.btn.btn-support.profile:hover {
-    cursor: pointer;
-    pointer-events: all;
-    background: linear-gradient(to bottom, rgba(251, 236, 195, 1), rgba(222, 217, 202, 0));
-    color: rgba(232, 58, 120, 1);
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25) inset;
-}
 
 @keyframes color {
     0% {
@@ -96,25 +81,6 @@ body {
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.btn.button_3_button {
-    background: linear-gradient(to bottom, rgba(248, 242, 226, 1), rgba(222, 217, 202, 0));
-    border: none;
-    font-size: 23px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    border-radius: 16pt;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    margin: 47px 0px 0px auto;
-    padding-left: 40px;
-    padding-right: 40px;
-}
-
-
-.btn.button_3_button {
-    margin-right: 16px;
-}
 
 
 .btn.button_3_button:hover {
@@ -364,4 +330,212 @@ body {
 .btn.prof {
     margin-right: 60px;
     margin-bottom: 20px;
+}
+
+
+
+.glow-on-hover {
+    border: none;
+    outline: none;
+    color: #ece2e2;
+    background-color: rgb(230, 154, 182);
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 20px;
+    font-size: 40px;
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
+    padding-bottom: 5px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #f49fe1, #e869cd, #f54cdc, #ed73f1, rgb(206, 73, 128), rgb(221, 101, 151), rgb(224, 59, 130), rgb(227, 16, 104), #e18ace);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    background-color: rgb(230, 154, 182);
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(230, 154, 182);
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 400% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+/***************************************/
+
+
+.glow-on-hover1 {
+    border: none;
+    outline: none;
+    color: #928888;
+    background: linear-gradient(to bottom, rgba(248, 242, 226, 1), rgba(222, 217, 202, 0));
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 20px;
+    font-size: 23px;
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.glow-on-hover1:before {
+    content: '';
+    background: linear-gradient(45deg, #f49fe1, #e869cd, #f54cdc, #ed73f1, rgb(206, 73, 128), rgb(221, 101, 151), rgb(224, 59, 130), rgb(227, 16, 104), #e18ace);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 20px;
+}
+
+.glow-on-hover1:active {
+    background: linear-gradient(to bottom, rgba(248, 242, 226, 1), rgba(222, 217, 202, 0));
+}
+
+.glow-on-hover1:active:after {
+    background: transparent;
+}
+
+.glow-on-hover1:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover1:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(248, 242, 226, 1), rgba(222, 217, 202, 0));
+    left: 0;
+    top: 0;
+    border-radius: 20px;
+}
+
+.glow-on-hover1.z11 {
+    margin-right: 14px;
+}
+
+/***********************************/
+.glow-on-hover2 {
+    border: none;
+    outline: none;
+    color: #928888;
+    background: linear-gradient(to bottom, rgba(248, 242, 226, 1), rgba(255, 255, 255, 0));
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 50pt;
+    font-size: 23px;
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
+
+}
+
+.glow-on-hover2:before {
+    content: '';
+    background: linear-gradient(45deg, #f49fe1, #e869cd, #f54cdc, #ed73f1, rgb(206, 73, 128), rgb(221, 101, 151), rgb(224, 59, 130), rgb(227, 16, 104), #e18ace);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 50pt;
+}
+
+.glow-on-hover2:active {
+    background: linear-gradient(to bottom, rgba(248, 242, 226, 1), rgba(255, 255, 255, 0));
+}
+
+.glow-on-hover2:active:after {
+    background: transparent;
+}
+
+.glow-on-hover2:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover2:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(248, 242, 226, 1), rgba(255, 255, 255, 0));
+    left: 0;
+    top: 0;
+    border-radius: 50pt;
+}
+
+.btn.btn-support.profile {
+    font-size: 32px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(to bottom, rgba(248, 242, 226, 1), rgba(255, 255, 255, 0));
+    padding: 20px 40px 20px 40px;
+    border-radius: 50pt;
+}
+
+.btn.btn-support.profile:hover {
+    cursor: pointer;
+    pointer-events: all;
+    background: linear-gradient(to bottom, rgba(251, 236, 195, 1), rgba(222, 217, 202, 0));
+    color: rgba(232, 58, 120, 1);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25) inset;
 }

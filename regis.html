@@ -16,9 +16,9 @@
         <nav class="navbar navbar-expand-lg" style="background-color: rgba(249, 231, 231, 1)">
             <div class="container">
                 <img class=" logo" src="https://i.postimg.cc/15rLyQ5k/logoza-ru.png" width="177" height="87">
-                <button class="btn btn-support head" data-bs-toggle="modal" data-bs-target="#modal_podder"
-                    href="#">Поддержка</button>
-                <div class="modal" id="modal_podder">
+                <button class="glow-on-hover" data-bs-toggle="modal" data-bs-target="#modal_podder"
+                    href="#">поддержка</button>
+                <div class="modal fude" id="modal_podder">
                     <div class="modal-dialog">
                         <div class="modal-content podd">
                             <div class="modal-body text-end">
@@ -46,17 +46,17 @@
                     <div class="mb-3  text-center">
                         <input type="phone" class="form-control" id="phone" placeholder="Номер телефона" maxlength="11"
                             required>
-                        <div class="invalid-feedback">Номер телефона введен не верно!</div>
+                        <div class="invalid-feedback">Номер телефона введен неверно!</div>
                     </div>
                     <div class="mb-3 text-center">
                         <input type="password" class="form-control" id="password" placeholder="Пароль" pattern=".{8,}"
                             required>
-                        <div class="invalid-feedback">Пароль введен не верно!</div>
+                        <div class="invalid-feedback">Пароль введен неверно!</div>
                     </div>
                     <div class="body_section d-flex justify-content-between p-5 mx-auto">
                         <button class="btn btn-support body1" data-bs-toggle="modal" data-bs-target="#modal_parol"
                             formnovalidate>Забыл пароль</button>
-                        <div class="modal" id="modal_parol">
+                        <div class="modal  fade" id="modal_parol">
                             <div class="modal-dialog">
                                 <div class="modal-content parol">
                                     <div class="modal-body text-end">
@@ -69,8 +69,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="the-entry-registration-block"
-                            onclick="checkLogin(event)">Принять</button>
+                        <button type="submit" class="glow-on-hover" onclick="checkLogin(event)">принять</button>
                     </div>
                 </form>
             </div>
@@ -98,10 +97,13 @@
                         <div class="invalid-feedback">Пароли не совпадают!</div>
                     </div>
                     <div class="body_section d-flex justify-content-between p-5 mx-auto">
-                        <button id="generatedPassword" class="btn btn-support body1" onclick="generatePassword(event)"
-                            formnovalidate>Придумать пароль</button>
-                        <button id="accept-button" class="the-entry-registration-block"
-                            onclick="checkForm(event)">Принять</button>
+                        <div class="">
+                            <button id="generatedPassword" class="btn btn-support body1" type="button"
+                                onclick="generatePassword(event)">Придумать пароль</button>
+                            <button id="copyPassword" class="btn btn-support body1 disabled" type="button"
+                                onclick="copyPassword()">Скопировать пароль</button>
+                        </div>
+                        <button id="accept-button" class="glow-on-hover" onclick="checkForm(event)">принять</button>
                     </div>
                 </form>
             </div>

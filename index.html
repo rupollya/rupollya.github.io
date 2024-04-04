@@ -16,8 +16,8 @@
         <nav class="navbar navbar-expand-lg" style="background-color: rgba(249, 231, 231, 1)">
             <div class="container">
                 <img class=" logo" src="https://i.postimg.cc/15rLyQ5k/logoza-ru.png" width="177" height="87">
-                <button class="btn btn-support head" data-bs-toggle="modal" data-bs-target="#modal_podder"
-                    href="#">Поддержка</button>
+                <button class=" glow-on-hover" data-bs-toggle="modal" data-bs-target="#modal_podder"
+                    href="#">поддержка</button>
                 <div class="modal fade" id="modal_podder">
                     <div class="modal-dialog">
                         <div class="modal-content podd">
@@ -38,16 +38,15 @@
     </div>
     <div class="main">
         <div class="row">
-            <div class="col text-left">
+            <div class="text-left">
                 <div class="text-section">
                     <p class="texte">Добро пожаловать в мир организации мыслей! Здесь ты
                         можешь воплотить все свои
                         идеи
-                        и</p>
-                    <p class="texte">заметки в порядок.</p>
+                        и заметки в порядок.</p>
                 </div>
                 <div class="line"></div>
-                <div class="image-section">
+                <div class="image-section1">
                     <div class="row">
                         <div class="col-sm ">
                             <img src="https://i.postimg.cc/MHkXZ980/2024-03-29-004752.png" alt="Изображение 1"
@@ -63,11 +62,62 @@
                         </div>
                     </div>
                 </div>
+                <div class="  image-section">
+                    <input type="radio" id="s-1" name="slider-control" checked="checked">
+                    <input type="radio" id="s-2" name="slider-control">
+                    <input type="radio" id="s-3" name="slider-control">
+                    <div class="container js-slider">
+                        <figure class="js-slider_item img-1">
+                            <div class="js-slider_img a1">
+                                <img src="https://i.postimg.cc/hGkNwjb4/2024-04-04-221110.png" alt="Изображение 1"
+                                    class="row img-fluid">
+                            </div>
+                            <figcaption class="wo-caption  text-center">
+                                <h3 class="wo-h3  text-center">
+                                    <div class="c-label">Теперь ты сможешь грамотно подойти к организации своей
+                                        поездки в другой город!!!</div>
+                                </h3>
+                            </figcaption>
+                        </figure>
+                        <figure class="js-slider_item img-2">
+                            <div class="js-slider_img a2">
+                                <img src="https://i.postimg.cc/m24Bkd9Z/2024-04-04-220629.png" alt="Изображение 2"
+                                    class="img-fluid">
+                            </div>
+                            <figcaption class="wo-caption   ">
+                                <h4 class="wo-h3">Ты наконец-то сможешь составить список фильмов! Да, да, тех самых,
+                                    которые ты сохранил два года назад в закладках.</h4>
+                            </figcaption>
+                        </figure>
+                        <figure class="js-slider_item img-3 align-items-center">
+                            <div class="js-slider_img a3">
+                                <img src="https://i.postimg.cc/D0TkWZ8p/2024-04-04-220856.png" alt="Изображение 3"
+                                    class="img-fluid">
+                            </div>
+                            <figcaption class="wo-caption text-center">
+                                <h5 class="wo-h3">Организуй наконец-то грамотный подход к своей учёбе!!!</h5>
+
+                            </figcaption>
+                        </figure>
+                        <div class="js-slider_nav">
+                            <label class="js-slider_nav_item s-nav-1 prev" for="s-3"></label>
+                            <label class="js-slider_nav_item s-nav-1 next" for="s-2"></label>
+                            <label class="js-slider_nav_item s-nav-2 prev" for="s-1"></label>
+                            <label class="js-slider_nav_item s-nav-2 next" for="s-3"></label>
+                            <label class="js-slider_nav_item s-nav-3 prev" for="s-2"></label>
+                            <label class="js-slider_nav_item s-nav-3 next" for="s-1"></label>
+                        </div>
+                        <div class="js-slider_indicator">
+                            <div class="js-slider-indi indi-1"></div>
+                            <div class="js-slider-indi indi-2"></div>
+                            <div class="js-slider-indi indi-3"></div>
+                        </div>
+                    </div>
+                </div>
                 <div class="text-section">
                     <p class="texte">Экспериментируйте с ведением заметок, как с палитрой
                         художника! Погрузитесь в мир
-                    </p>
-                    <p class="texte">заметок и откройте для себя бесконечные возможности
+                        заметок и откройте для себя бесконечные возможности
                         записывать идеи.</p>
                 </div>
                 <div class="line"></div>
@@ -85,19 +135,14 @@
                             менеджера заметок.
                         </p>
                     </div>
-                    <div class="btn login-registration justify-content-center
-                    d-flex" onclick="window.location.href='regis.html'">Вход/регистрация</div>
+                    <div class="conatiner ">
+                        <button class="glow-on-hover zaz row m-auto mb-2"
+                            onclick="window.location.href='regis.html'">Вход/регистрация</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
