@@ -1,8 +1,34 @@
-//ааа
+//добавка в пользователя
+function updateUserDataInLocalStorage(phone, noteData) {
+    const userKey = 'user' + '+' + phone;
+    let userData = JSON.parse(localStorage.getItem(userKey));
+    if (userData) {
+        let notes = userData.notes || [];
+        const existingNoteIndex = notes.findIndex(note => note.title === noteData.title);
+        if (existingNoteIndex !== -1) {
+            notes[existingNoteIndex] = noteData;
+        } else {
+            notes.push(noteData);
+        }
+        userData.notes = notes;
+        localStorage.setItem(userKey, JSON.stringify(userData));
+    }
+}
+//ам
 const textareaa = document.querySelector('.modal-note-textarea');
 const input = document.getElementById('name');
 const saveButtonn = document.querySelector('.savebutton');
 saveButtonn.disabled = true;
+
+let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+if (!currentUser) {
+    currentUser = {
+        phone: userData.phone, // Получаем номер телефона текущего пользователя
+        notes: []
+    };
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+}
+
 function checkInputs() {
     const noteTitle = input.value.trim();
     const noteText = textareaa.innerText.trim();
@@ -15,8 +41,6 @@ function checkInputs() {
 
 input.addEventListener('input', checkInputs);
 textareaa.addEventListener('input', checkInputs);
-
-//обработчик кнопки сохранения заметки
 saveButtonn.addEventListener('click', function () {
     const noteTitle = input.value.trim();
     const noteText = textareaa.innerHTML.trim();
@@ -27,7 +51,8 @@ saveButtonn.addEventListener('click', function () {
             data: Date.now()
         };
 
-        let notes = JSON.parse(localStorage.getItem('notes')) || [];
+        const phone = currentUser.phone;
+        let notes = currentUser.notes || [];
 
         const existingNoteIndex = notes.findIndex(note => note.title === noteTitle);
         if (existingNoteIndex !== -1) {
@@ -36,15 +61,18 @@ saveButtonn.addEventListener('click', function () {
             notes.push(noteData);
         }
 
-        localStorage.setItem('notes', JSON.stringify(notes));
+        currentUser.notes = notes;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        
+        updateUserDataInLocalStorage(phone, noteData);
+        
         input.value = '';
-        textareaa.innerHTML = ''; //очищаем содержимое
+        textareaa.innerHTML = '';
         saveButtonn.disabled = true;
     } else {
-        alert('Пожалуйста, заполните оба поля перед сохранением заметки.');
+        alert('Please fill out both fields before saving the note.');
     }
 });
-
 //fff
 const saveButton = document.getElementById('save-btn');
 saveButton.disabled = true;
@@ -202,14 +230,4 @@ function changeStil(styleType, value) {
 function changeBACKColor(color) {
     event.preventDefault();
     applyStyle({ 'background-color': color, 'fontFamily': getFontFamily() });
-}
-//ПРОФИЛЬ
-
-window.onload = function () {
-    const nickname = localStorage.getItem('nickname');
-    const email = localStorage.getItem('email');
-    const info = localStorage.getItem('info');
-    document.querySelector('.nikname').value = nickname;
-    document.querySelector('.pochta').value = email;
-    document.querySelector('.info').value = info;
 }

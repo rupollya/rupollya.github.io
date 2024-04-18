@@ -208,25 +208,7 @@ body {
     max-width: 1700px;
 }
 
-@media screen and (max-width: 576px) {
-    .logo {
-        margin-left: 25px;
-        max-width: 80px;
-        max-height: 40px;
-    }
-
-
-
-    p.text {
-        font-size: 25px;
-
-    }
-
-    .btn.creature_button {
-        font-size: 20px;
-    }
-}
-
+ 
 
 .modal.b {
     display: none;
@@ -269,7 +251,7 @@ body {
 
 .btn.zzz {
     color: black;
-    margin-top: 15px;
+ 
     background-color: #FFC0CB;
     border: 2px solid rgb(233, 144, 172);
 
@@ -286,7 +268,7 @@ body {
 .info {
     padding-top: 15px;
     padding-left: 15px;
-    width: 400px;
+    padding-right: 25px;
     height: 150px;
     border: 3px solid rgba(235, 143, 175, 0.95);
     border-radius: 10px;
@@ -295,7 +277,6 @@ body {
 
 .nik_poch {
     padding-left: 21px;
-    width: 400px;
     height: 50px;
     border-radius: 20px;
     border: 3px solid rgba(235, 143, 175, 0.95);
@@ -538,4 +519,48 @@ body {
     background: linear-gradient(to bottom, rgba(251, 236, 195, 1), rgba(222, 217, 202, 0));
     color: rgba(232, 58, 120, 1);
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25) inset;
+}
+
+
+
+
+@media screen and (max-width: 984px) {
+    .glow-on-hover1.z11 {
+        font-size: 10px;
+    }
+    .glow-on-hover1.z2{
+        font-size: 10px;
+    }
+    .glow-on-hover1.mr-5{
+        font-size: 10px;
+    }
+    .text{
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .logo {
+        margin-left: 25px;
+        max-width: 80px;
+        max-height: 40px;
+    }
+
+
+    .btn.zzz{
+        font-size: 10px;
+    }
+    p.text {
+        font-size: 25px;
+
+    }
+
+    .btn.creature_button {
+        font-size: 20px;
+    }
+
+    .glow-on-hover1.z11 {
+        font-size: 10px;
+    }
+
 }

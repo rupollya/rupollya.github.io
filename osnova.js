@@ -1,29 +1,35 @@
 const notesContainer = document.querySelector('.note-container');
-const notes = JSON.parse(localStorage.getItem('notes')) || [];
-notes.forEach((note, index) => {
-    const noteElement = document.createElement('div');
-    noteElement.classList.add('note');
-    const noteImage = document.createElement('img');
-    noteImage.classList.add('note-image');
-    noteImage.src = "https://i.postimg.cc/ZqXk67H1/note.png";
-    noteElement.appendChild(noteImage);
-    const titleContainer = document.createElement('div');
-    titleContainer.style.overflow = 'hidden';
-    titleContainer.style.textOverflow = 'ellipsis';
-    titleContainer.style.whiteSpace = 'nowrap';
-    titleContainer.style.width = '100%';
-    const noteTitle = document.createTextNode(note.title);
-    titleContainer.appendChild(noteTitle);
-    noteElement.appendChild(titleContainer);
-    notesContainer.appendChild(noteElement);
+const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    noteElement.addEventListener('click', (event) => {
-        const modal = document.getElementById("myModal");
-        modal.style.display = "block";
-        localStorage.setItem('currentNote', JSON.stringify(note));
+// Проверяем, что currentUser существует и у него есть заметки
+if (currentUser && currentUser.notes) {
+    // Используем заметки текущего пользователя для отображения
+    const notes = currentUser.notes;
+
+    notes.forEach((note, index) => {
+        const noteElement = document.createElement('div');
+        noteElement.classList.add('note');
+        const noteImage = document.createElement('img');
+        noteImage.classList.add('note-image');
+        noteImage.src = "https://i.postimg.cc/ZqXk67H1/note.png";
+        noteElement.appendChild(noteImage);
+        const titleContainer = document.createElement('div');
+        titleContainer.style.overflow = 'hidden';
+        titleContainer.style.textOverflow = 'ellipsis';
+        titleContainer.style.whiteSpace = 'nowrap';
+        titleContainer.style.width = '100%';
+        const noteTitle = document.createTextNode(note.title);
+        titleContainer.appendChild(noteTitle);
+        noteElement.appendChild(titleContainer);
+        notesContainer.appendChild(noteElement);
+
+        noteElement.addEventListener('click', (event) => {
+            const modal = document.getElementById("myModal");
+            modal.style.display = "block";
+            localStorage.setItem('currentNote', JSON.stringify(note));
+        });
     });
-});
-
+}
 const openBtn = document.getElementById("openNote");
 const deleteBtn = document.getElementById("deleteNote");
 const modal = document.getElementById("myModal");
@@ -34,23 +40,38 @@ closeBtn.onclick = function () {
 };
 deleteBtn.onclick = function () {
     const currentNote = JSON.parse(localStorage.getItem('currentNote'));
-    const noteIndex = notes.findIndex((note) => note.title === currentNote.title);
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    // Удаляем заметку из массива заметок текущего пользователя
+    const noteIndex = currentUser.notes.findIndex((note) => note.title === currentNote.title);
     if (noteIndex !== -1) {
-        notes.splice(noteIndex, 1);
-        localStorage.setItem('notes', JSON.stringify(notes));
+        currentUser.notes.splice(noteIndex, 1);
 
-        //удаление удаленной заметки из note-container
-        const noteContainer = document.querySelector('.note-container');
-        const noteElements = noteContainer.querySelectorAll('.note');
-        noteElements.forEach((element) => {
-            if (element.innerText === currentNote.title) {
-                noteContainer.removeChild(element);
-            }
-        });
-
-        modal.style.display = "none";
+        // Сохраняем обновленные данные текущего пользователя в localStorage
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
     }
+
+    // Удаляем заметку из массива заметок пользователя в localStorage
+    const userKey = 'user+' + currentUser.phone;
+    const userData = JSON.parse(localStorage.getItem(userKey));
+    const userNoteIndex = userData.notes.findIndex((note) => note.title === currentNote.title);
+    if (userNoteIndex !== -1) {
+        userData.notes.splice(userNoteIndex, 1);
+        localStorage.setItem(userKey, JSON.stringify(userData));
+    }
+
+    // Удаление удаленной заметки из note-container
+    const noteContainer = document.querySelector('.note-container');
+    const noteElements = noteContainer.querySelectorAll('.note');
+    noteElements.forEach((element) => {
+        if (element.innerText === currentNote.title) {
+            noteContainer.removeChild(element);
+        }
+    });
+
+    modal.style.display = "none";
 };
+
 
 openBtn.onclick = function () {//открываем заметку  
     modal.style.display = "none";
@@ -106,50 +127,72 @@ sortButtons.forEach(btn => {
 function sortNotes(e) {
     const sortBy = e.target.dataset.sort;
 
-    let notes = JSON.parse(localStorage.getItem('notes'));
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    switch (sortBy) {//сортировка заметок
+    // Получаем массив заметок текущего пользователя
+    let userNotes = currentUser.notes;
+
+    // Применяем логику сортировки, аналогичную той, что используется для основного массива заметок
+    switch (sortBy) {
         case '1':
-            notes.sort((a, b) => a.data - b.data); //сортировка от старых к новым
+            userNotes.sort((a, b) => a.data - b.data); // сортировка от старых к новым
             break;
         case '2':
-            notes.sort((a, b) => b.data - a.data); //сортировка от новых к старым
+            userNotes.sort((a, b) => b.data - a.data); // сортировка от новых к старым
             break;
         case '3':
-            notes.sort((a, b) => a.title.localeCompare(b.title)); //сортировка от А к Я
+            userNotes.sort((a, b) => a.title.localeCompare(b.title)); // сортировка от А к Я
             break;
         case '4':
-            notes.sort((a, b) => b.title.localeCompare(a.title)); //сортировка от Я к А
+            userNotes.sort((a, b) => b.title.localeCompare(a.title)); // сортировка от Я к А
             break;
         case '5':
-            notes.sort((a, b) => a.data - b.data); //сортировка от старых к новым
+            userNotes.sort((a, b) => a.data - b.data); // сортировка от старых к новым
             break;
     }
+    currentUser.notes = userNotes;
 
-    localStorage.setItem('notes', JSON.stringify(notes));//Обновление localStorage с отсортированными заметками
+    // Обновляем данные текущего пользователя в localStorage
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
     window.location.reload();
 }
 
 
+//////////////////////поиск
+const searchInput = document.getElementById('searchInput');
 
-//ПРОФИЛЬ
-function saveProfile() {
-    const nickname = document.querySelector('.nikname').value;
-    const email = document.querySelector('.pochta').value;
-    const info = document.querySelector('.info').value;
+searchInput.addEventListener('input', function () {
+    const searchTerm = searchInput.value.trim().toLowerCase();
 
-    localStorage.setItem('nickname', nickname);
-    localStorage.setItem('email', email);
-    localStorage.setItem('info', info);
-    $('#modal_prof').modal('hide');
-}
-//ВОССТАНАВЛИВАЮ ДАННЫЕ ДЛЯ АПРОФИЛЯ
-window.onload = function () {
-    const nickname = localStorage.getItem('nickname');
-    const email = localStorage.getItem('email');
-    const info = localStorage.getItem('info');
+    notesContainer.innerHTML = '';
 
-    document.querySelector('.nikname').value = nickname;
-    document.querySelector('.pochta').value = email;
-    document.querySelector('.info').value = info;
-}
+    // Фильтруем заметки текущего пользователя в соответствии с поисковым запросом
+    const filteredNotes = currentUser.notes.filter(note => {
+        return note.text.toLowerCase().includes(searchTerm);//note.title.toLowerCase().includes(searchTerm) ||
+    });
+
+    // Отображаем отфильтрованные заметки
+    filteredNotes.forEach(note => {
+        const noteElement = document.createElement('div');
+        noteElement.classList.add('note');
+        const noteImage = document.createElement('img');
+        noteImage.classList.add('note-image');
+        noteImage.src = "https://i.postimg.cc/ZqXk67H1/note.png";
+        noteElement.appendChild(noteImage);
+        const titleContainer = document.createElement('div');
+        titleContainer.style.overflow = 'hidden';
+        titleContainer.style.textOverflow = 'ellipsis';
+        titleContainer.style.whiteSpace = 'nowrap';
+        titleContainer.style.width = '100%';
+        const noteTitle = document.createTextNode(note.title);
+        titleContainer.appendChild(noteTitle);
+        noteElement.appendChild(titleContainer);
+        notesContainer.appendChild(noteElement);
+
+        noteElement.addEventListener('click', (event) => {
+            const modal = document.getElementById("myModal");
+            modal.style.display = "block";
+            localStorage.setItem('currentNote', JSON.stringify(note));
+        });
+    });
+});

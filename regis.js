@@ -8,6 +8,14 @@ function checkForm(event) {
     var passwordInput = document.getElementById("password1");
     var confirmPasswordInput = document.getElementById("confirm-password");
 
+    // Проверяем, существует ли пользователь с таким номером телефона в localStorage
+    var existingUserKey = 'user' + '+' + phone;
+    var existingUserData = localStorage.getItem(existingUserKey);
+    if (existingUserData !== null) {
+        alert("Пользователь с таким номером телефона уже существует!");
+        return; // Прерываем выполнение функции, чтобы предотвратить создание дубликата пользователя
+    }
+
     if (phone.length !== 11) {
         phoneInput.classList.add('is-invalid');
         phoneInput.classList.remove('is-valid');
@@ -32,13 +40,26 @@ function checkForm(event) {
     }
 
     if (phone.length === 11 && password.length >= 8 && password === confirmPassword) {
+        // Создаем новый массив заметок для нового пользователя
+        let notes = [];
+
+        // Создаем объект с данными пользователя, включая массив заметок
+        var userData = {
+            phone: phone,
+            password: password,
+            name:null,
+            surname:null,
+            image:null,
+            notes: notes // Создаем пустой массив заметок для пользователя
+        };
+
+        // Сохраняем данные пользователя, включая пустой массив заметок, в localStorage
         var userKey = 'user' + '+' + phone;
-        var userData = { phone: phone, password: password };
         localStorage.setItem(userKey, JSON.stringify(userData));
+        localStorage.setItem('currentUser', JSON.stringify(userData));
         window.location.href = "osnova.html";
     }
 }
-
 
 //проверка на наличие зарегистрированного пользователя при входе 
 function checkLogin(event) {
@@ -49,6 +70,7 @@ function checkLogin(event) {
     var passwordInput = document.getElementById("password");
     var userKey = 'user' + '+' + phone; // Формируем ключ для поиска пользователя
     var userData = JSON.parse(localStorage.getItem(userKey));
+
     if (phone.length !== 11) {
         phoneInput.classList.add('is-invalid');
         phoneInput.classList.remove('is-valid');
@@ -63,13 +85,16 @@ function checkLogin(event) {
         passwordInput.classList.remove('is-invalid');
         passwordInput.classList.add('is-valid');
     }
-    if (phone.length === 11 && password.length >= 8) {
-        // выполняйте проверку на наличие пользователя
-        if (userData && userData.password === password) {
+
+    if (userData && password.length >= 8) {
+        if (userData.password === password) {
+            localStorage.setItem('currentUser', JSON.stringify(userData));
             window.location.href = "osnova.html";
         } else {
-            alert('Неправильный номер телефона или пароль. Попробуйте еще раз или зарегистрируйтесь.');
+            alert('Неправильный номер телефона или пароль. Попробуйте еще раз.');
         }
+    } else {
+        alert('Пользователь не найден или пароль слишком короткий.');
     }
 }
 

@@ -91,26 +91,48 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body text-center">
-                                        <p class="prof"><b>ИНФОРМАЦИЯ О ВАС</b>
-                                        </p>
-
-                                    </div>
-                                    <div class="modal-bodys text-center">
-                                        <div> <input placeholder="никнейм" class="nik_poch m-2 nikname"></div>
-                                        <div><input placeholder="ваша почта" class="nik_poch m-2 pochta"></div>
-                                        <textarea placeholder="Напишите о себе!" class="info m-2"></textarea>
-                                    </div>
-                                    <div class="modal-bodys text-end">
-                                        <button type="button" onclick="saveProfile()" class="btn prof"
-                                            style="background-color: rgb(240, 167, 193)" data-bs-dismiss="modal"
-                                            aria-label="Close">Сохранить</button>
+                                    <div class="container">
+                                        <div class="modal-body text-center">
+                                            <p class="prof"><b>ИНФОРМАЦИЯ О ВАС</b>
+                                            </p>
+                                        </div>
+                                        <div class="row modal-bodys">
+                                            <div class="col-6">
+                                                <div> <input placeholder="Имя" class="nik_poch wq name m-1" readonly>
+                                                </div>
+                                                <div><input placeholder="Фамилия" class="nik_poch surname m-1" readonly>
+                                                </div>
+                                                <div><input placeholder="Почта" class="nik_poch pochta m-1" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="m-2 text-center" id="imagePreview"
+                                                    style="pointer-events: none; padding-top: 55px; object-fit: cover; border: 3px solid rgba(235, 143, 175, 0.95); border-radius: 5px; width: 150px; height: 150px; background-color:white; cursor: pointer; background-size: contain;">
+                                                    <b>Добавить фото</b>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="container">
+                                            <div class="row modal-bodys text-center"><textarea
+                                                    placeholder="Напишите о себе!" class="info " readonly></textarea>
+                                            </div>
+                                            <p style="display: none;" class="text-center">Логин и пароль</p>
+                                            <input style="display: none;" class="nik_poch phone m-1" maxlength="11">
+                                            <input style="display: none;" class="nik_poch password m-1" pattern=".{8,}">
+                                        </div>
+                                        <div class="modal-bodys text-end" style="display: none;">
+                                            <button type="button" onclick="saveProfile()" class="btn prof m-4"
+                                                style="background-color: rgb(240, 167, 193)" data-bs-dismiss="modal"
+                                                aria-label="Close" id="saveButton">Сохранить</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </ul>
                 </div>
+
+            </div>
             </div>
 
         </nav>
@@ -133,23 +155,23 @@
                                 <div class="modal-body shablon text-center ">
                                     <p class="modal_note" style="font-size: 20px;">Выбери шаблон заметки :)</p>
                                     <div class="d-flex text-center ">
-                                        <div class="container" style="position: relative;"> <button
-                                                class="template-btn m-2 dropdown-toggle" type="button"
+                                        <div class="container">
+                                            <button class="template-btn m-2 dropdown-toggle" type="button"
                                                 id="dropdownMenuButton" data-bs-toggle="dropdown"
                                                 aria-bs-haspopup="true" aria-expanded="false">Списки:</button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <button class="dropdown-item template-btn" nomer="1">список фильмов на
+                                                <button class="dropdown-item template-btn" nomer="1">список фильмов
+                                                    на
                                                     каникулы</button>
                                                 <button class="dropdown-item template-btn" nomer="2">список
                                                     продуктов</button>
-                                                <button class="dropdown-item template-btn" nomer="3">список заданий на
+                                                <button class="dropdown-item template-btn" nomer="3">список заданий
+                                                    на
                                                     ближайшее время</button>
                                                 <button class="dropdown-item template-btn" nomer="4">список дел на
                                                     день</button>
                                             </div>
-                                        </div>
-                                        <div class="container" style="position: relative;"> <button
-                                                class="template-btn m-2 dropdown-toggle" type="button"
+                                            <button class="template-btn m-2 dropdown-toggle" type="button"
                                                 id="dropdownMenuButton" data-bs-toggle="dropdown"
                                                 aria-bs-haspopup="true" aria-expanded="false">график:</button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -159,12 +181,12 @@
                                                     день</button>
                                                 <button class="dropdown-item template-btn" nomer="7">расписание
                                                     занятий</button>
-                                                <button class="dropdown-item template-btn" nomer="8">расписание дел на
+                                                <button class="dropdown-item template-btn" nomer="8">расписание дел
+                                                    на
                                                     месяц</button>
                                             </div>
-                                        </div>
-                                        <div class="container" style="position: relative;"> <button
-                                                class="template-btn m-2 dropdown-toggle" type="button"
+
+                                            <button class="template-btn m-2 dropdown-toggle" type="button"
                                                 id="dropdownMenuButton" data-bs-toggle="dropdown"
                                                 aria-bs-haspopup="true" aria-expanded="false">Другое:</button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -177,16 +199,17 @@
                                                 <button class="dropdown-item template-btn" nomer="12">план изучения
                                                     новой темы</button>
                                             </div>
-                                        </div>
-                                        <div class="container" style="position: relative;"> <button
-                                                class="template-btn m-2 dropdown-toggle" type="button"
+
+                                            <button class="template-btn m-2 dropdown-toggle" type="button"
                                                 id="dropdownMenuButton" data-bs-toggle="dropdown"
                                                 aria-bs-haspopup="true" aria-expanded="false">Другое(2):</button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <button class="dropdown-item template-btn" nomer="13">список с маркером
+                                                <button class="dropdown-item template-btn" nomer="13">список с
+                                                    маркером
                                                     *</button>
                                                 <button class="dropdown-item template-btn" nomer="14">список из
                                                     чисел</button>
+
                                             </div>
                                         </div>
                                     </div>
@@ -346,7 +369,7 @@
             </div>
         </div>
     </div>
-
+    <script src="prof.js"></script>
     <script src="redak.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
