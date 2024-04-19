@@ -1,0 +1,2 @@
+USE usersdb;
+DESCRIBE notes;
