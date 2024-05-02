@@ -100,6 +100,8 @@ def regis_new_user(user_data: user_reg_log):
     return {"message": "Пользователь добавлен"}
 
 
+
+
 # ВХод пользователя
 @app.post("/users/login")
 def login_user(user_data: user_reg_log):
@@ -133,7 +135,7 @@ def generate_token(user_id: int):
     token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
     return token
 
-
+#занос новой инф о пользователе
 @app.put("/users/{user_id}")
 def update_user(user_id: int, user_data: user_reg_log):
     cursor = connection.cursor()

@@ -32,12 +32,11 @@ function checkForm(event) {
     }
 
     $.ajax({
-        type: "POST",
-        url: "/users/register",
+        url: '/users/register',
+        method: "POST",
         data: JSON.stringify({ phone_number: phone, password: password }),
         contentType: "application/json",
         success: function (response) {
-            localStorage.setItem('currentUser', JSON.stringify(response));
             window.location.href = "osnova.html";
         },
         error: function (xhr, status, error) {
@@ -69,12 +68,11 @@ function checkLogin(event) {
         passwordInput.classList.add('is-valid');
     }
     $.ajax({
-        type: "POST",
+        method: "POST",
         url: "/users/login",
         data: JSON.stringify({ phone_number: phone, password: password }),
         contentType: "application/json",
         success: function (response) {
-            // Вместо сохранения в локальное хранилище можно обрабатывать ответ сервера здесь
             window.location.href = "osnova.html";
         },
         error: function (xhr, status, error) {

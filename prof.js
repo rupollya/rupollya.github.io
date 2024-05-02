@@ -1,140 +1,91 @@
-//добавка в пользователя
-function updateUserDataInLocalStorage(phone, phone1, password, info, email, name, surname, backgroundImage) {
-    const userKey = 'user' + '+' + phone;
-    let userData = JSON.parse(localStorage.getItem(userKey));
-    if (userData) {
-        // Создаем новый ключ с новым номером телефона
-        const newUserKey = 'user' + '+' + phone1;
+//вставка информации
+const modalProf = document.getElementById('modal_prof');
 
-        // Удаляем старый ключ, если он не равен новому ключу
-        if (userKey !== newUserKey) {
-            localStorage.removeItem(userKey);
-        }
+modalProf.addEventListener('show.bs.modal', (event) => {
+  const user_id = event.relatedTarget.dataset.userId;
 
-        // Обновляем данные пользователя
-        userData.info = info;
-        userData.surname = surname;
-        userData.name = name;
-        userData.email = email;
-        userData.image = backgroundImage;
-        userData.phone = phone1;
-        userData.password = password;
+  const get_zapross = new XMLHttpRequest();
+  get_zapross.open('GET', `/users/${user_id}`);
+  get_zapross.onload = () => {
+    if (get_zapross.status === 200) {
+      const data = JSON.parse(get_zapross.responseText);
+      if (data.status === 'success') {
+        const user = data.data;
 
-        // Сохраняем данные пользователя по новому ключу
-        localStorage.setItem(newUserKey, JSON.stringify(userData));
+        modalProf.querySelector('.name').value = user.name;
+        modalProf.querySelector('.surname').value = user.surname;
+        modalProf.querySelector('.pochta').value = user.email;
+        modalProf.querySelector('.info').value = user.about_me;
+        modalProf.querySelector('.phone').value = user.phone;
+        modalProf.querySelector('.password').value = user.password;
+      } else {
+        alert(data.message);
+      }
+    } else {
+      alert('Произошла ошибка при получении информации о пользователе');
     }
-}
-//ПРОФИЛЬ
-window.onload = function () {
+  };
+  get_zapross.send();
+});
 
-    var currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
 
-    // Заполнение полей формы данными из currentUser
-    document.querySelector('.name').value = currentUser.name || '';
-    document.querySelector('.surname').value = currentUser.surname || '';
-    document.querySelector('.pochta').value = currentUser.email || '';
-    document.querySelector('.info').value = currentUser.info || ''
-    document.querySelector('.phone').value = currentUser.phone || ''
-    document.querySelector('.password').value = currentUser.password || ''
 
-    //восстановление изображения профиля
-    // Восстановление изображения профиля из currentUser
-    var savedImage = currentUser.image;
-    if (savedImage) {
-        var imagePreview = document.getElementById('imagePreview');
-        imagePreview.style.backgroundImage = savedImage;
-        imagePreview.innerText = '';
-    }
+const saveProfileButton = document.getElementById('saveButton');
+saveProfileButton.addEventListener('click', async () => {
+    const imagePreview = document.getElementById('imagePreview');
+    const formData = new FormData();
 
-    //при клике на квадрат
-    var imagePreview = document.getElementById('imagePreview');
+    //загружаем изображение профиля
     imagePreview.addEventListener('click', function () {
-        var input = document.createElement('input');
-        input.type = 'file';
-        input.accept = 'image/*';
-        input.onchange = function (e) {
-            var file = e.target.files[0];
-            var reader = new FileReader();
-            reader.onload = function () {
-                //показываем изображение в квадрате
-                imagePreview.style.backgroundImage = "url('" + reader.result + "')";
-                imagePreview.innerText = ''; //убираем текст
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+        fileInput.style.display = 'none';
 
+        fileInput.addEventListener('change', function () {
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    imagePreview.style.backgroundImage = `url(${e.target.result})`;
+                    formData.append('image', fileInput.files[0]);
+                }
+
+                reader.readAsDataURL(fileInput.files[0]);
             }
-            reader.readAsDataURL(file);
-        }
-        input.click();
+        });
+
+        fileInput.click();
     });
-}
 
-function saveProfile() {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (!currentUser) {
-        currentUser = {
-            phone: userData.phone, // Получаем номер телефона текущего пользователя
-            phone: userData.phone,
-            surname: null,
-            name: null
-        };
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-
-    }
-
-    // Сохранение данных профиля
+    // Получение других данных профиля
     const name = document.querySelector('.name').value;
     const surname = document.querySelector('.surname').value;
     const email = document.querySelector('.pochta').value;
     const info = document.querySelector('.info').value;
-    const phone = currentUser.phone;
-
-
-    const phone1 = document.querySelector('.phone').value;
+    const phone = document.querySelector('.phone').value;
     const password = document.querySelector('.password').value;
 
-    currentUser.name = name;
-    currentUser.surname = surname;
-    currentUser.email = email;
-    currentUser.info = info;
-    currentUser.phone = phone1;
-    currentUser.password = password;
+    // Добавление данных профиля в форму
+    formData.append('name', name);
+    formData.append('surname', surname);
+    formData.append('email', email);
+    formData.append('info', info);
+    formData.append('phone', phone);
+    formData.append('password', password);
 
-    var imagePreview = document.getElementById('imagePreview');
-    var backgroundImage = imagePreview.style.backgroundImage;
-    currentUser.image = backgroundImage;
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-
-    updateUserDataInLocalStorage(phone, phone1, password, info, email, name, surname, backgroundImage);
-    //localStorage.setItem('name', name);
-    //localStorage.setItem('surname', surname);
-    //localStorage.setItem('email', email);
-    //localStorage.setItem('info', info);
-
-    // Получаем выбранное изображение из предварительного просмотра
-
-
-    // Сохраняем URL изображения в локальное хранилище
-    //localStorage.setItem('image', backgroundImage);
-
-    $('#modal_prof').modal('hide');
-}
-//актив не актив кнопка
-document.addEventListener('DOMContentLoaded', function() {
-    const saveButton = document.getElementById('saveButton');
-    const phoneInput = document.querySelector('.phone');
-    const passwordInput = document.querySelector('.password');
-    phoneInput.addEventListener('input', function() {
-        if (phoneInput.value.length < 11) {
-            saveButton.disabled = true; // Делаем кнопку неактивной
-        } else {
-            saveButton.disabled = false; // Делаем кнопку активной
-        }
+    // Отправка запроса на сервер
+    const response = await fetch(`/users/${user_id}`, {
+        method: 'PUT',
+        body: formData,
     });
-    passwordInput.addEventListener('input', function() {
-        if (passwordInput.value.length < 8) {
-            saveButton.disabled = true; // Делаем кнопку неактивной
-        } else {
-            saveButton.disabled = false; // Делаем кнопку активной
-        }
-    });
+
+    const data = await response.json();
+
+    // Обработка ответа сервера
+    if (data.status === 'success') {
+        alert('Информация о профиле успешно обновлена');
+    } else {
+        alert(data.message);
+    }
 });
-
