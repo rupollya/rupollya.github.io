@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-import mysql.connector
+import psycopg2
 import jwt
 import datetime
 from datetime import datetime
@@ -9,12 +9,14 @@ from typing import Optional
 
 app = FastAPI()
 
-connection = mysql.connector.connect(
+
+
+connection = psycopg2.connect(
     host="localhost",
-    port=3305,
-    user="root",
+    port=3306,  
+    database="memo", 
+    user="postgres",
     password="owIbyag820022013",
-    database="memo",
 )
 
 
