@@ -10,13 +10,12 @@ from typing import Optional
 app = FastAPI()
 
 
-
 connection = psycopg2.connect(
-    host="localhost",
-    port=3306,  
-    database="memo", 
-    user="postgres",
-    password="owIbyag820022013",
+    host="dpg-coqeq0n79t8c738ftvtg-a",
+    port=5432,
+    database="memo",
+    user="rupollya",
+    password="qGb6Cto57ToPL8nGDlkprsIXGNKPjV2J",
 )
 
 
@@ -102,8 +101,6 @@ def regis_new_user(user_data: user_reg_log):
     return {"message": "Пользователь добавлен"}
 
 
-
-
 # ВХод пользователя
 @app.post("/users/login")
 def login_user(user_data: user_reg_log):
@@ -124,6 +121,7 @@ def login_user(user_data: user_reg_log):
 
     return {"access_token": access_token, "token_type": "Bearer"}
 
+
 SECRET_KEY = "sacya87sgtct76asc5r"
 ACCESS_TOKEN_EXPIRE_MINUTES = 300
 
@@ -137,7 +135,8 @@ def generate_token(user_id: int):
     token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
     return token
 
-#занос новой инф о пользователе
+
+# занос новой инф о пользователе
 @app.put("/users/{user_id}")
 def update_user(user_id: int, user_data: user_reg_log):
     cursor = connection.cursor()
