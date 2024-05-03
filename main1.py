@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, FileResponse
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import psycopg2
 import jwt
@@ -43,10 +43,6 @@ class NoteCreate(BaseModel):
     template_id: Optional[int] = None
     title: Optional[str] = None
     text: Optional[str] = None
-
-@app.get("/")
-async def root():
-    return FileResponse("index.html")
 # ------------------------ТАБЛИЦА USERS-------------------------------
 # Получить список всех пользователей
 @app.get("/users")
