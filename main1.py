@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, FileResponse
 from pydantic import BaseModel
 import psycopg2
 import jwt
