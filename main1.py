@@ -44,7 +44,9 @@ class NoteCreate(BaseModel):
     title: Optional[str] = None
     text: Optional[str] = None
 
-
+@app.get("/")
+async def root():
+    return FileResponse("index.html")
 # ------------------------ТАБЛИЦА USERS-------------------------------
 # Получить список всех пользователей
 @app.get("/users")
