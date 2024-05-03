@@ -6,6 +6,7 @@ import jwt
 import datetime
 from datetime import datetime
 from typing import Optional
+from fastapi.responses import JSONResponse, FileResponse
 
 app = FastAPI()
 
@@ -17,7 +18,9 @@ connection = psycopg2.connect(
     password="qGb6Cto57ToPL8nGDlkprsIXGNKPjV2J",
 )
 
-
+@app.get("/")
+def main1():
+    return FileResponse("index.html")
 
 
 # -------для таблицы USERS
