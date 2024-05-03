@@ -7,9 +7,7 @@ import datetime
 from datetime import datetime
 from typing import Optional
 
-
 app = FastAPI()
-
 
 connection = psycopg2.connect(
     host="dpg-coqeq0n79t8c738ftvtg-a",
@@ -21,9 +19,8 @@ connection = psycopg2.connect(
 
 port = int(os.environ.get("PORT", 8000))
 
-
 # Запустите приложение FastAPI
-app.run(host="0.0.0.0", port=port)
+app()
 
 
 # -------для таблицы USERS
