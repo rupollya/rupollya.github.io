@@ -13,7 +13,7 @@ app = FastAPI()
 connection = psycopg2.connect(
     host="dpg-coqeq0n79t8c738ftvtg-a",
     port=5432,
-    database="memo",
+    database="memo_t5re",
     user="rupollya",
     password="qGb6Cto57ToPL8nGDlkprsIXGNKPjV2J",
 )
