@@ -9,10 +9,10 @@ from typing import Optional
 
 app = FastAPI()
 
-app.run(host="0.0.0.0", port=8000)
+
 connection = psycopg2.connect(
     host="dpg-coqeq0n79t8c738ftvtg-a",
-    port=5432,
+    port=4001,
     database="memo_t5re",
     user="rupollya",
     password="qGb6Cto57ToPL8nGDlkprsIXGNKPjV2J",
