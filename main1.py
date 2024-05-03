@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import psycopg2
 import jwt
+import os
 import datetime
 from datetime import datetime
 from typing import Optional
@@ -17,6 +18,12 @@ connection = psycopg2.connect(
     user="rupollya",
     password="qGb6Cto57ToPL8nGDlkprsIXGNKPjV2J",
 )
+
+port = int(os.environ.get("PORT", 8000))
+
+
+# Запустите приложение FastAPI
+app.run(host="0.0.0.0", port=port)
 
 
 # -------для таблицы USERS
