@@ -1,24 +1,24 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-import psycopg2
+import mysql.connector
 import jwt
-
 import datetime
 from datetime import datetime
 from typing import Optional
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
-connection = psycopg2.connect(
-    host="dpg-coqeq0n79t8c738ftvtg-a",
-    port=5432,
-    database="memo_t5re",
-    user="rupollya",
-    password="qGb6Cto57ToPL8nGDlkprsIXGNKPjV2J",
-)
 
+connection = mysql.connector.connect(
+    host="localhost",
+    port=3305,
+    user="root",
+    password="owIbyag820022013",
+    database="memo",
+)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
@@ -26,6 +26,20 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 def main1():
     return FileResponse("index.html")
 
+
+@app.get("/regis.html")
+def get_regis_html():
+    return FileResponse("regis.html")
+
+
+@app.get("/osnova.html")
+def get_regis_html():
+    return FileResponse("osnova.html")
+
+
+@app.get("/redak.html")
+def get_regis_html():
+    return FileResponse("redak.html")
 
 
 # -------для таблицы USERS
@@ -51,6 +65,8 @@ class NoteCreate(BaseModel):
     template_id: Optional[int] = None
     title: Optional[str] = None
     text: Optional[str] = None
+
+
 # ------------------------ТАБЛИЦА USERS-------------------------------
 # Получить список всех пользователей
 @app.get("/users")
@@ -96,9 +112,13 @@ def regis_new_user(user_data: user_reg_log):
     user_data_ch = (user_data.phone_number,)
     cursor.execute(user_look, user_data_ch)
     answer = cursor.fetchone()
-
+    if not user_data.phone_number or not user_data.password:
+        raise HTTPException(status_code=400, detail="Не заполнены обязательные поля")
     if answer:
-        return {"message": "Пользователь с таким номером телефона уже существует)"}
+        raise HTTPException(
+            status_code=400,
+            detail="Пользователь с таким номером телефона уже существует)",
+        )
 
     # иначе новый пользователь
     sql = "INSERT INTO Users (phone_number, password) VALUES (%s, %s)"
@@ -108,42 +128,32 @@ def regis_new_user(user_data: user_reg_log):
     return {"message": "Пользователь добавлен"}
 
 
-# ВХод пользователя
 @app.post("/users/login")
 def login_user(user_data: user_reg_log):
+    if not user_data.phone_number or not user_data.password:
+        raise HTTPException(status_code=400, detail="Не заполнены обязательные поля")
+
     cursor = connection.cursor()
-    # Поиск пользователя по номеру телефона и паролю
     sql = "SELECT * FROM Users WHERE phone_number = %s AND password = %s"
     val = (user_data.phone_number, user_data.password)
     cursor.execute(sql, val)
     user = cursor.fetchone()
 
     if not user:
-        raise HTTPException(
-            status_code=400, detail="Неверный номер телефона или пароль"
-        )
+        error_msg = "Неверный номер телефона или пароль"
+        raise HTTPException(status_code=400, detail=error_msg)
 
-    # Генерация токена доступа (пример)
-    access_token = generate_token(user[0])
+    print("Успешный вход, пользователь найден")
 
-    return {"access_token": access_token, "token_type": "Bearer"}
+    return {"message": "Успешный вход, пользователь найден"}
 
 
-SECRET_KEY = "sacya87sgtct76asc5r"
-ACCESS_TOKEN_EXPIRE_MINUTES = 300
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request, exc):
+    return JSONResponse(status_code=exc.status_code, content={"error": exc.detail})
 
 
-def generate_token(user_id: int):
-    payload = {
-        "user_id": user_id,
-        "exp": datetime.datetime.now()
-        + datetime.timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),  # время валидации
-    }
-    token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
-    return token
-
-
-# занос новой инф о пользователе
+#
 @app.put("/users/{user_id}")
 def update_user(user_id: int, user_data: user_reg_log):
     cursor = connection.cursor()
