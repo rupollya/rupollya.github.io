@@ -18,9 +18,13 @@ connection = psycopg2.connect(
     password="qGb6Cto57ToPL8nGDlkprsIXGNKPjV2J",
 )
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
 @app.get("/")
 def main1():
     return FileResponse("index.html")
+
 
 
 # -------для таблицы USERS
