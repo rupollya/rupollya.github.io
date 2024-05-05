@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-import mysql.connector
 import jwt
+import psycopg2
 import datetime
 from datetime import datetime
 from typing import Optional
@@ -12,12 +12,12 @@ from fastapi.staticfiles import StaticFiles
 app = FastAPI()
 
 
-connection = mysql.connector.connect(
-    host="localhost",
-    port=3305,
-    user="root",
-    password="owIbyag820022013",
-    database="memo",
+connection = psycopg2.connect(
+    host="dpg-coqeq0n79t8c738ftvtg-a",
+    port=5432,
+    user="rupollya",
+    password="qGb6Cto57ToPL8nGDlkprsIXGNKPjV2J",
+    database="memo_t5re",
 )
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
