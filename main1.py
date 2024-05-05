@@ -7,6 +7,7 @@ import datetime
 from datetime import datetime
 from typing import Optional
 from fastapi.responses import JSONResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
