@@ -47,7 +47,7 @@ document.body.appendChild(fileInput); // Добавляем элемент в DO
 
 // Обработчик события изменения файла, добавленный один раз
 fileInput.addEventListener('change', function () {
-  if (fileInput.files && fileFile.files[0]) {
+  if (fileInput.files && fileInput.files[0]) {
     const reader = new FileReader();
 
     reader.onload = function (e) {
