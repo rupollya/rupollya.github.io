@@ -79,19 +79,22 @@ def get_users():
 
 
 # Получить информацию о пользователе по ID
-@app.get("/users/{id}")
 def get_user_by_id(id: int):
     cursor = connection.cursor()
-    cursor.execute(f"SELECT * FROM users WHERE user_id = {id}")
-    user = cursor.fetchone()  # возвращает следующую строку результата запроса как кортеж
+    cursor.execute("SELECT name, surname, email, about_me, photo, phone, password FROM users WHERE user_id = %s", (id,))
+    user = (
+        cursor.fetchone()
+    )  # возвращает следующую строку результата запроса как кортеж
     if user:
         user_data = {
-            "phone_number": user[3],
-            "password": user[4],
-            "name": user[5],
-            "surname": user[6],
-            "email": user[7],
-            "about_me": user[8]  
+            
+            "name": user[0],
+            "surname": user[1],
+            "email": user[2],
+            "about_me": user[3],
+            "photo": user[4],
+            "phone_number": user[5],
+            "password": user[6],
         }
         return {"status": "success", "data": user_data}
     else:
