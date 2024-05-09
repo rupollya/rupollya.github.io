@@ -33,6 +33,7 @@ const saveProfileButton = document.getElementById('saveButton');
 saveProfileButton.addEventListener('click', async () => {
   const user_id = localStorage.getItem('user_id');
   const imagePreview = document.getElementById('imagePreview');
+  const formData = new FormData();
 
   //загружаем изображение профиля
   imagePreview.addEventListener('click', function () {
@@ -42,15 +43,14 @@ saveProfileButton.addEventListener('click', async () => {
     fileInput.style.display = 'none';
 
     fileInput.addEventListener('change', function () {
-      if (fileInput.files && fileFile.files[0]) {
+      if (fileInput.files && fileInput.files[0]) {
         const reader = new FileReader();
-    
+
         reader.onload = function (e) {
           imagePreview.style.backgroundImage = `url(${e.target.result})`;
-          // Преобразование файла в строку Base64 и добавление в userData
-          userData.photo = e.target.result.split(',')[1]; 
+          formData.append('image', fileInput.files[0]);
         }
-    
+
         reader.readAsDataURL(fileInput.files[0]);
       }
     });
@@ -62,7 +62,7 @@ saveProfileButton.addEventListener('click', async () => {
   const name = document.querySelector('.name').value;
   const surname = document.querySelector('.surname').value;
   const email = document.querySelector('.pochta').value;
-  const info = document.querySelector('.info').value;
+  const about_me = document.querySelector('.info').value;
   const phone = document.querySelector('.phone').value;
   const password = document.querySelector('.password').value;
 
@@ -71,9 +71,10 @@ saveProfileButton.addEventListener('click', async () => {
     name,
     surname,
     email,
-    info,
+    about_me,
     phone,
     password,
+    // Поле для изображения будет добавлено ниже
   };
 
   // Отправка запроса на сервер
@@ -85,8 +86,8 @@ saveProfileButton.addEventListener('click', async () => {
     body: JSON.stringify(userData)
   });
 
-  // Обработка ответа сервера
-  if (data.status === 'success') {
+   // Обработка ответа сервера
+   if (data.status === 'success') {
     alert('Информация о профиле успешно обновлена');
   } else {
     alert(data.message);
