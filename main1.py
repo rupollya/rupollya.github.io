@@ -139,10 +139,7 @@ def regis_new_user(user_data: user_reg_log):
     val = (user_data.phone_number, user_data.password)
     cursor.execute(sql, val)
     connection.commit()
-    user_id = user[0]
-    print("Успешный вход, пользователь найден")
-    # Возвращаем user_id в ответе
-    return {"message": "Успешный вход, пользователь найден", "user_id": user_id}
+    return {"message": "Успешный вход, пользователь найден"}
 
 
 @app.post("/users/login")
