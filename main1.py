@@ -223,7 +223,7 @@ def update_user(user_id: int, user_data: user_reg_log):
 # -----------------------------------------------------------------------------------------------
 # -----------------------------------------------------------------------------------------------
 @app.post("/notes/create")
-async def create_note(note: NoteCreate):
+def create_note(note: NoteCreate):
     cursor = connection.cursor()
 
     # Получение значений title и text из таблицы NoteTemplates, если указан template_id
