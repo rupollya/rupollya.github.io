@@ -1,6 +1,6 @@
 const modalProf = document.getElementById('modal_prof');
 modalProf.addEventListener('show.bs.modal', (event) => {
-  const user_id = localStorage.getItem('user_id');//пока в ls
+  const user_id = localStorage.getItem('user_id'); // пока в ls
   const update_zapross = new XMLHttpRequest();
   update_zapross.open('GET', `/users/${user_id}`);
   update_zapross.onload = () => {
@@ -21,7 +21,7 @@ modalProf.addEventListener('show.bs.modal', (event) => {
         const imagePreview = document.getElementById('imagePreview');
         if (user.photo) {
           // Преобразование двоичных данных в строку Base64
-          const base64String = btoa(String.fromCharCode(...new Uint8Array(user.photo)));
+          const base64String = arrayBufferToBase64(user.photo.data);
           // Установка фотографии как фона для div
           imagePreview.style.backgroundImage = `url('data:image/jpeg;base64,${base64String}')`;
           // Удаление текста "Добавить фото"
@@ -36,6 +36,17 @@ modalProf.addEventListener('show.bs.modal', (event) => {
   };
   update_zapross.send();
 });
+
+// Функция для преобразования ArrayBuffer в Base64
+function arrayBufferToBase64(buffer) {
+  let binary = '';
+  let bytes = new Uint8Array(buffer);
+  let len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return window.btoa(binary);
+}
 
 
 
