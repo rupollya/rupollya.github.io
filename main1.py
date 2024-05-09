@@ -125,7 +125,10 @@ def regis_new_user(user_data: user_reg_log):
     val = (user_data.phone_number, user_data.password)
     cursor.execute(sql, val)
     connection.commit()
-    return {"message": "Пользователь добавлен"}
+    user_id = user[0]
+    print("Успешный вход, пользователь найден")
+    # Возвращаем user_id в ответе
+    return {"message": "Успешный вход, пользователь найден", "user_id": user_id}
 
 
 @app.post("/users/login")
@@ -143,9 +146,12 @@ def login_user(user_data: user_reg_log):
         error_msg = "Неверный номер телефона или пароль"
         raise HTTPException(status_code=400, detail=error_msg)
 
+
+    user_id = user[0]
     print("Успешный вход, пользователь найден")
 
-    return {"message": "Успешный вход, пользователь найден"}
+    # Возвращаем user_id в ответе
+    return {"message": "Успешный вход, пользователь найден", "user_id": user_id}
 
 
 @app.exception_handler(HTTPException)
