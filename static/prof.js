@@ -66,20 +66,24 @@ saveProfileButton.addEventListener('click', async () => {
   const password = document.querySelector('.password').value;
 
   // Добавление данных профиля в форму
-  formData.append('name', name);
-  formData.append('surname', surname);
-  formData.append('email', email);
-  formData.append('info', info);
-  formData.append('phone', phone);
-  formData.append('password', password);
+  const userData = {
+    name,
+    surname,
+    email,
+    info,
+    phone,
+    password,
+    // Поле для изображения будет добавлено ниже
+  };
 
   // Отправка запроса на сервер
   const response = await fetch(`/users/${user_id}`, {
     method: 'PUT',
-    body: formData,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(userData)
   });
-
-  const data = await response.json();
 
   // Обработка ответа сервера
   if (data.status === 'success') {
