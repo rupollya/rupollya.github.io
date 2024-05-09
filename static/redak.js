@@ -42,16 +42,20 @@ saveButton.addEventListener('click', async () => {
             // Обработка ответа сервера
             if (data.status === 'success') {
                 alert('Заметка создана!');
+                // Очищаем поля ввода
                 input.value = '';
                 textarea.innerHTML = '';
                 saveButton.disabled = true;
             } else {
                 alert(data.message);
             }
-        } 
+        }
         catch (error) {
+            // Обработка возможных ошибок при запросе
             console.error('Ошибка при создании заметки:', error);
         }
+    } else {
+        alert('Пожалуйста, заполните оба поля перед сохранением заметки.');
     }
 });
 
