@@ -31,8 +31,7 @@ function checkForm(event) {
         confirmPasswordInput.classList.add('is-valid');
     }
 
-
-    if (passwordInput.classList.contains('is-valid') && confirmPasswordInput.classList.contains('is-valid')) {
+    if (phoneInput.classList.contains('is-valid') && passwordInput.classList.contains('is-valid') && confirmPasswordInput.classList.contains('is-valid')) {
 
         $.ajax({
             url: '/users/register',
@@ -43,16 +42,12 @@ function checkForm(event) {
             }),
             contentType: "application/json",
             success: function (response) {
-                if (response.user_id) {
-                    localStorage.setItem('user_id', response.user_id);
-                    window.location.href = "osnova.html";
-                } else {
-                    // Обработка случая, когда user_id не получен
-                    console.error('user_id не получен:', response);
-                }
+                // Перенаправляем пользователя на текущую страницу после регистрации
+                window.location.reload();
+                alert("Теперь вы можете войти в аккаунт.");
             },
             error: function (xhr, status, error) {
-                // Попробуем распарсить JSON-ответ
+                // Обработка ошибок
                 try {
                     var errorResponse = JSON.parse(xhr.responseText);
                     if (errorResponse.error) {
@@ -67,6 +62,7 @@ function checkForm(event) {
         });
     }
 }
+
 
 
 //проверка на наличие зарегистрированного пользователя при входе 
@@ -102,6 +98,7 @@ function checkLogin(event) {
             if (response.user_id) {
                 localStorage.setItem('user_id', response.user_id);
                 window.location.href = "osnova.html";
+               
             } else {
                 // Обработка случая, когда user_id не получен
                 console.error('user_id не получен:', response);
