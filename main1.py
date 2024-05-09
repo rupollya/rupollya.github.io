@@ -199,6 +199,7 @@ def update_user(user_id: int, user_data: user_reg_log):
     if user_data.photo:
         photo_bytes = base64.b64decode(user_data.photo)
         update_values.append(photo_bytes)
+        update_query += "photo = %s, "
 
     # Убираем последнюю запятую и пробел
     update_query = update_query[:-2]
