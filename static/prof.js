@@ -1,5 +1,3 @@
-//вставка информации
-
 // Вставка информации при открытии модального окна
 const modalProf = document.getElementById('modal_prof');
 modalProf.addEventListener('show.bs.modal', (event) => {
@@ -27,6 +25,7 @@ modalProf.addEventListener('show.bs.modal', (event) => {
   };
   update_zapross.send();
 });
+
 // Создание объекта userData
 const userData = {
   name: '',
@@ -38,7 +37,7 @@ const userData = {
   photo: ''
 };
 
-// Загрузка изображения профиля
+// Создание и настройка элемента input для файла один раз
 const fileInput = document.createElement('input');
 fileInput.type = 'file';
 fileInput.accept = 'image/*';
@@ -52,6 +51,7 @@ fileInput.addEventListener('change', function () {
 
     reader.onload = function (e) {
       imagePreview.style.backgroundImage = `url(${e.target.result})`;
+      imagePreview.querySelector('b').style.display = 'none'; // Скрываем надпись "Добавить фото"
       userData.photo = e.target.result.split(',')[1]; // Добавление Base64 строки в userData
     }
 
