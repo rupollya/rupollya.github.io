@@ -15,7 +15,7 @@ input.addEventListener('input', checkInputs);
 textarea.addEventListener('input', checkInputs);
 
 // Обработчик нажатия на кнопку сохранения
-saveButton.addEventListener('click', async () => {
+saveButton.addEventListener('click', () => {
     const noteTitle = input.value.trim();
     const noteText = textarea.innerHTML.trim();
 
@@ -27,38 +27,28 @@ saveButton.addEventListener('click', async () => {
             text: noteText
         };
 
-        try {
-            // Отправляем запрос на сервер
-            const response = await fetch('/notes/create', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(noteData)
-            });
-
-            const data = await response.json();
-
-            // Обработка ответа сервера
-            if (data.status === 'success') {
-                alert('Заметка создана!');
-                // Очищаем поля ввода
-                input.value = '';
-                textarea.innerHTML = '';
-                saveButton.disabled = true;
-            } else {
-                alert(data.message);
+        // Отправляем запрос на сервер с использованием $.ajax
+        $.ajax({
+            url: '/notes/create',
+            method: 'POST',
+            data: JSON.stringify(noteData),
+            contentType: 'application/json',
+            success: function(response) {
+                if (response.status === 'success') {
+                    alert('Заметка создана!');
+                    input.value = '';
+                    textarea.innerHTML = '';
+                    saveButton.disabled = true;
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Ошибка при создании заметки:', error);
             }
-        } catch (error) {
-            // Обработка возможных ошибок при запросе
-            console.error('Ошибка при создании заметки:', error);
-            alert('Произошла ошибка при создании заметки.');
-        }
-    } else {
-        alert('Пожалуйста, заполните оба поля перед сохранением заметки.');
+        });
     }
 });
-
 saveButton.addEventListener('click', function () {
     const template_id = document.querySelector('.template-btn.active').getAttribute('nomer');
     const template_text = text_button(template_id);
