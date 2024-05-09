@@ -15,7 +15,7 @@ input.addEventListener('input', checkInputs);
 textarea.addEventListener('input', checkInputs);
 
 // Обработчик нажатия на кнопку сохранения
-saveButton.addEventListener('click', () => {
+saveButton.addEventListener('click', async () => {
     const noteTitle = input.value.trim();
     const noteText = textarea.innerHTML.trim();
 
@@ -27,28 +27,34 @@ saveButton.addEventListener('click', () => {
             text: noteText
         };
 
-        // Отправляем запрос на сервер с использованием $.ajax
-        $.ajax({
-            url: '/notes/create',
-            method: 'POST',
-            data: JSON.stringify(noteData),
-            contentType: 'application/json',
-            success: function(response) {
-                if (response.status === 'success') {
-                    alert('Заметка создана!');
-                    input.value = '';
-                    textarea.innerHTML = '';
-                    saveButton.disabled = true;
-                } else {
-                    alert(response.message);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Ошибка при создании заметки:', error);
+        try {
+            // Отправляем запрос на сервер
+            const response = await fetch('/notes/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(noteData)
+            });
+
+            const data = await response.json();
+
+            // Обработка ответа сервера
+            if (data.status === 'success') {
+                alert('Заметка создана!');
+                input.value = '';
+                textarea.innerHTML = '';
+                saveButton.disabled = true;
+            } else {
+                alert(data.message);
             }
-        });
+        } 
+        catch (error) {
+            console.error('Ошибка при создании заметки:', error);
+        }
     }
 });
+
 saveButton.addEventListener('click', function () {
     const template_id = document.querySelector('.template-btn.active').getAttribute('nomer');
     const template_text = text_button(template_id);
