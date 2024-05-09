@@ -9,6 +9,7 @@ from fastapi.responses import JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.staticfiles import StaticFiles
 import base64
+import logging
 app = FastAPI()
 
 
@@ -219,35 +220,42 @@ def update_user(user_id: int, user_data: user_reg_log):
 # ---------------------------------------ТАБЛИЦА NOTES-------------------------------------------
 # -----------------------------------------------------------------------------------------------
 # -----------------------------------------------------------------------------------------------
+# Настройка логирования
+logging.basicConfig(level=logging.INFO, filename='app.log', filemode='a',
+                    format='%(name)s - %(levelname)s - %(message)s')
+
 @app.post("/notes/create")
 def create_note(note: NoteCreate):
     cursor = connection.cursor()
+    logging.info(f"Получены данные для создания заметки: {note.dict()}")
 
-    # Получение значений title и text из таблицы NoteTemplates, если указан template_id
-    if note.template_id is not None:
-        sql = "SELECT template_text FROM NoteTemplates WHERE template_id = %s"
-        val = (note.template_id,)
+    try:
+        if note.template_id is not None:
+            sql = "SELECT template_text FROM NoteTemplates WHERE template_id = %s"
+            val = (note.template_id,)
+            cursor.execute(sql, val)
+            result = cursor.fetchone()
+            if result is None:
+                raise HTTPException(status_code=404, detail="Шаблон не найден!!!")
+            template_text = result[0]
+        else:
+            template_text = None
+        sql = "INSERT INTO Notes (user_id, template_id, title, text, created_at) VALUES (%s, %s, %s, %s, CURRENT_TIMESTAMP)"
+        val = (
+            note.user_id,
+            note.template_id,
+            note.title,
+            note.text if template_text is None else template_text,
+        )
         cursor.execute(sql, val)
-        result = cursor.fetchone()
-        if result is None:
-            raise HTTPException(status_code=404, detail="Шаблон не найден!!!")
-        template_text = result[0]
-    else:
-        template_text = None
-
-    # пихаем данные в таблицу notes
-    sql = "INSERT INTO Notes (user_id, template_id, title, text, created_at) VALUES (%s, %s, %s, %s, CURRENT_TIMESTAMP)"
-    val = (
-        note.user_id,
-        note.template_id,
-        note.title,
-        note.text if template_text is None else template_text,
-    )
-    cursor.execute(sql, val)
-    connection.commit()
-
-    return {"status": "success", "message": "Заметка создана!"}
-
+        connection.commit()
+        logging.info("Заметка успешно создана")
+        return {"status": "success", "message": "Заметка создана!"}
+    except Exception as e:
+        logging.error(f"Ошибка при создании заметки: {e}")
+        raise HTTPException(status_code=500, detail="Произошла ошибка при создании заметки.")
+    
+    
 
 # Удалить заметку по ID
 @app.delete("/notes/{id}")
