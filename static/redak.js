@@ -1,82 +1,63 @@
-//добавка в пользователя
-function updateUserDataInLocalStorage(phone, noteData) {
-    const userKey = 'user' + '+' + phone;
-    let userData = JSON.parse(localStorage.getItem(userKey));
-    if (userData) {
-        let notes = userData.notes || [];
-        const existingNoteIndex = notes.findIndex(note => note.title === noteData.title);
-        if (existingNoteIndex !== -1) {
-            notes[existingNoteIndex] = noteData;
-        } else {
-            notes.push(noteData);
-        }
-        userData.notes = notes;
-        localStorage.setItem(userKey, JSON.stringify(userData));
-    }
-}
-//ам
-const textareaa = document.querySelector('.modal-note-textarea');
 const input = document.getElementById('name');
-const saveButtonn = document.querySelector('.savebutton');
-saveButtonn.disabled = true;
+const textarea = document.querySelector('.modal-note-textarea');
+const saveButton = document.querySelector('.savebutton');
+saveButton.disabled = true; // Кнопка сохранения изначально неактивна
 
-let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-if (!currentUser) {
-    currentUser = {
-        phone: userData.phone, // Получаем номер телефона текущего пользователя
-        notes: []
-    };
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-}
-
+// Функция для проверки ввода и активации кнопки сохранения
 function checkInputs() {
     const noteTitle = input.value.trim();
-    const noteText = textareaa.innerText.trim();
-    if (noteTitle && noteText) {
-        saveButtonn.disabled = false;
-    } else {
-        saveButtonn.disabled = true;
-    }
+    const noteText = textarea.innerText.trim();
+    saveButton.disabled = !(noteTitle && noteText);
 }
 
+// Прослушиваем изменения в полях ввода
 input.addEventListener('input', checkInputs);
-textareaa.addEventListener('input', checkInputs);
-saveButtonn.addEventListener('click', function () {
+textarea.addEventListener('input', checkInputs);
+
+// Обработчик нажатия на кнопку сохранения
+saveButton.addEventListener('click', async () => {
     const noteTitle = input.value.trim();
-    const noteText = textareaa.innerHTML.trim();
+    const noteText = textarea.innerHTML.trim();
+
     if (noteTitle && noteText) {
+        // Создаем объект с данными заметки
         const noteData = {
+            user_id: localStorage.getItem('user_id'), // Получаем user_id из localStorage
             title: noteTitle,
-            text: noteText,
-            data: Date.now()
+            text: noteText
         };
 
-        const phone = currentUser.phone;
-        let notes = currentUser.notes || [];
+        try {
+            // Отправляем запрос на сервер
+            const response = await fetch('/notes/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(noteData)
+            });
 
-        const existingNoteIndex = notes.findIndex(note => note.title === noteTitle);
-        if (existingNoteIndex !== -1) {
-            notes[existingNoteIndex] = noteData;
-        } else {
-            notes.push(noteData);
+            const data = await response.json();
+
+            // Обработка ответа сервера
+            if (data.status === 'success') {
+                alert('Заметка создана!');
+                // Очищаем поля ввода
+                input.value = '';
+                textarea.innerHTML = '';
+                saveButton.disabled = true;
+            } else {
+                alert(data.message);
+            }
+        } catch (error) {
+            // Обработка возможных ошибок при запросе
+            console.error('Ошибка при создании заметки:', error);
+            alert('Произошла ошибка при создании заметки.');
         }
-
-        currentUser.notes = notes;
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-        
-        updateUserDataInLocalStorage(phone, noteData);
-        
-        input.value = '';
-        textareaa.innerHTML = '';
-        saveButtonn.disabled = true;
     } else {
-        alert('Please fill out both fields before saving the note.');
+        alert('Пожалуйста, заполните оба поля перед сохранением заметки.');
     }
 });
-//fff
-const saveButton = document.getElementById('save-btn');
-saveButton.disabled = true;
-const textarea = document.querySelector('.modal-note-textarea');
 
 saveButton.addEventListener('click', function () {
     const template_id = document.querySelector('.template-btn.active').getAttribute('nomer');
