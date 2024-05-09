@@ -86,12 +86,12 @@ def get_user_by_id(id: int):
     user = cursor.fetchone()  # возвращает следующую строку результата запроса как кортеж
     if user:
         user_data = {
-            "phone_number": user[2],
-            "password": user[3],
-            "name": user[4],
-            "surname": user[5],
-            "email": user[6],
-            "about_me": user[7]    
+            "phone_number": user[3],
+            "password": user[4],
+            "name": user[5],
+            "surname": user[6],
+            "email": user[7],
+            "about_me": user[8]  
         }
         return {"status": "success", "data": user_data}
     else:
