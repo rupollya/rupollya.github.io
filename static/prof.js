@@ -1,21 +1,31 @@
-// Вставка информации при открытии модального окна
-const modalProf = document.getElementById('modal_prof');
 modalProf.addEventListener('show.bs.modal', (event) => {
-  const user_id = localStorage.getItem('user_id'); // Получаем id из localStorage
+  const user_id = localStorage.getItem('user_id');
   const update_zapross = new XMLHttpRequest();
-  update_zapross.open('GET', `/users/${user_id}`); // Используйте GET для получения данных
+  update_zapross.open('GET', `/users/${user_id}`);
   update_zapross.onload = () => {
     if (update_zapross.status === 200) {
       const data = JSON.parse(update_zapross.responseText);
       if (data.status === 'success') {
         const user = data.data;
 
+        // Обновление информации пользователя
         modalProf.querySelector('.name').value = user.name;
         modalProf.querySelector('.surname').value = user.surname;
         modalProf.querySelector('.pochta').value = user.email;
         modalProf.querySelector('.info').value = user.about_me;
         modalProf.querySelector('.phone').value = user.phone_number;
         modalProf.querySelector('.password').value = user.password;
+
+        // Отображение фотографии пользователя
+        const imagePreview = document.getElementById('imagePreview');
+        if (user.photo) {
+          // Преобразование двоичных данных в строку Base64
+          const base64String = btoa(String.fromCharCode(...new Uint8Array(user.photo)));
+          // Установка фотографии как фона для div
+          imagePreview.style.backgroundImage = `url('data:image/jpeg;base64,${base64String}')`;
+          // Удаление текста "Добавить фото"
+          imagePreview.innerHTML = '';
+        }
       } else {
         alert(data.message);
       }
@@ -25,6 +35,8 @@ modalProf.addEventListener('show.bs.modal', (event) => {
   };
   update_zapross.send();
 });
+
+
 
 // Создание объекта userData
 const userData = {
