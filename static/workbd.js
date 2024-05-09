@@ -43,7 +43,13 @@ function checkForm(event) {
             }),
             contentType: "application/json",
             success: function (response) {
-                window.location.href = "osnova.html";
+                if (response.user_id) {
+                    localStorage.setItem('user_id', response.user_id);
+                    window.location.href = "osnova.html";
+                } else {
+                    // Обработка случая, когда user_id не получен
+                    console.error('user_id не получен:', response);
+                }
             },
             error: function (xhr, status, error) {
                 // Попробуем распарсить JSON-ответ
@@ -93,7 +99,13 @@ function checkLogin(event) {
         data: JSON.stringify({ phone_number: phone, password: password }),
         contentType: "application/json",
         success: function (response) {
-            window.location.href = "osnova.html";
+            if (response.user_id) {
+                localStorage.setItem('user_id', response.user_id);
+                window.location.href = "osnova.html";
+            } else {
+                // Обработка случая, когда user_id не получен
+                console.error('user_id не получен:', response);
+            }
         },
         error: function (xhr, status, error) {
             try {

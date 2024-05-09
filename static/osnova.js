@@ -2,7 +2,10 @@
 const notesContainer = document.querySelector('.note-container');
 const closeBtn = document.getElementById("closeBtn");
 const get_zapross = new XMLHttpRequest();
-get_zapross.open('GET', '/notes/user');
+
+const user_id = localStorage.getItem('user_id'); 
+
+get_zapross.open('GET', `/notes/user/${user_id}`);
 get_zapross.onload = function () {
     if (get_zapross.status === 200) {
         const response = JSON.parse(get_zapross.responseText);
