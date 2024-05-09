@@ -83,10 +83,20 @@ def get_users():
 def get_user_by_id(id: int):
     cursor = connection.cursor()
     cursor.execute(f"SELECT * FROM users WHERE user_id = {id}")
-    result1 = (
-        cursor.fetchone()
-    )  # возвращает следующую строку результата запроса как кортеж
-    return {"User": result1}
+    user = cursor.fetchone()  # возвращает следующую строку результата запроса как кортеж
+    if user:
+        user_data = {
+            "name": user[4],  
+            "surname": user[5],
+            "email": user[6],
+            "about_me": user[7],
+            "phone_number": user[2],
+            "password": user[3]      
+        }
+        return {"status": "success", "data": user_data}
+    else:
+        return {"status": "error", "message": "Пользователь не найден"}
+
 
 
 # Удалить пользователя по ID
