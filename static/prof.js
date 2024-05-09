@@ -27,52 +27,51 @@ modalProf.addEventListener('show.bs.modal', (event) => {
   };
   update_zapross.send();
 });
+// Создание объекта userData
+const userData = {
+  name: '',
+  surname: '',
+  email: '',
+  about_me: '',
+  phone: '',
+  password: '',
+  photo: ''
+};
 
+// Загрузка изображения профиля
+const fileInput = document.createElement('input');
+fileInput.type = 'file';
+fileInput.accept = 'image/*';
+fileInput.style.display = 'none'; // Скрыть элемент input
+document.body.appendChild(fileInput); // Добавляем элемент в DOM
+
+// Обработчик события изменения файла, добавленный один раз
+fileInput.addEventListener('change', function () {
+  if (fileInput.files && fileFile.files[0]) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      imagePreview.style.backgroundImage = `url(${e.target.result})`;
+      userData.photo = e.target.result.split(',')[1]; // Добавление Base64 строки в userData
+    }
+
+    reader.readAsDataURL(fileInput.files[0]);
+  }
+});
+
+// Обработчик клика для imagePreview
+imagePreview.addEventListener('click', () => fileInput.click());
+
+// Кнопка сохранения профиля
 const saveProfileButton = document.getElementById('saveButton');
 saveProfileButton.addEventListener('click', async () => {
-  const user_id = localStorage.getItem('user_id');
-  const imagePreview = document.getElementById('imagePreview');
-
   // Получение других данных профиля
-  const name = document.querySelector('.name').value;
-  const surname = document.querySelector('.surname').value;
-  const email = document.querySelector('.pochta').value;
-  const about_me = document.querySelector('.info').value;
-  const phone = document.querySelector('.phone').value;
-  const password = document.querySelector('.password').value;
-
-  // Создание объекта userData
-  const userData = {
-    name,
-    surname,
-    email,
-    about_me,
-    phone,
-    password,
-    photo: '' // Поле для Base64 строки изображения
-  };
-
-  // Загрузка изображения профиля
-  const fileInput = document.createElement('input');
-  fileInput.type = 'file';
-  fileInput.accept = 'image/*';
-  fileInput.style.display = 'none';
-  document.body.appendChild(fileInput); // Добавляем элемент в DOM
-
-  fileInput.addEventListener('change', function () {
-    if (fileInput.files && fileInput.files[0]) {
-      const reader = new FileReader();
-
-      reader.onload = function (e) {
-        imagePreview.style.backgroundImage = `url(${e.target.result})`;
-        userData.photo = e.target.result.split(',')[1]; // Добавление Base64 строки в userData
-      }
-
-      reader.readAsDataURL(fileInput.files[0]);
-    }
-  });
-
-  fileInput.click(); // Имитация клика для открытия диалога выбора файла
+  userData.name = document.querySelector('.name').value;
+  userData.surname = document.querySelector('.surname').value;
+  userData.email = document.querySelector('.pochta').value;
+  userData.about_me = document.querySelector('.info').value;
+  userData.phone = document.querySelector('.phone').value;
+  userData.password = document.querySelector('.password').value;
 
   // Отправка запроса на сервер
   const response = await fetch(`/users/${user_id}`, {
