@@ -1,62 +1,52 @@
-const input = document.getElementById('name');
-const textarea = document.querySelector('.modal-note-textarea');
-const saveButton = document.querySelector('.savebutton');
-saveButton.disabled = true; // Кнопка сохранения изначально неактивна
+document.addEventListener('DOMContentLoaded', function() {
+    const saveButton = document.querySelector('.btn.savebutton');
+    const inputName = document.getElementById('name');
+    const noteContent = document.getElementById('note');
 
-// Функция для проверки ввода и активации кнопки сохранения
-function checkInputs() {
-    const noteTitle = input.value.trim();
-    const noteText = textarea.innerText.trim();
-    saveButton.disabled = !(noteTitle && noteText);
-}
+    // Функция для отправки POST-запроса на сервер
+    async function createNote() {
+        const title = inputName.value.trim();
+        const text = noteContent.textContent.trim();
+        const userId = localStorage.getItem('user_id');
 
-// Прослушиваем изменения в полях ввода
-input.addEventListener('input', checkInputs);
-textarea.addEventListener('input', checkInputs);
+        if (title && text) {
+            const noteData = {
+                user_id: userId,
+                title: title,
+                text: text
+            };
 
-// Обработчик нажатия на кнопку сохранения
-saveButton.addEventListener('click', async () => {
-    const noteTitle = input.value.trim();
-    const noteText = textarea.innerHTML.trim();
+            try {
+                const response = await fetch('/notes/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(noteData)
+                });
 
-    if (noteTitle && noteText) {
-        // Создаем объект с данными заметки
-        const noteData = {
-            user_id: localStorage.getItem('user_id'), // Получаем user_id из localStorage
-            title: noteTitle,
-            text: noteText
-        };
+                const result = await response.json();
 
-        try {
-            // Отправляем запрос на сервер
-            const response = await fetch('/notes/create', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(noteData)
-            });
-
-            const data = await response.json();
-
-            // Обработка ответа сервера
-            if (data.status === 'success') {
-                alert('Заметка создана!');
-                // Очищаем поля ввода
-                input.value = '';
-                textarea.innerHTML = '';
-                saveButton.disabled = true;
-            } else {
-                alert(data.message);
+                if (result.status === 'success') {
+                    alert('Заметка создана!');
+                    // Очистка полей ввода и переход на основную страницу
+                    inputName.value = '';
+                    noteContent.textContent = '';
+                    window.location.href = 'osnova.html';
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error('Ошибка при создании заметки:', error);
+                alert('Произошла ошибка при создании заметки.');
             }
+        } else {
+            alert('Пожалуйста, заполните название и текст заметки.');
         }
-        catch (error) {
-            // Обработка возможных ошибок при запросе
-            console.error('Ошибка при создании заметки:', error);
-        }
-    } else {
-        alert('Пожалуйста, заполните оба поля перед сохранением заметки.');
     }
+
+    // Обработчик события клика на кнопку "Сохранить"
+    saveButton.addEventListener('click', createNote);
 });
 
 saveButton.addEventListener('click', function () {
