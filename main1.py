@@ -239,7 +239,7 @@ def create_note(note: NoteCreate):
         template_text = None
 
     # пихаем данные в таблицу notes
-    sql = "INSERT INTO Notes (user_id, template_id, title, text, created_at) VALUES (%s, %s, %s, %s, CURRENT_TIMESTAMP())"
+    sql = "INSERT INTO Notes (user_id, template_id, title, text, created_at) VALUES (%s, %s, %s, %s, CURRENT_TIMESTAMP)"
     val = (
         note.user_id,
         note.template_id,
