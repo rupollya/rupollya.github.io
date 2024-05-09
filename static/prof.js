@@ -1,5 +1,6 @@
+const modalProf = document.getElementById('modal_prof');
 modalProf.addEventListener('show.bs.modal', (event) => {
-  const user_id = localStorage.getItem('user_id');
+  const user_id = localStorage.getItem('user_id');//пока в ls
   const update_zapross = new XMLHttpRequest();
   update_zapross.open('GET', `/users/${user_id}`);
   update_zapross.onload = () => {
