@@ -79,6 +79,7 @@ def get_users():
 
 
 # Получить информацию о пользователе по ID
+@app.get("/users/{id}")
 def get_user_by_id(id: int):
     cursor = connection.cursor()
     cursor.execute("SELECT name, surname, email, about_me, photo, phone, password FROM users WHERE user_id = %s", (id,))
