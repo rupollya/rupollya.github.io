@@ -146,7 +146,7 @@
                         заметку</button>
 
                     <div class="modal fade" id="modal_note">
-                        <div class="modal-dialog" style="max-width: 800px;align-items: center;height: 350px;">
+                        <div class="modal-dialog" style="max-width: 800px;align-items: center">
                             <div class="modal-content note">
                                 <div class="modal-body text-end">
                                     <button type="button " class="btn-close" data-bs-dismiss="modal"
@@ -154,78 +154,12 @@
                                 </div>
                                 <div class="modal-body shablon text-center ">
                                     <p class="modal_note" style="font-size: 20px;">Выбери шаблон заметки :)</p>
-                                    <div class="d-flex text-center ">
-                                        <div class="container">
-                                            <button class="template-btn m-2 dropdown-toggle" type="button"
-                                                id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                                aria-bs-haspopup="true" aria-expanded="false">Списки:</button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <button class="dropdown-item template-btn" nomer="1">список фильмов
-                                                    на
-                                                    каникулы</button>
-                                                <button class="dropdown-item template-btn" nomer="2">список
-                                                    продуктов</button>
-                                                <button class="dropdown-item template-btn" nomer="3">список заданий
-                                                    на
-                                                    ближайшее время</button>
-                                                <button class="dropdown-item template-btn" nomer="4">список дел на
-                                                    день</button>
-                                            </div>
-                                            <button class="template-btn m-2 dropdown-toggle" type="button"
-                                                id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                                aria-bs-haspopup="true" aria-expanded="false">график:</button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <button class="dropdown-item template-btn" nomer="5">расписание на
-                                                    неделю</button>
-                                                <button class="dropdown-item template-btn" nomer="6">расписание на
-                                                    день</button>
-                                                <button class="dropdown-item template-btn" nomer="7">расписание
-                                                    занятий</button>
-                                                <button class="dropdown-item template-btn" nomer="8">расписание дел
-                                                    на
-                                                    месяц</button>
-                                            </div>
-
-                                            <button class="template-btn m-2 dropdown-toggle" type="button"
-                                                id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                                aria-bs-haspopup="true" aria-expanded="false">Другое:</button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <button class="dropdown-item template-btn" nomer="9">план
-                                                    поездки</button>
-                                                <button class="dropdown-item template-btn" nomer="10">распределение
-                                                    бюджета</button>
-                                                <button class="dropdown-item template-btn" nomer="11">план
-                                                    события</button>
-                                                <button class="dropdown-item template-btn" nomer="12">план изучения
-                                                    новой темы</button>
-                                            </div>
-
-                                            <button class="template-btn m-2 dropdown-toggle" type="button"
-                                                id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                                aria-bs-haspopup="true" aria-expanded="false">Другое(2):</button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <button class="dropdown-item template-btn" nomer="13">список с
-                                                    маркером
-                                                    *</button>
-                                                <button class="dropdown-item template-btn" nomer="14">список из
-                                                    чисел</button>
-
-                                            </div>
+                                    <div>
+                                        <div class="noteTemplate-container d-flex text-center" style="flex-direction: row;
+                                        flex-wrap: wrap;justify-content: space-between;">
                                         </div>
                                     </div>
-                                    <div class="container d-flex justify-content-around">
-                                        <div class="row">
-
-                                            <div class="col-12 p-4">
-                                                <button id="save-btn" type="submit" data-bs-dismiss="modal" class="btn"
-                                                    style="background-color: rgba(227, 148, 176, 1);margin-top: 61px;">Сохранить</button>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -350,19 +284,24 @@
             <div class="row body_section">
                 <div class="col-md-12 col-12 right-column">
                     <div id="note" contenteditable="true" class="w-100 h-100 modal-note-textarea"
-                        style="overflow-y:auto;resize: none;" maxlength="10000">Пожалуйста, прочитайте подсказку для
-                        корректной работы с кнопочками!!!
+                        style="overflow-y:auto;resize: none;" maxlength="10000" data-placeholder="привки">
                     </div>
                 </div>
                 <div class="container d-flex justify-content-end p-3">
                     <div class="row ">
-                        <div class="col-6">
+                        <div class="col-4">
                             <input type="text" id="name" style="max-width: 240px;" class="form-control fut"
                                 placeholder="Название заметки" required>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <button type="button" class="btn savebutton" onclick="notesQ(event)"
                                 style="background-color: rgb(240, 167, 193)">Сохранить</button>
+                                
+                        </div>
+                        <div class="col-3">
+                            <button type="button" class="btn deletebutton"
+                                style="background-color: rgb(240, 167, 193)">Удалить</button>
+                                
                         </div>
                     </div>
                 </div>
@@ -370,6 +309,7 @@
             </div>
         </div>
     </div>
+    <script src="/static/noteTemplate.js"></script>
     <script src="/static/prof.js"></script>
     <script src="/static/redak.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

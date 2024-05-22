@@ -50,63 +50,59 @@ function arrayBufferToBase64(buffer) {
 
 
 
-// Создание объекта userData
-const userData = {
-  name: '',
-  surname: '',
-  email: '',
-  about_me: '',
-  phone: '',
-  password: '',
-  photo: ''
-};
 
-// Создание и настройка элемента input для файла один раз
-const fileInput = document.createElement('input');
-fileInput.type = 'file';
-fileInput.accept = 'image/*';
-fileInput.style.display = 'none'; // Скрыть элемент input
-document.body.appendChild(fileInput); // Добавляем элемент в DOM
 
-// Обработчик события изменения файла, добавленный один раз
-fileInput.addEventListener('change', function () {
-  if (fileInput.files && fileInput.files[0]) {
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-      imagePreview.style.backgroundImage = `url(${e.target.result})`;
-      imagePreview.querySelector('b').style.display = 'none'; // Скрываем надпись "Добавить фото"
-      userData.photo = e.target.result.split(',')[1]; // Добавление Base64 строки в userData
-    }
-
-    reader.readAsDataURL(fileInput.files[0]);
-  }
-});
-
-// Обработчик клика для imagePreview
-imagePreview.addEventListener('click', () => fileInput.click());
-
-// Кнопка сохранения профиля
 const saveProfileButton = document.getElementById('saveButton');
 saveProfileButton.addEventListener('click', async () => {
+  const imagePreview = document.getElementById('imagePreview');
+  const formData = new FormData();
+
+  //загружаем изображение профиля
+  imagePreview.addEventListener('click', function () {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.style.display = 'none';
+
+    fileInput.addEventListener('change', function () {
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          imagePreview.style.backgroundImage = `url(${e.target.result})`;
+          formData.append('image', fileInput.files[0]);
+        }
+
+        reader.readAsDataURL(fileInput.files[0]);
+      }
+    });
+
+    fileInput.click();
+  });
+
   // Получение других данных профиля
-  userData.name = document.querySelector('.name').value;
-  userData.surname = document.querySelector('.surname').value;
-  userData.email = document.querySelector('.pochta').value;
-  userData.about_me = document.querySelector('.info').value;
-  userData.phone = document.querySelector('.phone').value;
-  userData.password = document.querySelector('.password').value;
+  const name = document.querySelector('.name').value;
+  const surname = document.querySelector('.surname').value;
+  const email = document.querySelector('.pochta').value;
+  const info = document.querySelector('.info').value;
+  const phone = document.querySelector('.phone').value;
+  const password = document.querySelector('.password').value;
+
+  // Добавление данных профиля в форму
+  formData.append('name', name);
+  formData.append('surname', surname);
+  formData.append('email', email);
+  formData.append('info', info);
+  formData.append('phone', phone);
+  formData.append('password', password);
 
   // Отправка запроса на сервер
   const response = await fetch(`/users/${user_id}`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(userData)
+    body: formData,
   });
 
-  const data = await response.json(); // Парсинг ответа сервера
+  const data = await response.json();
 
   // Обработка ответа сервера
   if (data.status === 'success') {

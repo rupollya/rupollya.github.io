@@ -1,9 +1,8 @@
 // ОТОБРАЖАЕМ ЗАМЕТКИ ПОЛЬЗОВАТЕЛЯ
 const notesContainer = document.querySelector('.note-container');
-const closeBtn = document.getElementById("closeBtn");
 const get_zapross = new XMLHttpRequest();
 
-const user_id = localStorage.getItem('user_id'); 
+const user_id = localStorage.getItem('user_id');
 
 get_zapross.open('GET', `/notes/user/${user_id}`);
 get_zapross.onload = function () {
@@ -15,30 +14,39 @@ get_zapross.onload = function () {
         notes.forEach((note) => {
             const noteElement = document.createElement('div');
             noteElement.classList.add('note');
+
+
             const noteImage = document.createElement('img');
             noteImage.classList.add('note-image');
             noteImage.src = "https://i.postimg.cc/ZqXk67H1/note.png";
             noteElement.appendChild(noteImage);
             const titleContainer = document.createElement('div');
+
+            
+            //структура заметки
             titleContainer.style.overflow = 'hidden';
             titleContainer.style.textOverflow = 'ellipsis';
             titleContainer.style.whiteSpace = 'nowrap';
             titleContainer.style.width = '100%';
+            //получаем айди текст и титл
             const noteTitle = document.createTextNode(note.title);
-            titleContainer.appendChild(noteTitle);
+            //const notetext = document.createTextNode(note.text);
+            //const note_id = document.createTextNode(note.note_id);
+            //устанавливаем атрибуты
+            noteElement.setAttribute('note_id', note.note_id);//по сути находим Id
+            noteElement.setAttribute('title', note.title);
+            noteElement.setAttribute('text', note.text);
+            titleContainer.appendChild(noteTitle);//отображаем титл
+            //titleContainer.appendChild(note_id);  отображается id корректно
             noteElement.appendChild(titleContainer);
             const noteText = document.createElement('p');
-            noteText.classList.add('note-text');
-            noteText.textContent = note.text;
-            noteElement.appendChild(noteText);
-            notesContainer.appendChild(noteElement);
 
+            notesContainer.appendChild(noteElement);
             noteElement.addEventListener('click', (event) => {
-                const modal = document.getElementById("myModal");
-                modal.style.display = "block";
-                //получаем идентификатор
-                const noteId = event.target.getAttribute('data-id');
-                //получаем инф о заметке
+                const noteId = event.currentTarget.getAttribute('note_id');
+                const title = event.currentTarget.getAttribute('title');
+                const text = event.currentTarget.getAttribute('text');
+                // Получаем информацию о заметке по идентификатору
                 const zapross = new XMLHttpRequest();
                 zapross.open('GET', `/notes/${noteId}`);
                 zapross.onload = function () {
@@ -46,8 +54,8 @@ get_zapross.onload = function () {
                         const response = JSON.parse(zapross.responseText);
                         const note = response.Note;
 
-                        //по сути глобальная переменная для отображения
-                        window.currentNote = note;
+                        // Перенаправляем пользователя на страницу redak.html с параметром URL, содержащим информацию о заметке
+                        window.location.href = `redak.html?noteId=${noteId}&title=${title}&text=${text}`;
                     }
                 };
                 zapross.send();
@@ -56,39 +64,11 @@ get_zapross.onload = function () {
     }
 };
 get_zapross.send();
+//создааем новую заметку!!
+function createNewNote() {//очистка локалсторадж перед переходом для создания
+    window.location.href = 'redak.html';
+}
 
-deleteBtn.onclick = function () {
-    const currentNote = window.currentNote;
-    const get_zapross = new XMLHttpRequest();
-    get_zapross.open('DELETE', `/notes/${currentNote.note_id}`);
-    get_zapross.onload = function () {
-        if (get_zapross.status === 200) {
-            const response = JSON.parse(get_zapross.responseText);
-
-            // удаляем заметку из note-container
-            const noteContainer = document.querySelector('.note-container');
-            const noteElements = noteContainer.querySelectorAll('.note');
-            noteElements.forEach((element) => {
-                if (element.getAttribute('data-id') === currentNote.note_id) {
-                    noteContainer.removeChild(element);
-                }
-            });
-
-            // закрываем модальное окно
-            const modal = document.getElementById("myModal");
-            modal.style.display = "none";
-        }
-    };
-    get_zapross.send();
-};
-
-openBtn.onclick = function () {
-    const currentNote = window.currentNote;
-    window.location.href = `redak.html?note_id=${currentNote.note_id}`;
-};
-closeBtn.onclick = function () {
-    modal.style.display = "none";
-};
 window.onclick = function (event) {
     if (event.target === modal) {
         modal.style.display = "none";
@@ -97,10 +77,7 @@ window.onclick = function (event) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function createNewNote() {//очистка локалсторадж перед переходом для создания
-    localStorage.removeItem('currentNote');
-    window.location.href = 'redak.html';
-}
+
 //ФИЛЬТРАЦИЯ
 const filterInput = document.getElementById('filter-input');//получаем поле ввода для фильтрации
 const notess = document.querySelectorAll('.note');//получаем все заметки

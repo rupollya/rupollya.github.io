@@ -33,20 +33,15 @@ function checkForm(event) {
 
     if (phoneInput.classList.contains('is-valid') && passwordInput.classList.contains('is-valid') && confirmPasswordInput.classList.contains('is-valid')) {
 
-        $.ajax({
-            url: '/users/register',
-            method: "POST",
-            data: JSON.stringify({
-                phone_number: phone,
-                password: password
-            }),
-            contentType: "application/json",
-            success: function (response) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/users/register", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
                 // Перенаправляем пользователя на текущую страницу после регистрации
-                window.location.reload();
-                alert("Теперь вы можете войти в аккаунт.");
-            },
-            error: function (xhr, status, error) {
+                window.location.href = "good_regis.html";
+            } else {
                 // Обработка ошибок
                 try {
                     var errorResponse = JSON.parse(xhr.responseText);
@@ -59,13 +54,15 @@ function checkForm(event) {
                     alert("Произошла неизвестная ошибка.");
                 }
             }
-        });
+        };
+
+        xhr.send(JSON.stringify({
+            phone_number: phone,
+            password: password
+        }));
     }
 }
 
-
-
-//проверка на наличие зарегистрированного пользователя при входе 
 function checkLogin(event) {
     var phone = document.getElementById("phone").value;
     var password = document.getElementById("password").value;
@@ -88,23 +85,21 @@ function checkLogin(event) {
         passwordInput.classList.add('is-valid');
     }
 
-    $.ajax({
-        method: "POST",
-        url: "/users/login",
-        dataType: 'json',
-        data: JSON.stringify({ phone_number: phone, password: password }),
-        contentType: "application/json",
-        success: function (response) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/users/login", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
             if (response.user_id) {
                 localStorage.setItem('user_id', response.user_id);
                 window.location.href = "osnova.html";
-               
             } else {
-                // Обработка случая, когда user_id не получен
                 console.error('user_id не получен:', response);
             }
-        },
-        error: function (xhr, status, error) {
+        } else {
+            // Обработка ошибок
             try {
                 var errorResponse = JSON.parse(xhr.responseText);
                 if (errorResponse.error) {
@@ -116,5 +111,7 @@ function checkLogin(event) {
                 alert("Произошла неизвестная ошибка.");
             }
         }
-    });
+    };
+
+    xhr.send(JSON.stringify({ phone_number: phone, password: password }));
 }
