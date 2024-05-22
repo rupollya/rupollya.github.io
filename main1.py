@@ -32,6 +32,10 @@ def main1():
 def get_regis_html():
     return FileResponse("regis.html")
 
+@app.get("/good_regis.html")
+def get_regis_html():
+    return FileResponse("good_regis.html")
+
 
 @app.get("/osnova.html")
 def get_regis_html():
@@ -45,6 +49,7 @@ def get_regis_html():
 
 # -------для таблицы USERS
 class user_reg_log(BaseModel):
+    user_id: Optional[str] = None
     phone_number: Optional[str] = None
     password: Optional[str] = None
     email: Optional[str] = None
@@ -62,8 +67,7 @@ class notes_tem(BaseModel):
 
 # ------------для таблицы заметок
 class NoteCreate(BaseModel):
-    user_id: Optional[int] = None
-    template_id: Optional[int] = None
+    user_id: Optional[str] = None
     title: Optional[str] = None
     text: Optional[str] = None
 
@@ -94,14 +98,16 @@ def get_user_by_id(id: int):
             "name": user[3],
             "surname": user[4],
             "email": user[5],
-            "about_me": user[6]
+            "about_me": user[6],
+            "photo": user[7],
         }
         return {"status": "success", "data": user_data}
     else:
-        return {"status": "error", "message": "Пользователь не найден","data": user_data}
-
-
-
+        return {
+            "status": "error",
+            "message": "Пользователь не найден",
+            "data": user_data,
+        }
 
 
 # Удалить пользователя по ID
@@ -140,7 +146,7 @@ def regis_new_user(user_data: user_reg_log):
     val = (user_data.phone_number, user_data.password)
     cursor.execute(sql, val)
     connection.commit()
-    return {"message": "Успешный вход, пользователь найден"}
+    return {"message": "Пользователь добавлен"}
 
 
 @app.post("/users/login")
@@ -158,7 +164,7 @@ def login_user(user_data: user_reg_log):
         error_msg = "Неверный номер телефона или пароль"
         raise HTTPException(status_code=400, detail=error_msg)
 
-
+    # Используем user[0] для получения user_id, если результат запроса - кортеж
     user_id = user[0]
     print("Успешный вход, пользователь найден")
 
@@ -171,7 +177,7 @@ async def http_exception_handler(request, exc):
     return JSONResponse(status_code=exc.status_code, content={"error": exc.detail})
 
 
-#
+# изменение инфы о пользователе(в)
 @app.put("/users/{user_id}")
 def update_user(user_id: int, user_data: user_reg_log):
     cursor = connection.cursor()
@@ -221,41 +227,36 @@ def update_user(user_id: int, user_data: user_reg_log):
 # -----------------------------------------------------------------------------------------------
 # -----------------------------------------------------------------------------------------------
 # Настройка логирования
-logging.basicConfig(level=logging.INFO, filename='app.log', filemode='a',
-                    format='%(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    level=logging.INFO,
+    filename="app.log",
+    filemode="a",
+    format="%(name)s - %(levelname)s - %(message)s",
+)
+
 
 @app.post("/notes/create")
 def create_note(note: NoteCreate):
     cursor = connection.cursor()
-    logging.info(f"Получены данные для создания заметки: {note.dict()}")
+    logging.info(f"Received data for creating a note: {note.dict()}")
 
     try:
-        if note.template_id is not None:
-            sql = "SELECT template_text FROM NoteTemplates WHERE template_id = %s"
-            val = (note.template_id,)
-            cursor.execute(sql, val)
-            result = cursor.fetchone()
-            if result is None:
-                raise HTTPException(status_code=404, detail="Шаблон не найден!!!")
-            template_text = result[0]
-        else:
-            template_text = None
-        sql = "INSERT INTO Notes (user_id, template_id, title, text, created_at) VALUES (%s, %s, %s, %s, CURRENT_TIMESTAMP)"
+        sql = "INSERT INTO Notes (user_id, title, text, created_at) VALUES (%s, %s, %s, CURRENT_TIMESTAMP)"
         val = (
             note.user_id,
-            note.template_id,
             note.title,
-            note.text if template_text is None else template_text,
+            note.text,
         )
         cursor.execute(sql, val)
         connection.commit()
         logging.info("Заметка успешно создана")
         return {"status": "success", "message": "Заметка создана!"}
     except Exception as e:
-        logging.error(f"Ошибка при создании заметки: {e}")
-        raise HTTPException(status_code=500, detail="Произошла ошибка при создании заметки.")
-    
-    
+        logging.error(f"Error creating note: {e}")
+        raise HTTPException(
+            status_code=500, detail="Произошла ошибка при создании заметки."
+        )
+
 
 # Удалить заметку по ID
 @app.delete("/notes/{id}")
@@ -297,10 +298,9 @@ async def get_user_notes(user_id: int):
         note = {
             "note_id": row[0],
             "user_id": row[1],
-            "template_id": row[2],
-            "title": row[3],
-            "text": row[4],
-            "created_at": row[5],
+            "title": row[2],
+            "text": row[3],
+            "created_at": row[4],
         }
         notes.append(note)
 
@@ -313,22 +313,13 @@ def update_user(note_id: int, note_data: NoteCreate):
     cursor = connection.cursor()
 
     # Получение значений title и text из таблицы NoteTemplates, если указан template_id
-    if note_data.template_id is not None:
-        sql = "SELECT template_text FROM NoteTemplates WHERE template_id = %s"
-        val = (note_data.template_id,)
-        cursor.execute(sql, val)
-        result = cursor.fetchone()
-        if result is None:
-            raise HTTPException(status_code=404, detail="Шаблон не найдена")
-        template_text = result[0]
-    else:
-        template_text = None
+    
 
     update_query = "UPDATE notes SET "
     update_values = []
     if note_data.text:
         update_query += "text = %s, "
-        update_values.append(note_data.text if template_text is None else template_text)
+        update_values.append(note_data.text)
     if note_data.title:
         update_query += "title = %s, "
         update_values.append(note_data.title)
@@ -356,9 +347,16 @@ def update_user(note_id: int, note_data: NoteCreate):
 def get_NoteTemplates():
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM NoteTemplates")
-    result = cursor.fetchall()  # возвращаем все строки в виде списка
-    cursor.close()
-    return {"NoteTemplates": result}
+    result = cursor.fetchall()
+    NoteTemplates = []
+    for row in result:
+        template = {
+            "template_id": row[0],
+            "template_name": row[1],
+            "template_text": row[2],
+        }
+        NoteTemplates.append(template)  # Добавляем каждый шаблон в список
+    return {"status": "success", "NoteTemplates": NoteTemplates}
 
 
 # Получить шаблон
@@ -432,3 +430,4 @@ def delete_NoteTemplates_by_id(id: int):
         return {"message": "Шаблон удалён >:)"}
     else:
         return {"message": "Шаблон не найден"}
+
