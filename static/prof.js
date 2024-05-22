@@ -56,7 +56,7 @@ const saveProfileButton = document.getElementById('saveButton');
 saveProfileButton.addEventListener('click', async () => {
   const imagePreview = document.getElementById('imagePreview');
   const formData = new FormData();
-
+  const user_id = localStorage.getItem('user_id'); // пока в ls
   //загружаем изображение профиля
   imagePreview.addEventListener('click', function () {
     const fileInput = document.createElement('input');
@@ -89,6 +89,7 @@ saveProfileButton.addEventListener('click', async () => {
   const password = document.querySelector('.password').value;
 
   // Добавление данных профиля в форму
+  
   formData.append('name', name);
   formData.append('surname', surname);
   formData.append('email', email);
@@ -97,12 +98,25 @@ saveProfileButton.addEventListener('click', async () => {
   formData.append('password', password);
 
   // Отправка запроса на сервер
-  const response = await fetch(`/users/${user_id}`, {
-    method: 'PUT',
-    body: formData,
-  });
+  // Отправление данных в формате JSON
+const response = await fetch(`/users/${user_id}`, {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name,
+    surname,
+    email,
+    info,
+    phone,
+    password,
+    image: formData.get('image') // добавляем изображение в данные
+  }),
+});
 
-  const data = await response.json();
+const data = await response.json();
+
 
   // Обработка ответа сервера
   if (data.status === 'success') {
