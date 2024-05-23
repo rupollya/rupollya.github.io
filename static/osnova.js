@@ -102,7 +102,7 @@ function hidenotes(value) {
             note.style.display = 'none'; // неподходит
         }
     });
-    
+
 }
 
 //если я нажала на применить -> скрываем лишнее
@@ -117,9 +117,9 @@ const filterInputt = document.getElementById('filter-input');
 const notesContainerrr = document.querySelector('.note-container');
 const resetButton = document.querySelector('.resetbtn');
 resetButton.addEventListener('click', function () {
-    filterInputt.value = '';  
+    filterInputt.value = '';
     notesContainerrr.querySelectorAll('.note').forEach((note) => {
-        note.style.display = '';  
+        note.style.display = '';
     });
 });
 //СОРТИРОВКА!!!
@@ -131,38 +131,31 @@ sortButtons.forEach(btn => {
 function sortNotes(e) {
     const sortBy = e.target.dataset.sort;
 
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-    // Получаем массив заметок текущего пользователя
-    let userNotes = currentUser.notes;
-
-    // Применяем логику сортировки, аналогичную той, что используется для основного массива заметок
     switch (sortBy) {
         case '1':
-            userNotes.sort((a, b) => a.data - b.data); // сортировка от старых к новым
+            notes.sort((a, b) => new Date(a.date) - new Date(b.date)); // сортировка от старых к новым
             break;
         case '2':
-            userNotes.sort((a, b) => b.data - a.data); // сортировка от новых к старым
+            notes.sort((a, b) => new Date(b.date) - new Date(a.date)); // сортировка от новых к старым
             break;
         case '3':
-            userNotes.sort((a, b) => a.title.localeCompare(b.title)); // сортировка от А к Я
+            notes.sort((a, b) => a.title.localeCompare(b.title)); // сортировка от А к Я
             break;
         case '4':
-            userNotes.sort((a, b) => b.title.localeCompare(a.title)); // сортировка от Я к А
+            notes.sort((a, b) => b.title.localeCompare(a.title)); // сортировка от Я к А
             break;
         case '5':
-            userNotes.sort((a, b) => a.data - b.data); // сортировка от старых к новым
+            notes.sort((a, b) => new Date(a.date) - new Date(b.date)); // сортировка от старых к новым
             break;
     }
-    currentUser.notes = userNotes;
 
-    // Обновляем данные текущего пользователя в localStorage
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-    window.location.reload();
+    // Обновляем отображение заметок после сортировки
+    displayNotes(notes);
 }
 
 
 //////////////////////поиск
+////////////////////// ПОИСК
 const searchInput = document.getElementById('searchInput');
 
 searchInput.addEventListener('input', function () {
@@ -170,33 +163,58 @@ searchInput.addEventListener('input', function () {
 
     notesContainer.innerHTML = '';
 
-    // Фильтруем заметки текущего пользователя в соответствии с поисковым запросом
-    const filteredNotes = currentUser.notes.filter(note => {
-        return note.text.toLowerCase().includes(searchTerm);//note.title.toLowerCase().includes(searchTerm) ||
-    });
+    const get_zapross = new XMLHttpRequest();
+    get_zapross.open('GET', `/notes/user/${user_id}`);
+    get_zapross.onload = function () {
+        if (get_zapross.status === 200) {
+            const response = JSON.parse(get_zapross.responseText);
+            const notes = response.notes;
 
-    // Отображаем отфильтрованные заметки
-    filteredNotes.forEach(note => {
-        const noteElement = document.createElement('div');
-        noteElement.classList.add('note');
-        const noteImage = document.createElement('img');
-        noteImage.classList.add('note-image');
-        noteImage.src = "https://i.postimg.cc/ZqXk67H1/note.png";
-        noteElement.appendChild(noteImage);
-        const titleContainer = document.createElement('div');
-        titleContainer.style.overflow = 'hidden';
-        titleContainer.style.textOverflow = 'ellipsis';
-        titleContainer.style.whiteSpace = 'nowrap';
-        titleContainer.style.width = '100%';
-        const noteTitle = document.createTextNode(note.title);
-        titleContainer.appendChild(noteTitle);
-        noteElement.appendChild(titleContainer);
-        notesContainer.appendChild(noteElement);
+            //вот тут фильтрую заметки относительно введеного мною текста
+            const filteredNotes = notes.filter(note => note.text.toLowerCase().includes(searchTerm));
 
-        noteElement.addEventListener('click', (event) => {
-            const modal = document.getElementById("myModal");
-            modal.style.display = "block";
-            localStorage.setItem('currentNote', JSON.stringify(note));
-        });
-    });
+            filteredNotes.forEach(note => {
+                const noteElement = document.createElement('div');
+                noteElement.classList.add('note');
+
+                const noteImage = document.createElement('img');
+                noteImage.classList.add('note-image');
+                noteImage.src = "https://i.postimg.cc/ZqXk67H1/note.png";
+                noteElement.appendChild(noteImage);
+
+                const titleContainer = document.createElement('div');
+                titleContainer.style.overflow = 'hidden';
+                titleContainer.style.textOverflow = 'ellipsis';
+                titleContainer.style.whiteSpace = 'nowrap';
+                titleContainer.style.width = '100%';
+
+                const noteTitle = document.createTextNode(note.title);
+                titleContainer.appendChild(noteTitle);
+                noteElement.appendChild(titleContainer);
+
+                noteElement.setAttribute('note_id', note.note_id);
+                noteElement.setAttribute('title', note.title);
+                noteElement.setAttribute('text', note.text);
+                
+                notesContainer.appendChild(noteElement);
+
+                noteElement.addEventListener('click', (event) => {
+                    const noteId = event.currentTarget.getAttribute('note_id');
+                    const title = event.currentTarget.getAttribute('title');
+                    const text = event.currentTarget.getAttribute('text');
+                    const zapross = new XMLHttpRequest();
+                    zapross.open('GET', `/notes/${noteId}`);
+                    zapross.onload = function () {
+                        if (zapross.status === 200) {
+                            const response = JSON.parse(zapross.responseText);
+                            const note = response.Note;
+                            window.location.href = `redak.html?noteId=${noteId}&title=${title}&text=${text}`;
+                        }
+                    };
+                    zapross.send();
+                });
+            });
+        }
+    };
+    get_zapross.send();
 });
