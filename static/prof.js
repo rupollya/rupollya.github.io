@@ -9,7 +9,6 @@ modalProf.addEventListener('show.bs.modal', (event) => {
       if (data.status === 'success') {
         const user = data.data;
 
-        // Обновление информации пользователя
         modalProf.querySelector('.name').value = user.name;
         modalProf.querySelector('.surname').value = user.surname;
         modalProf.querySelector('.pochta').value = user.email;
@@ -17,15 +16,12 @@ modalProf.addEventListener('show.bs.modal', (event) => {
         modalProf.querySelector('.phone').value = user.phone_number;
         modalProf.querySelector('.password').value = user.password;
 
-        // Отображение фотографии пользователя
+        // отображение фотографии пользователя
         const imagePreview = document.getElementById('imagePreview');
         if (user.photo) {
-          // Преобразование двоичных данных в строку Base64
           const base64String = arrayBufferToBase64(user.photo.data);
-          // Установка фотографии как фона для div
           imagePreview.style.backgroundImage = `url('data:image/jpeg;base64,${base64String}')`;
-          // Удаление текста "Добавить фото"
-          imagePreview.innerHTML = '';
+          imagePreview.innerHTML = '';//убираем текст добавить фото
         }
       } else {
         alert(data.message);
@@ -37,7 +33,7 @@ modalProf.addEventListener('show.bs.modal', (event) => {
   update_zapross.send();
 });
 
-// Функция для преобразования ArrayBuffer в Base64
+//не раб
 function arrayBufferToBase64(buffer) {
   let binary = '';
   let bytes = new Uint8Array(buffer);
@@ -80,20 +76,18 @@ saveProfileButton.addEventListener('click', async () => {
     fileInput.click();
   });
 
-  // Получение других данных профиля
   const name = document.querySelector('.name').value;
   const surname = document.querySelector('.surname').value;
   const email = document.querySelector('.pochta').value;
-  const info = document.querySelector('.info').value;
+  const about_me = document.querySelector('.info').value;
   const phone = document.querySelector('.phone').value;
   const password = document.querySelector('.password').value;
 
-  // Добавление данных профиля в форму
   
   formData.append('name', name);
   formData.append('surname', surname);
   formData.append('email', email);
-  formData.append('info', info);
+  formData.append('about_me', about_me);
   formData.append('phone', phone);
   formData.append('password', password);
 
@@ -106,7 +100,7 @@ const response = await fetch(`/users/${user_id}`, {
     name,
     surname,
     email,
-    info,
+    about_me,
     phone,
     password,
     image: formData.get('image') // добавляем изображение в данные
@@ -115,8 +109,6 @@ const response = await fetch(`/users/${user_id}`, {
 
 const data = await response.json();
 
-
-  // Обработка ответа сервера
   if (data.status === 'success') {
     alert('Информация о профиле успешно обновлена');
   } else {
