@@ -30,7 +30,7 @@ def main1():
 
 @app.get("/vhod.html")
 def get_regis_html():
-    return FileResponse("vhod   .html")
+    return FileResponse("vhod.html")
 
 
 @app.get("/regis.html")
