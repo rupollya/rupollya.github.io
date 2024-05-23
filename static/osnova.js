@@ -79,7 +79,6 @@ function createNewNote() {//очистка локалсторадж перед �
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //ФИЛЬТРАЦИЯ
-//ФИЛЬТРАЦИЯ
 const filterInput = document.getElementById('filter-input');
 const notesContainerr = document.querySelector('.note-container');
 const user_idd = localStorage.getItem('user_id');
@@ -95,20 +94,17 @@ function displayNotes(notes) {
 }
 //скрываем заметки
 function hidenotes(value) {
-  notesContainerr.querySelectorAll('.note').forEach((note) => {
-    const title = note.querySelector('div').textContent.toLowerCase();
-    if (title.includes(value)) {
-      note.style.display = 'block'; // подходит
-    } else {
-      note.style.display = 'none'; // неподходит
-    }
-  });
-  if (value === '') { // если значение фильтра пустое
     notesContainerr.querySelectorAll('.note').forEach((note) => {
-      note.style.display = 'block'; // показываем все заметки
+        const title = note.querySelector('div').textContent.toLowerCase();
+        if (title.includes(value)) {
+            note.style.display = 'block'; // подходит
+        } else {
+            note.style.display = 'none'; // неподходит
+        }
     });
-  }
+    
 }
+
 //если я нажала на применить -> скрываем лишнее
 document.querySelector('#exampleModal form').addEventListener('submit', function (event) {
     event.preventDefault();
@@ -121,8 +117,10 @@ const filterInputt = document.getElementById('filter-input');
 const notesContainerrr = document.querySelector('.note-container');
 const resetButton = document.querySelector('.resetbtn');
 resetButton.addEventListener('click', function () {
-    filterInputt.value = '';//отменяем
-    hidenotes('');//возвращаем все заметки
+    filterInputt.value = '';  
+    notesContainerrr.querySelectorAll('.note').forEach((note) => {
+        note.style.display = '';  
+    });
 });
 //СОРТИРОВКА!!!
 const sortButtons = document.querySelectorAll('.dropdown-item');
