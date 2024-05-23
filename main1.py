@@ -28,9 +28,15 @@ def main1():
     return FileResponse("index.html")
 
 
+@app.get("/vhod.html")
+def get_regis_html():
+    return FileResponse("vhod   .html")
+
+
 @app.get("/regis.html")
 def get_regis_html():
     return FileResponse("regis.html")
+
 
 @app.get("/good_regis.html")
 def get_regis_html():
@@ -52,9 +58,9 @@ class user_reg_log(BaseModel):
     user_id: Optional[str] = None
     phone_number: Optional[str] = None
     password: Optional[str] = None
-    email: Optional[str] = None
     name: Optional[str] = None
     surname: Optional[str] = None
+    email: Optional[str] = None
     about_me: Optional[str] = None
     photo: Optional[bytes] = None
 
@@ -313,7 +319,6 @@ def update_user(note_id: int, note_data: NoteCreate):
     cursor = connection.cursor()
 
     # Получение значений title и text из таблицы NoteTemplates, если указан template_id
-    
 
     update_query = "UPDATE notes SET "
     update_values = []
@@ -430,4 +435,3 @@ def delete_NoteTemplates_by_id(id: int):
         return {"message": "Шаблон удалён >:)"}
     else:
         return {"message": "Шаблон не найден"}
-
