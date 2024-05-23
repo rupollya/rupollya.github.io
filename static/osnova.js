@@ -79,6 +79,7 @@ function createNewNote() {//очистка локалсторадж перед �
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //ФИЛЬТРАЦИЯ
+//ФИЛЬТРАЦИЯ
 const filterInput = document.getElementById('filter-input');
 const notesContainerr = document.querySelector('.note-container');
 const user_idd = localStorage.getItem('user_id');
