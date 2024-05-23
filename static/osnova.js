@@ -95,14 +95,19 @@ function displayNotes(notes) {
 }
 //скрываем заметки
 function hidenotes(value) {
+  notesContainerr.querySelectorAll('.note').forEach((note) => {
+    const title = note.querySelector('div').textContent.toLowerCase();
+    if (title.includes(value)) {
+      note.style.display = 'block'; // подходит
+    } else {
+      note.style.display = 'none'; // неподходит
+    }
+  });
+  if (value === '') { // если значение фильтра пустое
     notesContainerr.querySelectorAll('.note').forEach((note) => {
-        const title = note.querySelector('div').textContent.toLowerCase();
-        if (title.includes(value)) {
-            note.style.display = 'block';//подходит
-        } else {
-            note.style.display = 'none'; //неподходит
-        }
+      note.style.display = 'block'; // показываем все заметки
     });
+  }
 }
 //если я нажала на применить -> скрываем лишнее
 document.querySelector('#exampleModal form').addEventListener('submit', function (event) {
