@@ -40,36 +40,44 @@
         <div class="row">
             <div class="col">
                 <div class="block_regis_vhod">
-                    <p class="text d-flex justify-content-center">Регистрация</p>
+                    <p class="text  d-flex justify-content-center ">Вход</p>
                 </div>
-                <form class="needs-validation" style="font-size:25px;" novalidate>
+                <form onsubmit="event.preventDefault();" class="needs-validation" style="font-size:25px;" novalidate>
                     <div class="mb-3  text-center">
-                        <input type="text" class="form-control" id="phone1" placeholder="Номер телефона" maxlength="11"
+                        <input type="phone" class="form-control" id="phone" placeholder="Номер телефона" maxlength="11"
                             required>
-                        <div class="invalid-feedback">Номер телефона введен не верно!</div>
+                        <div class="invalid-feedback">Номер телефона введен неверно!</div>
                     </div>
                     <div class="mb-3 text-center">
-                        <input type="password" class="form-control" id="password1" placeholder="Пароль" pattern=".{8,}"
+                        <input type="password" class="form-control" id="password" placeholder="Пароль" pattern=".{8,}"
                             required>
-                        <div class="invalid-feedback">Пароль должен содержать не менее 8 символов!</div>
-                    </div>
-                    <div class="mb-3  text-center">
-                        <input type="password" class="form-control" id="confirm-password" placeholder="Повторите пароль"
-                            pattern=".{8,}" required>
-                        <div class="invalid-feedback">Пароли не совпадают!</div>
+                        <div class="invalid-feedback">Пароль введен неверно!</div>
                     </div>
                     <div class="body_section d-flex justify-content-between p-5 mx-auto">
-                        <div class="">
-                            <button id="generatedPassword" class="btn btn-support body1" type="button"
-                                onclick="generatePassword(event)">Придумать пароль</button>
-                            <button id="copyPassword" class="btn btn-support body1 disabled" type="button"
-                                onclick="copyPassword()">Скопировать пароль</button>
+                        <div>
+                        <button class="btn btn-support body1" data-bs-toggle="modal" data-bs-target="#modal_parol"
+                            formnovalidate>Забыл пароль</button>
+                        <div class="modal  fade" id="modal_parol">
+                            <div class="modal-dialog">
+                                <div class="modal-content parol">
+                                    <div class="modal-body text-end">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <p class="modal_p">А вот надо было записать куда-нибудь!!!</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <button type="button" class="glow-on-hover" onclick="checkForm(event)">принять</button>
+                        <button class="btn btn-support body1" onclick="window.location.href='regis.html'">Впервые???</button></div>
+                        <button type="submit" class="glow-on-hover" onclick="checkLogin(event)">принять</button>
+
                     </div>
                 </form>
             </div>
         </div>
+
     </div>
      
     <script src="/static/regis.js"></script>

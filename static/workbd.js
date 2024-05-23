@@ -33,18 +33,18 @@ function checkForm(event) {
 
     if (phoneInput.classList.contains('is-valid') && passwordInput.classList.contains('is-valid') && confirmPasswordInput.classList.contains('is-valid')) {
 
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/users/register", true);
-        xhr.setRequestHeader("Content-Type", "application/json");
+        var zapros = new XMLHttpRequest();
+        zapros.open("POST", "/users/register", true);
+        zapros.setRequestHeader("Content-Type", "application/json");
 
-        xhr.onload = function () {
-            if (xhr.status === 200) {
+        zapros.onload = function () {
+            if (zapros.status === 200) {
                 // Перенаправляем пользователя на текущую страницу после регистрации
                 window.location.href = "good_regis.html";
             } else {
                 // Обработка ошибок
                 try {
-                    var errorResponse = JSON.parse(xhr.responseText);
+                    var errorResponse = JSON.parse(zapros.responseText);
                     if (errorResponse.error) {
                         alert("Ошибка: " + errorResponse.error);
                     } else {
@@ -56,7 +56,7 @@ function checkForm(event) {
             }
         };
 
-        xhr.send(JSON.stringify({
+        zapros.send(JSON.stringify({
             phone_number: phone,
             password: password
         }));
@@ -85,13 +85,13 @@ function checkLogin(event) {
         passwordInput.classList.add('is-valid');
     }
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/users/login", true);
-    xhr.setRequestHeader("Content-Type", "application/json");
+    var zapros = new XMLHttpRequest();
+    zapros.open("POST", "/users/login", true);
+    zapros.setRequestHeader("Content-Type", "application/json");
 
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            var response = JSON.parse(xhr.responseText);
+    zapros.onload = function () {
+        if (zapros.status === 200) {
+            var response = JSON.parse(zapros.responseText);
             if (response.user_id) {
                 localStorage.setItem('user_id', response.user_id);
                 window.location.href = "osnova.html";
@@ -101,7 +101,7 @@ function checkLogin(event) {
         } else {
             // Обработка ошибок
             try {
-                var errorResponse = JSON.parse(xhr.responseText);
+                var errorResponse = JSON.parse(zapros.responseText);
                 if (errorResponse.error) {
                     alert("Ошибка: " + errorResponse.error);
                 } else {
@@ -113,5 +113,5 @@ function checkLogin(event) {
         }
     };
 
-    xhr.send(JSON.stringify({ phone_number: phone, password: password }));
+    zapros.send(JSON.stringify({ phone_number: phone, password: password }));
 }

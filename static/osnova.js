@@ -22,7 +22,7 @@ get_zapross.onload = function () {
             noteElement.appendChild(noteImage);
             const titleContainer = document.createElement('div');
 
-            
+
             //структура заметки
             titleContainer.style.overflow = 'hidden';
             titleContainer.style.textOverflow = 'ellipsis';
@@ -69,44 +69,54 @@ function createNewNote() {//очистка локалсторадж перед �
     window.location.href = 'redak.html';
 }
 
-window.onclick = function (event) {
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-};
+//window.onclick = function (event) {
+//   if (event.target === modal) {
+//       modal.style.display = "none";
+//   }
+//};
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //ФИЛЬТРАЦИЯ
-const filterInput = document.getElementById('filter-input');//получаем поле ввода для фильтрации
-const notess = document.querySelectorAll('.note');//получаем все заметки
+const filterInput = document.getElementById('filter-input');
+const notesContainerr = document.querySelector('.note-container');
+const user_idd = localStorage.getItem('user_id');
+// Функция для отображения заметок
+function displayNotes(notes) {
+    notes.forEach((note) => {
+        const noteElement = document.createElement('div');
+        noteElement.classList.add('note');
+        notesContainerr.appendChild(noteElement);
+        noteElement.addEventListener('click', (event) => {
+        });
+    });
+}
+//скрываем заметки
+function hidenotes(value) {
+    notesContainerr.querySelectorAll('.note').forEach((note) => {
+        const title = note.querySelector('div').textContent.toLowerCase();
+        if (title.includes(value)) {
+            note.style.display = 'block';//подходит
+        } else {
+            note.style.display = 'none'; //неподходит
+        }
+    });
+}
+//если я нажала на применить -> скрываем лишнее
 document.querySelector('#exampleModal form').addEventListener('submit', function (event) {
     event.preventDefault();
 
-    const filterValue = filterInput.value.toLowerCase(); //получаем значение фильтра
-
-    // Проходим по каждой заметке и проверяем заголовок
-    notess.forEach(note => {
-        const title = note.querySelector('div').textContent.toLowerCase(); //получаем заголовок
-
-
-        if (!title.includes(filterValue)) { //если заголовок не содержит введенное значение, скрываем заметку, иначе показываем
-            note.style.display = 'none';
-        } else {
-            note.style.display = 'block';
-        }
-    });
+    const filterValue = filterInput.value.toLowerCase();
+    hidenotes(filterValue);
 });
-document.querySelector('#exampleModal form').addEventListener('reset', function (event) {
-
-    notess.forEach(note => {//проходим по каждой заметке и показываем их
-        if (note.style.display === 'none') {
-            note.style.display = 'block';
-        }
-    });
-
-    filterInput.value = '';//очищаем поле ввода фильтра
+//отмена
+const filterInputt = document.getElementById('filter-input');
+const notesContainerrr = document.querySelector('.note-container');
+const resetButton = document.querySelector('.resetbtn');
+resetButton.addEventListener('click', function () {
+    filterInputt.value = '';//отменяем
+    hidenotes('');//возвращаем все заметки
 });
 //СОРТИРОВКА!!!
 const sortButtons = document.querySelectorAll('.dropdown-item');

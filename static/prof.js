@@ -97,8 +97,6 @@ saveProfileButton.addEventListener('click', async () => {
   formData.append('phone', phone);
   formData.append('password', password);
 
-  // Отправка запроса на сервер
-  // Отправление данных в формате JSON
 const response = await fetch(`/users/${user_id}`, {
   method: 'PUT',
   headers: {
