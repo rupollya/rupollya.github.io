@@ -154,67 +154,69 @@ function sortNotes(e) {
 }
 
 
-//////////////////////поиск
 ////////////////////// ПОИСК
 const searchInput = document.getElementById('searchInput');
-
+let timeoutId;
 searchInput.addEventListener('input', function () {
-    const searchTerm = searchInput.value.trim().toLowerCase();
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(function () {
+        const searchTerm = searchInput.value.trim().toLowerCase();
 
-    notesContainer.innerHTML = '';
+        notesContainer.innerHTML = '';
 
-    const get_zapross = new XMLHttpRequest();
-    get_zapross.open('GET', `/notes/user/${user_id}`);
-    get_zapross.onload = function () {
-        if (get_zapross.status === 200) {
-            const response = JSON.parse(get_zapross.responseText);
-            const notes = response.notes;
+        const get_zapross = new XMLHttpRequest();
+        get_zapross.open('GET', `/notes/user/${user_id}`);
+        get_zapross.onload = function () {
+            if (get_zapross.status === 200) {
+                const response = JSON.parse(get_zapross.responseText);
+                const notes = response.notes;
 
-            //вот тут фильтрую заметки относительно введеного мною текста
-            const filteredNotes = notes.filter(note => note.text.toLowerCase().includes(searchTerm));
+                //вот тут фильтрую заметки относительно введеного мною текста
+                const filteredNotes = notes.filter(note => note.text.toLowerCase().includes(searchTerm));
 
-            filteredNotes.forEach(note => {
-                const noteElement = document.createElement('div');
-                noteElement.classList.add('note');
+                filteredNotes.forEach(note => {
+                    const noteElement = document.createElement('div');
+                    noteElement.classList.add('note');
 
-                const noteImage = document.createElement('img');
-                noteImage.classList.add('note-image');
-                noteImage.src = "https://i.postimg.cc/ZqXk67H1/note.png";
-                noteElement.appendChild(noteImage);
+                    const noteImage = document.createElement('img');
+                    noteImage.classList.add('note-image');
+                    noteImage.src = "https://i.postimg.cc/ZqXk67H1/note.png";
+                    noteElement.appendChild(noteImage);
 
-                const titleContainer = document.createElement('div');
-                titleContainer.style.overflow = 'hidden';
-                titleContainer.style.textOverflow = 'ellipsis';
-                titleContainer.style.whiteSpace = 'nowrap';
-                titleContainer.style.width = '100%';
+                    const titleContainer = document.createElement('div');
+                    titleContainer.style.overflow = 'hidden';
+                    titleContainer.style.textOverflow = 'ellipsis';
+                    titleContainer.style.whiteSpace = 'nowrap';
+                    titleContainer.style.width = '100%';
 
-                const noteTitle = document.createTextNode(note.title);
-                titleContainer.appendChild(noteTitle);
-                noteElement.appendChild(titleContainer);
+                    const noteTitle = document.createTextNode(note.title);
+                    titleContainer.appendChild(noteTitle);
+                    noteElement.appendChild(titleContainer);
 
-                noteElement.setAttribute('note_id', note.note_id);
-                noteElement.setAttribute('title', note.title);
-                noteElement.setAttribute('text', note.text);
-                
-                notesContainer.appendChild(noteElement);
+                    noteElement.setAttribute('note_id', note.note_id);
+                    noteElement.setAttribute('title', note.title);
+                    noteElement.setAttribute('text', note.text);
 
-                noteElement.addEventListener('click', (event) => {
-                    const noteId = event.currentTarget.getAttribute('note_id');
-                    const title = event.currentTarget.getAttribute('title');
-                    const text = event.currentTarget.getAttribute('text');
-                    const zapross = new XMLHttpRequest();
-                    zapross.open('GET', `/notes/${noteId}`);
-                    zapross.onload = function () {
-                        if (zapross.status === 200) {
-                            const response = JSON.parse(zapross.responseText);
-                            const note = response.Note;
-                            window.location.href = `redak.html?noteId=${noteId}&title=${title}&text=${text}`;
-                        }
-                    };
-                    zapross.send();
+                    notesContainer.appendChild(noteElement);
+
+                    noteElement.addEventListener('click', (event) => {
+                        const noteId = event.currentTarget.getAttribute('note_id');
+                        const title = event.currentTarget.getAttribute('title');
+                        const text = event.currentTarget.getAttribute('text');
+                        const zapross = new XMLHttpRequest();
+                        zapross.open('GET', `/notes/${noteId}`);
+                        zapross.onload = function () {
+                            if (zapross.status === 200) {
+                                const response = JSON.parse(zapross.responseText);
+                                const note = response.Note;
+                                window.location.href = `redak.html?noteId=${noteId}&title=${title}&text=${text}`;
+                            }
+                        };
+                        zapross.send();
+                    });
                 });
-            });
-        }
-    };
-    get_zapross.send();
+            }
+        };
+        get_zapross.send();
+    }, 3000);
 });

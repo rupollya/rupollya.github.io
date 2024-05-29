@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/regis.css" rel="stylesheet">
+    <meta http-equiv="Content-Type" <header>
+    <link href="https://fonts.googleapis.com/css?family=Jura:300,regular,500,600,700" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<style>
+    #background-video {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        min-height: 100%;
+        z-index: -1;
+
+    }
+</style>
+
+<body>
+    <video autoplay muted loop id="background-video">
+        <source src="/static/fon.mp4" type="video/mp4">
+    </video>
+    <div class="header">
+        <nav class="navbar navbar-expand-lg" style="background-color: rgba(249, 231, 231, 1)">
+            <div class="container">
+                <img class=" logo" src="https://i.postimg.cc/15rLyQ5k/logoza-ru.png" width="177" height="87">
+                <button class="glow-on-hover" data-bs-toggle="modal" data-bs-target="#modal_podder"
+                    href="#">поддержка</button>
+                <div class="modal fude" id="modal_podder">
+                    <div class="modal-dialog">
+                        <div class="modal-content podd">
+                            <div class="modal-body text-end">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <p class="modal_parol">Связь со мной в Telegram <a href="https://t.me/rupollya"><img
+                                            src="https://i.postimg.cc/SK0GvLxL/telegram-1-1.png" alt="tg"></a></p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="main">
+
+        <div class="wrapper ramka-5" style="margin-top: 20px;">
+            <section class="form signup">
+                <header ALIGN="center">Регистрация</header>
+                <form>
+                    <div class="error-text"></div>
+                    <div class="name-details"
+                        style="justify-content:space-between ;display: flex;padding-left:40px;padding-right: 40px;">
+                        <div class="field input">
+                            <label>Имя</label>
+                            <input type="text" name="fname" id="name" class="form-control" placeholder="Сквидвард"
+                                required>
+                            <div class="invalid-feedback" style="font-size: 14px;">Заполните это поле!</div>
+                        </div>
+                        <div class="field input">
+                            <label>Фамилия</label>
+                            <input type="text" name="lname" id="surname" class="form-control" placeholder="Тентаклс"
+                                required>
+                            <div class="invalid-feedback" style="font-size: 14px;">Заполните это поле!</div>
+                        </div>
+                        <div class="field input">
+                            <label>Телефон</label>
+                            <input type="text" name="phone" id="phone1" class="form-control" placeholder="88005553535"
+                                required>
+                            <div class="invalid-feedback" style="font-size: 14px;">Заполните это поле!</div>
+                        </div>
+                    </div>
+                    <div class="field input">
+                        <label>Email</label>
+                        <input type="email" name="email" id="pochta" class="form-control" placeholder="memo@gmail.com"
+                            required>
+                        <div class="invalid-feedback" style="font-size: 14px;">Заполните это поле!</div>
+                    </div>
+                    <div class="field input">
+                        <label>Пароль</label>
+                        <input type="password" name="password" id="password1" class="form-control"
+                            placeholder="memomemomemo" required>
+                        <div class="invalid-feedback" style="font-size: 14px;">Пароль должен содержать не менее 8
+                            символов!</div>
+                    </div>
+                    <div class="  body_section mx-auto d-flex  ">
+                        <button id="generatedPassword" class="btn btn-support body1" type="button"
+                            onclick="generatePassword(event)">Придумать пароль</button>
+                        <button id="copyPassword" class="btn btn-support body1 disabled" type="button"
+                            onclick="copyPassword()">Скопировать пароль</button>
+                    </div>
+                    <div class="field image">
+                        <label>Выберите изображение</label>
+                        <input type="file" name="image" id="img" class="form-control"
+                            accept="image/x-png,image/gif,image/jpeg,image/jpg" required>
+
+                    </div>
+                    <div class="button-container">
+                        <button type="button" class="button_regis"
+                            onclick="checkForm(event)">зарегистрироваться</button>
+                    </div>
+                </form>
+                <div class="link">Уже зарегистрированы? <a href="vhod.html">Войти</a></div>
+            </section>
+        </div>
+    </div>
+
+    <script src="/static/regis.js"></script>
+    <script src="/static/workbd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

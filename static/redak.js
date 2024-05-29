@@ -1,11 +1,11 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const saveButton = document.querySelector('.btn.savebutton');
     const inputName = document.getElementById('name');
     const noteContent = document.getElementById('note');
 
     async function saveNote() {
         const title = inputName.value.trim();
-        const text = noteContent.textContent.trim();
+        const text = noteContent.innerHTML.trim();
         const userId = localStorage.getItem('user_id');
 
         if (title && text) {
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function () {
 
     const urlParams = new URLSearchParams(window.location.search);
-    
+
     const noteId = urlParams.get('noteId');
     const title = decodeURIComponent(urlParams.get('title'));
     const text = decodeURIComponent(urlParams.get('text'));
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 //удаление заметки
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const deleteBtn = document.querySelector('.btn.deletebutton');
     deleteBtn.onclick = function () {
         const urlParams = new URLSearchParams(window.location.search);
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const get_zapross = new XMLHttpRequest();
         get_zapross.open('DELETE', `/notes/${noteId}`);
         get_zapross.onload = function () {
-          
+
             if (get_zapross.status === 200) {
                 alert('Заметка удалена!');
                 window.location.href = 'osnova.html';
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 });
 
- 
+
 //микрофон
 document.querySelector('.button_image.micro').addEventListener('click', function () {
     let timeout;

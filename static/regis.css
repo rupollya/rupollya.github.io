@@ -39,13 +39,17 @@
 }
 
 body {
-    background-color: rgba(249, 231, 231, 1);
+     
     overflow-x: hidden;
 }
-
+ 
 .main {
-    padding: 64px;
-    background-image: url('https://i.postimg.cc/gkkQG8vH/2024-03-03-185653.png');
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+     
+    padding: 0 10px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -216,9 +220,10 @@ input:invalid+span::after {
 /************************/
 
 .glow-on-hover {
+    max-width: 700px;
     border: none;
     outline: none;
-    color: #ece2e2;
+    color: hsl(0, 13%, 90%);
     background-color: rgb(230, 154, 182);
     cursor: pointer;
     position: relative;
@@ -284,6 +289,189 @@ input:invalid+span::after {
     }
 }
 
+.button-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    margin-top: 20px; /* Optional: add some margin to the top */ 
+}
+.button_regis{
+    background-color: rgb(230, 154, 182);
+    border-radius: 10pt;
+    max-width: 100%;
+    border: none;
+    outline: none;
+    color: hsl(0, 13%, 90%);
+    padding: 5px 150px;
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
+    text-shadow: 8px 8px 8px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: center; /* Center the text horizontally */
+    align-items: center;  
+    opacity: 0.7;
+}
+.button_regis:hover{
+    opacity: 1;
+}
+ 
 
 
 
+.wrapper {
+    background: #ffffff;
+    max-width: 1000px;
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
+      0 32px 64px -48px rgba(0, 0, 0, 0.5);    
+}
+
+  .ramka-5 {
+    position: relative;
+    z-index: 0;
+    
+    border-radius: 10px;
+    overflow: hidden;
+     
+   
+    font-size: 24px;
+    font-family: 'Roboto', sans-serif;     
+  }
+  .ramka-5::before {
+    content: '';
+    position: absolute;
+    z-index: -2;
+    left: -50%;
+    top: -50%;
+    width: 200%;
+    height: 200%;
+    background-color: rgba(239, 55, 119, 0.95);;
+    background-repeat: no-repeat;
+    background-size: 50% 50%, 50% 50%;
+    background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+    background-image: linear-gradient(rgba(243, 183, 204, 0.95), rgba(172, 111, 132, 0.95)), linear-gradient(rgba(214, 70, 120, 0.95), rgba(235, 143, 175, 0.95)), linear-gradient(rgba(234, 74, 130, 0.95), rgba(242, 92, 182, 0.95)), linear-gradient(rgba(177, 38, 87, 0.95),rgba(236, 47, 113, 0.95));
+    animation: anim-ramka-5 4s linear infinite;
+  }
+  .ramka-5::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 6px;
+    top: 6px;
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+    background: white;
+    border-radius: 5px;
+  }
+  @keyframes anim-ramka-5 {
+    100% {
+        transform: rotate(1turn);
+    }
+  }
+
+
+.form {
+    padding: 25px 30px;
+}
+
+.form header {
+    font-size: 33px;
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e6e6e6;
+}
+  
+ 
+  
+.form form .error-text {
+    color: #721c24;
+    padding: 8px 10px;
+    text-align: center;
+    border-radius: 5px;
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    margin-bottom: 10px;
+    display: none;
+}
+  
+.form form .name-details {
+    display: flex;
+  }
+  
+.form .name-details .field:first-child {
+    margin-right: 10px;
+}
+  
+  .form .name-details .field:last-child {
+    margin-left: 10px;
+  }
+  
+  .form form .field {
+    display: flex;
+    margin-bottom: 10px;
+    flex-direction: column;
+    position: relative;
+  }
+  
+  .form form .field label {
+    margin-bottom: 2px;
+  }
+  
+  .form form .input input {
+    height: 40px;
+    width: 100%;
+    font-size: 16px;
+    padding: 0 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .form form .field input {
+    outline: none;
+  }
+  
+  .form form .image input {
+    font-size: 17px;
+  }
+  
+  .form form .button input {
+    height: 45px;
+    border: none;
+    color: #100d0d;
+    font-size: 12px;
+    background: rgba(235, 143, 175, 0.95);
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 13px;
+    font-weight: bold;
+  
+  }
+  
+  .form form .field i {
+    position: absolute;
+    right: 15px;
+    top: 70%;
+    color: #ccc;
+    cursor: pointer;
+    transform: translateY(-50%);
+  }
+  
+  .form form .field i.active::before {
+    color: #333;
+    content: "\f070";
+  }
+  
+  .form .link {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 17px;
+  }
+  
+  .form .link a {
+    color: #333;
+  }
+  
+  .form .link a:hover {
+    text-decoration: underline;
+  }
+  
+  
