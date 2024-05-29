@@ -47,6 +47,11 @@ def get_regis_html():
 def get_regis_html():
     return FileResponse("osnova.html")
 
+@app.get("/user_info.html")
+def get_a():
+    return FileResponse("user_info.html")
+
+
 
 @app.get("/redak.html")
 def get_regis_html():
@@ -62,7 +67,7 @@ class user_reg_log(BaseModel):
     surname: Optional[str] = None
     email: Optional[str] = None
     about_me: Optional[str] = None
-    photo: Optional[bytes] = None
+    photo: Optional[str] = None
 
 
 # -------для таблицы шаблонов
@@ -90,29 +95,29 @@ def get_users():
 
 
 # Получить информацию о пользователе по ID
-@app.get("/users/{id}")
-def get_user_by_id(id: int):
-    cursor = connection.cursor()
-    cursor.execute(f"SELECT * FROM users WHERE user_id = {id}")
-    user = (
-        cursor.fetchone()
-    )  # возвращает следующую строку результата запроса как кортеж
-    if user:
-        user_data = {
-            "phone_number": user[1],
-            "password": user[2],
-            "name": user[3],
-            "surname": user[4],
-            "email": user[5],
-            "about_me": user[6],
-            "photo": user[7],
-        }
-        return {"status": "success", "data": user_data}
-    else:
-        return {
-            "status": "error",
-            "message": "Пользователь не найден",
-            "data": user_data,
+import base64
+
+@app.get("/users/{id}") 
+def get_user_by_id(id: int): 
+    cursor = connection.cursor() 
+    cursor.execute(f"SELECT * FROM users WHERE user_id = {id}") 
+    user = cursor.fetchone()
+    
+    if user: 
+        user_data = { 
+            "phone_number": user[1], 
+            "password": user[2], 
+            "name": user[3], 
+            "surname": user[4], 
+            "email": user[5], 
+            "about_me": user[6], 
+            "photo": base64.b64encode(user[7]).decode('utf-8'), 
+        } 
+        return {"status": "success", "data": user_data} 
+    else: 
+        return { 
+            "status": "error", 
+            "message": "Пользователь не найден", 
         }
 
 
@@ -130,7 +135,6 @@ def delete_user_by_id(id: int):
         return {"message": "Пользователь не найден"}
 
 
-# Регистрация нового пользователя
 @app.post("/users/register")
 def regis_new_user(user_data: user_reg_log):
     cursor = connection.cursor()
@@ -139,17 +143,19 @@ def regis_new_user(user_data: user_reg_log):
     user_data_ch = (user_data.phone_number,)
     cursor.execute(user_look, user_data_ch)
     answer = cursor.fetchone()
-    if not user_data.phone_number or not user_data.password:
-        raise HTTPException(status_code=400, detail="Не заполнены обязательные поля")
+
+     
     if answer:
         raise HTTPException(
             status_code=400,
-            detail="Пользователь с таким номером телефона уже существует)",
+            detail="Пользователь с таким номером телефона уже существует",
         )
 
+    photo_bytes = base64.b64decode(user_data.photo)
+
     # иначе новый пользователь
-    sql = "INSERT INTO Users (phone_number, password) VALUES (%s, %s)"
-    val = (user_data.phone_number, user_data.password)
+    sql = "INSERT INTO Users (phone_number, password, name, surname, email, photo) VALUES (%s, %s, %s, %s, %s, %s)"
+    val = (user_data.phone_number, user_data.password, user_data.name, user_data.surname, user_data.email, photo_bytes)
     cursor.execute(sql, val)
     connection.commit()
     return {"message": "Пользователь добавлен"}
@@ -157,8 +163,7 @@ def regis_new_user(user_data: user_reg_log):
 
 @app.post("/users/login")
 def login_user(user_data: user_reg_log):
-    if not user_data.phone_number or not user_data.password:
-        raise HTTPException(status_code=400, detail="Не заполнены обязательные поля")
+     
 
     cursor = connection.cursor()
     sql = "SELECT * FROM Users WHERE phone_number = %s AND password = %s"
@@ -208,8 +213,8 @@ def update_user(user_id: int, user_data: user_reg_log):
         update_values.append(user_data.about_me)
     if user_data.photo:
         photo_bytes = base64.b64decode(user_data.photo)
-        update_values.append(photo_bytes)
         update_query += "photo = %s, "
+        update_values.append(photo_bytes)
 
     # Убираем последнюю запятую и пробел
     update_query = update_query[:-2]
@@ -435,3 +440,4 @@ def delete_NoteTemplates_by_id(id: int):
         return {"message": "Шаблон удалён >:)"}
     else:
         return {"message": "Шаблон не найден"}
+
