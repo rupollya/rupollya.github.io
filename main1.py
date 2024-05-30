@@ -120,7 +120,23 @@ def get_user_by_id(id: int):
             "message": "Пользователь не найден", 
         }
 
-
+#передаю заметку по айди
+@app.get("/notes/{id}")
+def get_notes_by_id(id: int):
+    cursor = connection.cursor()
+    cursor.execute(f"SELECT * FROM notes WHERE note_id = {id}")
+    note = cursor.fetchone()
+    if note: 
+        note_data = { 
+            "title": note[2],
+            "text": note[3],
+        } 
+        return {"status": "success", "data": note_data} 
+    else: 
+        return { 
+            "status": "error", 
+            "message": "чето не так", 
+        }
 # Удалить пользователя по ID
 @app.delete("/users/{id}")
 def delete_user_by_id(id: int):
@@ -163,8 +179,6 @@ def regis_new_user(user_data: user_reg_log):
 
 @app.post("/users/login")
 def login_user(user_data: user_reg_log):
-     
-
     cursor = connection.cursor()
     sql = "SELECT * FROM Users WHERE phone_number = %s AND password = %s"
     val = (user_data.phone_number, user_data.password)
@@ -176,11 +190,9 @@ def login_user(user_data: user_reg_log):
         raise HTTPException(status_code=400, detail=error_msg)
 
     # Используем user[0] для получения user_id, если результат запроса - кортеж
-    user_id = user[0]
     print("Успешный вход, пользователь найден")
-
-    # Возвращаем user_id в ответе
-    return {"message": "Успешный вход, пользователь найден", "user_id": user_id}
+    if user:
+        return {"user_id": user[0]}
 
 
 @app.exception_handler(HTTPException)
@@ -283,15 +295,6 @@ def delete_notes_by_id(id: int):
         return {"message": "такой заметки нет"}
 
 
-# Получить информацию о замеке по ID
-@app.get("/notes/{id}")
-def get_notes_by_id(id: int):
-    cursor = connection.cursor()
-    cursor.execute(f"SELECT * FROM notes WHERE note_id = {id}")
-    result1 = (
-        cursor.fetchone()
-    )  # возвращает следующую строку результата запроса как кортеж
-    return {"Note": result1}
 
 
 # Получить список заметок пользователя
