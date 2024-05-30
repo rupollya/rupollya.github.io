@@ -1,0 +1,102 @@
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': 'чы', 'text': 'Пожалуйста, прочитайте подсказку для\n                        корректной работы с кнопочками!!!'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': '1', 'text': 'Пожалуйста, прочитайте подсказку для\n                        корректной работы с кнопочками!!!'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': 'd', 'text': 'Пожалуйста, прочитайте подсказку для\n                        корректной работы с кнопочками!!!'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': '123123', 'text': 'Пожалуйста, прочитайте подсказку для\n                        корректной работы с кнопочками!!!'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': 'lihoklj', 'text': 'Пожалуйста, прочитайте подсказку для\n                        корректной работы с кнопочками!!!'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': 'eded', 'text': 'Пожалуйста, прочитайте подсказку для\n                        корректной работы с кнопочками!!!'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': 'приветики', 'text': 'dcdc'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': 'вцвц', 'text': 'Пожалуйста, прочитайте подсказку для\n                        корректной работы с кнопочками!!!'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': 'вцвц', 'text': 'Пожалуйста, прочитайте подсказку для\n                        корректной работы с кнопочками!!!'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': 'вцв', 'text': 'Пожалуйста, прочитайте подсказку для\n                        корректной работы с кнопочками!!!'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': 'заметка!!', 'text': 'приветики'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': 'заметка!!', 'text': 'приветики'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': 'снеговик', 'text': 'заметка о природе'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': 'прив', 'text': 'апап'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': 'd', 'text': 'Пожалуйста, прочитайте подсказку для                        корректной работы с кнопочками!!!'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': 'кот', 'text': 'Мяу'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': 'мальчик', 'text': 'глебчик'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': 'мультик', 'text': 'котенок гав'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '3', 'template_id': None, 'title': 'что-то из песни', 'text': 'белая ночь опустилась на облако'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '1', 'template_id': None, 'title': 'заметка', 'text': 'Время 2 часа пора спать!!!'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '1', 'template_id': None, 'title': 'помогите', 'text': 'скоро лето а лаб ещееее'}
+root - INFO - Заметка успешно создана
+root - INFO - Получены данные для создания заметки: {'user_id': '1', 'template_id': None, 'title': 'список капец', 'text': 'СПИСОК ПРОДУКТОВ------Примерная сумма:много!'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '1', 'title': 'по магазинам', 'text': 'СПИСОК ПРОДУКТОВ-мясо-торт-тост-мост-кот-кротПримерная сумма:много!!'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '9', 'title': 'начало', 'text': 'привет мир'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '9', 'title': 'мур', 'text': 'мяу'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '9', 'title': 'ужас', 'text': 'РАСПИСАНИЕ ДЕЛ НА МЕСЯЦ1 ДЕНЬ:2 ДЕНЬ:3 ДЕНЬ:4 ДЕНЬ:5 ДЕНЬ:6 ДЕНЬ:7 ДЕНЬ:8 ДЕНЬ:9 ДЕНЬ:10 ДЕНЬ:11 ДЕНЬ:12 ДЕНЬ:13 ДЕНЬ:14 ДЕНЬ:15 ДЕНЬ:16 ДЕНЬ:17 ДЕНЬ:18 ДЕНЬ:19 ДЕНЬ:20 ДЕНЬ:21 ДЕНЬ:22 ДЕНЬ:23 ДЕНЬ:24 ДЕНЬ:25 ДЕНЬ:26 ДЕНЬ:27 ДЕНЬ:28 ДЕНЬ:29 ДЕНЬ:30 ДЕНЬ:31 DAY:'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '12', 'title': 'аа', 'text': '22'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '12', 'title': 'тополя', 'text': 'аа'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '13', 'title': 'red', 'text': '<span style="color: rgba(238, 37, 37, 0.95);">kfkfkfkf</span>'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '13', 'title': 'умф', 'text': 'ПЛАН ИЗУЧЕНИЯ НОВОЙ ТЕМЫ<br>тема УМФ&nbsp;<br>ключевые понятия:КАК НАЧАТЬ ЭТО ДЕЛАТЬ<br>вопросы:слишком много<br>вопросы на которые я ответила:<br>время потраченное на данную тему:<br>к чему стоит вернуться позже:<br>'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '13', 'title': 'дела', 'text': 'РАСПИСАНИЕ ДЕЛ НА МЕСЯЦ<br>1 ДЕНЬ:<br>2 ДЕНЬ:<br>3 ДЕНЬ:<br>4 ДЕНЬ:<br>5 ДЕНЬ:<br>6 ДЕНЬ:<br>7 ДЕНЬ:<br>8 ДЕНЬ:<br>9 ДЕНЬ:<br>10 ДЕНЬ:<br>11 ДЕНЬ:<br>12 ДЕНЬ:<br>13 ДЕНЬ:<br>14 ДЕНЬ:<br>15 ДЕНЬ:<br>16 ДЕНЬ:<br>17 ДЕНЬ:<br>18 ДЕНЬ:<br>19 ДЕНЬ:<br>20 ДЕНЬ:<br>21 ДЕНЬ:<br>22 ДЕНЬ:<br>23 ДЕНЬ:<br>24 ДЕНЬ:<br>25 ДЕНЬ:<br>26 ДЕНЬ:<br>27 ДЕНЬ:<br>28 ДЕНЬ:<br>29 ДЕНЬ:<br>30 ДЕНЬ:<br>31 DAY:'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '13', 'title': '2', 'text': "ПЕРВАЯ ПАРА:отстой<br><br>ВТОРАЯ ПАРА:<br><br>ТРЕТЬЯ ПАРА:<br><br>ЧЕТВЕРТАЯ ПАРА:<br><br>ПЯТАЯ ПАРА:<br><br>а может хватит........ :)';"}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '13', 'title': 'аааааа', 'text': 'ааааааааааа'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': None, 'title': 'о', 'text': 'оо'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '17', 'title': 'ам', 'text': 'kfkfkf njgjkz'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '24', 'title': 'eee', 'text': 'eee'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '24', 'title': 'а', 'text': 'а'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '24', 'title': 'я', 'text': 'я'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '24', 'title': 'р', 'text': 'р'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '24', 'title': 'мур', 'text': 'мяу'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '24', 'title': 'sss', 'text': 'sss'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': None, 'title': 'мур', 'text': 'мяу'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': None, 'title': 'ввв', 'text': 'ввв'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': None, 'title': 'с', 'text': 'с'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': None, 'title': 'ц', 'text': 'ц'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': None, 'title': 'в', 'text': 'в'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': None, 'title': 'в', 'text': 'в'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '29', 'title': 'в', 'text': 'в'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '24', 'title': 'куку', 'text': 'куку'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '24', 'title': 'кошка', 'text': '<span style="font-family: &quot;Courier New&quot;, monospace;"><span style="font-size: 44px; font-family: &quot;Courier New&quot;, monospace;"><span style="color: rgba(201, 54, 214, 0.95); font-family: &quot;Courier New&quot;, monospace;"><span style="font-weight: bold; font-family: &quot;Courier New&quot;, monospace;"><span style="font-weight: normal; font-family: &quot;Courier New&quot;, monospace;"><span style="font-weight: bold; font-family: &quot;Courier New&quot;, monospace;"><span style="background-color: rgba(235, 143, 175, 0.95); font-family: &quot;Courier New&quot;, monospace;"><span style="font-family: &quot;Rubik Scribble&quot;, system-ui;">мяууу</span></span></span></span></span></span></span></span>'}
+root - INFO - Заметка успешно создана
+root - INFO - Received data for creating a note: {'user_id': '24', 'title': 'числа', 'text': '1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26 чиселки<br>27<br>28<br>29<br>30<br>31...'}
+root - INFO - Заметка успешно создана

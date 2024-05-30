@@ -1,6 +1,6 @@
 const modalProf = document.getElementById('modal_prof');
 modalProf.addEventListener('show.bs.modal', (event) => {
-  const user_id = localStorage.getItem('user_id');
+  const user_id = getCookie('user_id');
   const update_zapross = new XMLHttpRequest();
   update_zapross.open('GET', `/users/${user_id}`);
   update_zapross.onload = () => {
@@ -41,8 +41,8 @@ modalProf.addEventListener('show.bs.modal', (event) => {
 const saveProfileButton = document.getElementById('saveButton');
 saveProfileButton.addEventListener('click', async () => {
   const imagePreview = document.getElementById('imagePreview');
-  const user_id = localStorage.getItem('user_id'); // пока в ls
-
+  //const user_id = localStorage.getItem('user_id'); // пока в ls
+  const user_id = getCookie('user_id');
   const name = document.querySelector('.name').value;
   const surname = document.querySelector('.surname').value;
   const email = document.querySelector('.pochta').value;
@@ -76,7 +76,7 @@ saveProfileButton.addEventListener('click', async () => {
   const data = await response.json();
 
   if (data.status === 'success') {
-    alert('Информация о профиле успешно обновлена');
+    
   } else {
     alert(data.message);
   }
@@ -107,3 +107,8 @@ imagePreview.addEventListener('click', function () {
 
   fileInput.click();
 });
+
+
+
+
+ 

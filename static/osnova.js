@@ -1,9 +1,43 @@
+
+const setCookie = (name, value, options = {}) => {
+    options = {
+        path: '/',
+        ...options
+    };
+
+    if (options.expires instanceof Date) {
+        options.expires = options.expires.toUTCString();
+    }
+
+    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+    for (let optionKey in options) {
+        updatedCookie += "; " + optionKey;
+        let optionValue = options[optionKey];
+        if (optionValue !== true) {
+            updatedCookie += "=" + optionValue;
+        }
+    }
+
+    document.cookie = updatedCookie;
+};
+ 
+// Функция получения куки
+const getCookie = (name) => {
+    let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+};
+
+
+
+
 // ОТОБРАЖАЕМ ЗАМЕТКИ ПОЛЬЗОВАТЕЛЯ
 const notesContainer = document.querySelector('.note-container');
 const get_zapross = new XMLHttpRequest();
-
-const user_id = localStorage.getItem('user_id');
-
+//const user_id = localStorage.getItem('user_id');
+const user_id = getCookie('user_id');
 get_zapross.open('GET', `/notes/user/${user_id}`);
 get_zapross.onload = function () {
     if (get_zapross.status === 200) {
@@ -15,50 +49,33 @@ get_zapross.onload = function () {
             const noteElement = document.createElement('div');
             noteElement.classList.add('note');
 
-
             const noteImage = document.createElement('img');
             noteImage.classList.add('note-image');
             noteImage.src = "https://i.postimg.cc/ZqXk67H1/note.png";
             noteElement.appendChild(noteImage);
+
             const titleContainer = document.createElement('div');
-
-
-            //структура заметки
+            // структура заметки
             titleContainer.style.overflow = 'hidden';
             titleContainer.style.textOverflow = 'ellipsis';
             titleContainer.style.whiteSpace = 'nowrap';
             titleContainer.style.width = '100%';
-            //получаем айди текст и титл
+
+            // получаем ID, текст и титл
             const noteTitle = document.createTextNode(note.title);
-            //const notetext = document.createTextNode(note.text);
-            //const note_id = document.createTextNode(note.note_id);
-            //устанавливаем атрибуты
-            noteElement.setAttribute('note_id', note.note_id);//по сути находим Id
+
+            // устанавливаем атрибуты
+            noteElement.setAttribute('note_id', note.note_id);
             noteElement.setAttribute('title', note.title);
             noteElement.setAttribute('text', note.text);
-            titleContainer.appendChild(noteTitle);//отображаем титл
-            //titleContainer.appendChild(note_id);  отображается id корректно
+            titleContainer.appendChild(noteTitle);
             noteElement.appendChild(titleContainer);
-            const noteText = document.createElement('p');
 
             notesContainer.appendChild(noteElement);
             noteElement.addEventListener('click', (event) => {
                 const noteId = event.currentTarget.getAttribute('note_id');
-                const title = event.currentTarget.getAttribute('title');
-                const text = event.currentTarget.getAttribute('text');
-                // Получаем информацию о заметке по идентификатору
-                const zapross = new XMLHttpRequest();
-                zapross.open('GET', `/notes/${noteId}`);
-                zapross.onload = function () {
-                    if (zapross.status === 200) {
-                        const response = JSON.parse(zapross.responseText);
-                        const note = response.Note;
-
-                        // Перенаправляем пользователя на страницу redak.html с параметром URL, содержащим информацию о заметке
-                        window.location.href = `redak.html?noteId=${noteId}&title=${title}&text=${text}`;
-                    }
-                };
-                zapross.send();
+                
+                window.location.href = `redak.html?noteId=${noteId}`;
             });
         });
     }
@@ -122,36 +139,6 @@ resetButton.addEventListener('click', function () {
         note.style.display = '';
     });
 });
-//СОРТИРОВКА!!!
-const sortButtons = document.querySelectorAll('.dropdown-item');
-sortButtons.forEach(btn => {
-    btn.addEventListener('click', sortNotes);
-});
-
-function sortNotes(e) {
-    const sortBy = e.target.dataset.sort;
-
-    switch (sortBy) {
-        case '1':
-            notes.sort((a, b) => new Date(a.date) - new Date(b.date)); // сортировка от старых к новым
-            break;
-        case '2':
-            notes.sort((a, b) => new Date(b.date) - new Date(a.date)); // сортировка от новых к старым
-            break;
-        case '3':
-            notes.sort((a, b) => a.title.localeCompare(b.title)); // сортировка от А к Я
-            break;
-        case '4':
-            notes.sort((a, b) => b.title.localeCompare(a.title)); // сортировка от Я к А
-            break;
-        case '5':
-            notes.sort((a, b) => new Date(a.date) - new Date(b.date)); // сортировка от старых к новым
-            break;
-    }
-
-    // Обновляем отображение заметок после сортировки
-    displayNotes(notes);
-}
 
 
 ////////////////////// ПОИСК
@@ -218,5 +205,12 @@ searchInput.addEventListener('input', function () {
             }
         };
         get_zapross.send();
-    }, 3000);
+    }, 500);
 });
+
+
+
+
+
+
+ 

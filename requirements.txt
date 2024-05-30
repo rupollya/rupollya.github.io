@@ -1,5 +1,34 @@
-fastapi
-pydantic
-psycopg2
-jwt
-datetime
+# ВХод пользователя
+@app.post("/users/login")
+def login_user(user_data: user_reg_log):
+    cursor = connection.cursor()
+    # Поиск пользователя по номеру телефона и паролю
+    sql = "SELECT * FROM Users WHERE phone_number = %s AND password = %s"
+    val = (user_data.phone_number, user_data.password)
+    cursor.execute(sql, val)
+    user = cursor.fetchone()
+
+    if not user:
+        raise HTTPException(
+            status_code=400, detail="Неверный номер телефона или пароль"
+        )
+
+    # Генерация токена доступа (пример)
+    access_token = generate_token(user[0])
+
+    return {"access_token": access_token, "token_type": "Bearer"}
+
+
+SECRET_KEY = "sacya87sgtct76asc5r"
+ACCESS_TOKEN_EXPIRE_MINUTES = 300
+
+
+def generate_token(user_id: int):
+    payload = {
+        "user_id": user_id,
+        "exp": datetime.datetime.now()
+        + datetime.timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),  # время валидации
+    }
+    token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
+    return token
+

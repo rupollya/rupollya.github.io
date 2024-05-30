@@ -105,7 +105,6 @@ function checkForm(event) {
 }
 
 
-
 function checkLogin(event) {
     var phone = document.getElementById("phone1").value;
     var password = document.getElementById("password1").value;
@@ -127,6 +126,7 @@ function checkLogin(event) {
         passwordInput.classList.remove('is-invalid');
         passwordInput.classList.add('is-valid');
     }
+
     if (phone.length == 11 && password.length >= 8) {
         var zapros = new XMLHttpRequest();
         zapros.open("POST", "/users/login", true);
@@ -136,7 +136,8 @@ function checkLogin(event) {
             if (zapros.status === 200) {
                 var response = JSON.parse(zapros.responseText);
                 if (response.user_id) {
-                    localStorage.setItem('user_id', response.user_id);
+                    setCookie('user_id', response.user_id, { 'max-age': 3600 }); // Сохранение id пользователя в куки
+                    //localStorage.setItem('user_id', response.user_id);
                     window.location.href = "osnova.html";
                 } else {
                     console.error('user_id не получен:', response);
@@ -145,8 +146,8 @@ function checkLogin(event) {
                 // Обработка ошибок
                 try {
                     var errorResponse = JSON.parse(zapros.responseText);
-                    if (errorResponse.error) {
-                        alert("Ошибка: " + errorResponse.error);
+                    if (errorResponse.detail) {
+                        alert("Ошибка: " + errorResponse.detail);
                     } else {
                         alert("Произошла ошибка при обработке запроса.");
                     }
@@ -159,3 +160,34 @@ function checkLogin(event) {
         zapros.send(JSON.stringify({ phone_number: phone, password: password }));
     }
 }
+
+const setCookie = (name, value, options = {}) => {
+    options = {
+        path: '/',
+        ...options
+    };
+
+    if (options.expires instanceof Date) {
+        options.expires = options.expires.toUTCString();
+    }
+
+    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+    for (let optionKey in options) {
+        updatedCookie += "; " + optionKey;
+        let optionValue = options[optionKey];
+        if (optionValue !== true) {
+            updatedCookie += "=" + optionValue;
+        }
+    }
+
+    document.cookie = updatedCookie;
+};
+
+// Функция получения куки
+const getCookie = (name) => {
+    let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+};

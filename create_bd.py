@@ -14,4 +14,4 @@ mycursor.execute("CREATE TABLE NoteTemplates (template_id SERIAL PRIMARY KEY, te
 mycursor.execute("CREATE TABLE Notes (note_id SERIAL PRIMARY KEY, user_id INTEGER, template_id INTEGER, title VARCHAR(30), text TEXT, created_at TIMESTAMP, FOREIGN KEY (user_id) REFERENCES Users(user_id), FOREIGN KEY (template_id) REFERENCES NoteTemplates(template_id));")
 connection.commit()
 mycursor.close()
-connection.close()
+connection.close()  
